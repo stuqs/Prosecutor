@@ -44,11 +44,12 @@ class Employee(models.Model):
     name = models.CharField(blank=True, max_length=30, verbose_name='Имя')
     surname = models.CharField(blank=True, max_length=30, verbose_name='Фамилия')
     patronymic = models.CharField(blank=True, max_length=30, verbose_name='Отчество')
-    position = models.CharField(blank=True, max_length=100, verbose_name='Должность')
+    position = models.CharField(blank=True, max_length=100, verbose_name='Посада')
     prosecutors_office = models.ForeignKey(ProsecutorsOffice, blank=True, null=True, verbose_name='Прокуратура')
-    department = models.ForeignKey(Department, blank=True, null=True, verbose_name='Отдел')
-    division = models.ForeignKey(Division, blank=True, null=True, verbose_name='Отдел')
-    telephone = models.CharField(blank=True, max_length=20, verbose_name='Телефон')
+    department = models.ForeignKey(Department, blank=True, null=True, verbose_name='Управління')
+    division = models.ForeignKey(Division, blank=True, null=True, verbose_name='Відділ')
+    work_telephone = models.CharField(blank=True, max_length=100, verbose_name='Службовий телефон')
+    private_telephone = models.CharField(blank=True, max_length=100, verbose_name='Мобільний телефон')
 
     def __str__(self):
         return "{} {} {}".format(self.name, self.surname, self.patronymic)

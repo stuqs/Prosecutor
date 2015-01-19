@@ -30,21 +30,24 @@ PO.department.add(D)
 
 
 e1 = Employee(name='Ярослав', surname='Заворотний', patronymic='Семенович', position='заступник начальника управління',
-              prosecutors_office=PO, department=D, telephone='050-336-08-57')
+              prosecutors_office=PO, department=D, private_telephone='050-336-08-57')
 e1.save()
 
 e2 = Employee(name='Максим', surname='Ракович', patronymic='Миколайович', position='начальник відділу',
-              prosecutors_office=PO, department=D, division=d1, telephone='067-484-46-84')
+              prosecutors_office=PO, department=D, division=d1, work_telephone='1500;731-98-62',
+              private_telephone='067-484-46-84')
 e2.save()
 
 e3 = Employee(name='Сергій', surname='Бондарев', patronymic='Юрійович', position='прокурор',
-              prosecutors_office=PO, department=D, division=d1, telephone='743-69-98')
+              prosecutors_office=PO, department=D, division=d1, work_telephone='1514;731-99-63',
+              private_telephone='743-69-98')
 e3.save()
 
 e4 = Employee(name='Олексій', surname='Котелевський', patronymic='Іванович', position='начальник відділу',
-              prosecutors_office=PO, department=D, division=d2, telephone='097-307-11-25')
+              prosecutors_office=PO, department=D, division=d2, work_telephone='1105;731-98-67',
+              private_telephone='097-307-11-25')
 e4.save()
 
-e4 = Employee(name='Вадим', surname='Шивцов', patronymic='Михайлович', position='начальник відділу',
-              prosecutors_office=PO, department=D, division=d2, telephone='096-288-83-90')
-e4.save()
+e5 = Employee(name='Вадим', surname='Шивцов', patronymic='Михайлович', position='начальник відділу',
+              prosecutors_office=PO, department=D, division=d2, private_telephone='096-288-83-90')
+e5.save()
