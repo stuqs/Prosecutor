@@ -1,0 +1,76 @@
+.bbstyle1{font-size:160%;font-weight:700}
+.bbstyle2{font-size:130%;font-weight:700}
+.bbstyle3{font-size:120%;font-weight:700}
+.bbstyle4{font-size:110%;font-weight:700}
+#logo{width:499px;height:188px;background:#000 url(/skins/wings/img/terramu.jpg) no-repeat left top;cursor:pointer;cursor:hand;margin:0;padding:0}
+#logo div{width:499px}
+#logo h1,#logo h1:first-letter{font-family:Tahoma, Arial, sans-serif, Helvetica, Verdana;font-size:11px;font-weight:700;color:#96846e}
+#logo h1{margin:98px 0 0 70px;padding:0}
+#lmblk1{background:#000 url(/skins/wings/img/mblock1.jpg) no-repeat left top;width:142px;height:48px;text-align:left;vertical-align:top;padding:0}
+#lmblk2,#lmblk3{width:142px;height:56px;text-align:left;vertical-align:top;padding:0}
+#lmblk2{background:#000 url(/skins/wings/img/mblock2.jpg) no-repeat left top}
+#lmblk3{background:#000 url(/skins/wings/img/mblock3.jpg) no-repeat left top}
+#lmblk1 h2,#lmblk2 h2,#lmblk3 h2{color:#6b604e;font-weight:700;font-family:Tahoma, Arial, sans-serif, Helvetica, Verdana;font-size:11px}
+#lmblk1 h2{margin:11px 0 0 38px;padding:0}
+#lmblk2 h2,#lmblk3 h2{margin:18px 0 0 38px;padding:0}
+#tblk{background:#000 url(/skins/wings/img/cblock.jpg) no-repeat left top;width:812px;height:48px;text-align:right;vertical-align:top;padding:0}
+#tblk div{color:#6b604e;font-family:Tahoma, Arial, sans-serif, Helvetica, Verdana;font-size:11px;padding:11px 20px 0 0}
+#tblk a{color:#bcae8b}
+#container{width:768px;background-color:#333;border:1px solid #CEBF6A;margin:0;padding:0}
+#header{height:96px;margin:0;padding:0}
+#nav{background-color:#333;margin:0;padding:5px}
+#nav li{display:inline;list-style:none;font-weight:700;margin:0;padding:2px 6px}
+#user{font-size:90%;color:#888;text-align:right;background-color:#000;margin:0;padding:3px}
+#user a{color:#BB9E61}
+#user li{display:inline;list-style:none;margin:0;padding:3px}
+#title{font-size:125%;font-weight:700;margin:16px 0 6px}
+#subtitle{font-size:90%;vertical-align:top;margin:4px 0 16px}
+#adminmenu{margin:0 20px 2px}
+#main{vertical-align:top;margin:0;padding:0}
+#side{background-color:#000;padding:8px}
+.miniblock{margin:8px 2px 4px}
+.miniblock p{margin:3px;padding:3px}
+.disp{margin:0;padding:12px}
+.block{background-color:#091517;margin:12px;padding:5px}
+.error{color:#CC1212;font-weight:700;font-size:110%;text-align:center;margin:0;padding:24px 8px}
+.codetitle{font-size:10px;color:#59739B;margin-top:5px;padding:2px}
+.code{font-size:11px;color:#59739B;background-color:#EFF0C2;margin-bottom:5px;font-family:monospace;padding:2px}
+.valid{height:48px;text-align:center;vertical-align:middle}
+.download{text-align:center;margin-top:16px;background:#091517 url(/skins/wings/img/dl.gif) no-repeat center center;padding:16px}
+.paging{text-align:right;padding:12px}
+.subpage-cur{color:#FFF;background-color:#163236}
+.subpage-href{background-color:#091517}
+span#title2{padding-left:16px}
+.coltop{text-align:center;background-color:#163236!important;color:#707070;font-weight:700}
+.centerall{text-align:center}
+.desc{color:#646464;padding:3px 0}
+.desc2{float:right;color:#646464;margin:-2px 8px 0 0;padding:3px 0}
+.desc3{float:right;font-size:12px;font-weight:400;color:#646464;margin:0 8px 0 0;padding:3px 0}
+.newsblock{background-color:#091517;margin:0 0 6px;padding:10px 2px 10px 10px}
+img{border-width:0}
+form{margin:0}
+.colleft{float:left;margin:0 4px}
+.colright{float:right;margin:0 4px}
+.bar_front{background-color:#EB0;border-right:0 solid #333;color:#DDD;height:8px;padding:0}
+.bar_back{background-color:#EBECF1;border:1px solid #333;height:8px;margin:0 7px}
+.bbcodes a img{border:1px outset #A0A0A0;background-color:#999BAC}
+.smilies a img{border:0;background-color:transparent}
+.today{border:1px dashed #DA0}
+.signature{color:#979797;font-size:80%;max-height:96px;overflow:auto}
+.signature a{color:#000}
+a.dl_url,a.dl_url:hover {color:cyan}
+table td{vertical-align:top}
+table.flat{width:99%;border-collapse:collapse;margin:0;padding:0}
+table.flat td{margin:0;padding:0}
+table.main{width:99%;margin:0;padding:4px}
+table.main td{padding:4px}
+table.cells{width:100%;border:1px solid #262014;background-color:#554D3D;border-collapse:separate;border-spacing:1px;margin:0;padding:0}
+table.cells td.header{color:#FFF;background-color:#163236;text-align:center;font-weight:700;padding:4px}
+table.cells td.cattitle{background-color:#102426;padding-left:12px}
+table.cells td.pagetitle{padding-left:12px}
+table.list{width:99%;margin:0;padding:5px}
+table.list td{padding:12px}
+#nav ul,#user ul{margin:0;padding:2px}
+.desc a,.desc2 a{color:#646464}
+.odd,.even{background-color:#000!important}
+table.cells td,table.cells th{background-color:#000;margin:0;padding:2px}
