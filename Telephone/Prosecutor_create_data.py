@@ -29,6 +29,7 @@ PO.save()
 PO.department.add(D)
 
 
+
 e1 = Employee(name='Ярослав', surname='Заворотний', patronymic='Семенович', position='заступник начальника управління',
               prosecutors_office=PO, department=D, private_telephone='050-336-08-57')
 e1.save()
@@ -51,3 +52,6 @@ e4.save()
 e5 = Employee(name='Вадим', surname='Шивцов', patronymic='Михайлович', position='начальник відділу',
               prosecutors_office=PO, department=D, division=d2, private_telephone='096-288-83-90')
 e5.save()
+
+
+PO.employe.add(e1, e2, e3, e4, e5)

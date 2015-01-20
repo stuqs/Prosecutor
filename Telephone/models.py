@@ -27,11 +27,12 @@ class ProsecutorsOffice(models.Model):
     Модель для прокуратур
     """
     name = models.CharField(max_length=300, verbose_name='Прокуратура')
-    department = models.ManyToManyField(Department, blank=True, null=True, verbose_name='Управление')
+    employe = models.ManyToManyField('Employee', verbose_name='Працівники')
+    department = models.ManyToManyField(Department, blank=True, null=True, verbose_name='Управління')
     address = models.CharField(blank=True, max_length=200, verbose_name='Адрес')
-    email_inside = models.EmailField(blank=True, verbose_name='Внутренний e-mail')
-    email_outside = models.EmailField(blank=True, verbose_name='Внешний e-mail')
-    tel_cod = models.CharField(blank=True, max_length=7, verbose_name='Теллефонный код')
+    email_inside = models.EmailField(blank=True, verbose_name='Внутрішній e-mail')
+    email_outside = models.EmailField(blank=True, verbose_name='Зовнішній e-mail')
+    tel_cod = models.CharField(blank=True, max_length=7, verbose_name='Телефонный код')
 
     def __str__(self):
         return self.name
@@ -41,9 +42,9 @@ class Employee(models.Model):
     """
     Модель для всех сотрудников
     """
-    name = models.CharField(blank=True, max_length=30, verbose_name='Имя')
-    surname = models.CharField(blank=True, max_length=30, verbose_name='Фамилия')
-    patronymic = models.CharField(blank=True, max_length=30, verbose_name='Отчество')
+    name = models.CharField(blank=True, max_length=30, verbose_name="Ім'я")
+    surname = models.CharField(blank=True, max_length=30, verbose_name='Фамілія')
+    patronymic = models.CharField(blank=True, max_length=30, verbose_name='По батькові')
     position = models.CharField(blank=True, max_length=100, verbose_name='Посада')
     prosecutors_office = models.ForeignKey(ProsecutorsOffice, blank=True, null=True, verbose_name='Прокуратура')
     department = models.ForeignKey(Department, blank=True, null=True, verbose_name='Управління')

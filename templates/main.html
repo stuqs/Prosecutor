@@ -3,34 +3,34 @@
 {% block title %}Прокуратура Одеської області{% endblock %}
 
 {% block content %}
-<pre>
 
 
-</pre>
-
-
-{% endblock %}
+{% for prosecutorsoffice in prosecutorsoffices %}
+<center><h3>{{ prosecutorsoffice }}</h3></center>
 
 
 
-{% block footer %}
+
+
+    {% endfor %}
+
 
 <div style='margin-top:8px'>
 <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
-<tr class='dark' style='font-weight: bold; text-align: center;'>
+<tr class='dark' style='font-weight: bold; text-align: center;' height='40'>
     <td width='20' align='left'>№</td>
     <td width='80' title='name'>Прізвище, ім'я, по батькові</td>
     <td width='50' title='position'>Посада</td>
     <td width='90' title='work_telephone'>Службовий телефон</td>
     <td width='90' title='private_telephone'>Мобільний телефон</td></tr>
 
-    {% for empl in employee %}
+{% for employee in employees %}
     <tr class='dark' style='text-align: center;'>
-    <td width='20' align='left'>{{ empl.id }}</td>
-    <td width='80' title='name'>{{ empl }}</td>
-    <td width='50' title='position'>{{ empl.position }}</td>
-    <td width='90' title='work_telephone'>{{ empl.work_telephone|safe }}</td>
-    <td width='90' title='private_telephone'>{{ empl.private_telephone|safe }}</td></tr>
+    <td width='20' align='left'>{{ employee.id }}</td>
+    <td width='80' title='name'>{{ employee }}</td>
+    <td width='50' title='position'>{{ employee.position }}</td>
+    <td width='90' title='work_telephone'>{{ employee.work_telephone|safe }}</td>
+    <td width='90' title='private_telephone'>{{ employee.private_telephone|safe }}</td></tr>
 
 
 
@@ -40,9 +40,18 @@
 
 
 
+<pre>
+
+
+</pre>
+{% endblock %}
+
+
+
+
+
 {#    <td title='Strength (Сила)'>вапвапвапвапва</td>#}
 {#    <td title='Agility (Ловкость)'>вапвапвап</td>#}
 {#    <td title='Vitality (Живучесть)'>авпвапвапвапвап</td>#}
 {#    <td title='Energy (Энергия)'><a href='plug.php?e=top&d=ene'>Energy</a></td>#}
 {#    <td width='80'>Гильдия</td></tr>#}
-    {% endblock %}
