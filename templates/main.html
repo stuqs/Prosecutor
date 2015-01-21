@@ -6,8 +6,8 @@
 
 
 {% for prosecutorsoffice in prosecutorsoffices %}
-<center><h3>{{ prosecutorsoffice }}</h3></center>
-    {% if prosecutorsoffice.employees %}
+    <center><h2>{{ prosecutorsoffice }}</h2></center>
+    {% if prosecutorsoffice.employees.all %}
 
         <div style='margin-top:8px'>
         <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
@@ -33,36 +33,66 @@
         </div>
 
         {% endif %}
-    {% if prosecutorsoffice.department %}
-        <center><h4>{{ prosecutorsoffice.department.all }}</h4></center>
+    {% if prosecutorsoffice.department.all %}
+        {% for department in prosecutorsoffice.department.all %}
+            <center><h3>{{ department }}</h3></center>
+            {% if department.employees.all %}
+                <div style='margin-top:8px'>
+                <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
+                <tr class='dark' style='font-weight: bold; text-align: center;' height='40'>
+                <td width='20' align='left'>№</td>
+                <td width='80' title='name'>Прізвище, ім'я, по батькові</td>
+                <td width='50' title='position'>Посада</td>
+                <td width='90' title='work_telephone'>Службовий телефон</td>
+                <td width='90' title='private_telephone'>Мобільний телефон</td></tr>
 
-        <div style='margin-top:8px'>
-        <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
-        <tr class='dark' style='font-weight: bold; text-align: center;' height='40'>
-        <td width='20' align='left'>№</td>
-        <td width='80' title='name'>Прізвище, ім'я, по батькові</td>
-        <td width='50' title='position'>Посада</td>
-        <td width='90' title='work_telephone'>Службовий телефон</td>
-        <td width='90' title='private_telephone'>Мобільний телефон</td></tr>
+                {% for employee in department.employees.all %}
 
-        {% for employee in prosecutorsoffice.department.employees %}
+                    <tr class='dark' style='text-align: center;'>
+                    <td width='20' align='left'>{{ employee.id }}</td>
+                    <td width='80' title='name'>{{ employee }}</td>
+                    <td width='50' title='position'>{{ employee.position }}</td>
+                    <td width='90' title='work_telephone'>{{ employee.work_telephone|safe }}</td>
+                    <td width='90' title='private_telephone'>{{ employee.private_telephone|safe }}</td></tr>
 
-            <tr class='dark' style='text-align: center;'>
-            <td width='20' align='left'>{{ employee.id }}</td>
-            <td width='80' title='name'>{{ employee }}</td>
-            <td width='50' title='position'>{{ employee.position }}</td>
-            <td width='90' title='work_telephone'>{{ employee.work_telephone|safe }}</td>
-            <td width='90' title='private_telephone'>{{ employee.private_telephone|safe }}</td></tr>
+                    {% endfor %}
+                {% endif %}
 
+            </table>
+            </div>
+
+            {% if department.division.all %}
+                {% for division in department.division.all %}
+                    <center><h4>{{ division }}</h4></center>
+                    {% if division.employees.all %}
+                        <div style='margin-top:8px'>
+                        <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
+                        <tr class='dark' style='font-weight: bold; text-align: center;' height='40'>
+                        <td width='20' align='left'>№</td>
+                        <td width='80' title='name'>Прізвище, ім'я, по батькові</td>
+                        <td width='50' title='position'>Посада</td>
+                        <td width='90' title='work_telephone'>Службовий телефон</td>
+                        <td width='90' title='private_telephone'>Мобільний телефон</td></tr>
+
+                        {% for employee in division.employees.all %}
+
+                            <tr class='dark' style='text-align: center;'>
+                            <td width='20' align='left'>{{ employee.id }}</td>
+                            <td width='80' title='name'>{{ employee }}</td>
+                            <td width='50' title='position'>{{ employee.position }}</td>
+                            <td width='90' title='work_telephone'>{{ employee.work_telephone|safe }}</td>
+                            <td width='90' title='private_telephone'>{{ employee.private_telephone|safe }}</td></tr>
+
+                            {% endfor %}
+                        {% endif %}
+
+                    </table>
+                    </div>
+
+                    {% endfor %}
+                {% endif %}
             {% endfor %}
-
-        </table>
-        </div>
-
-    {% endif %}
-
-
-
+        {% endif %}
     {% endfor %}
 
 {#<div style='margin-top:8px'>#}
