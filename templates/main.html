@@ -4,85 +4,50 @@
 
 {% block content %}
 
+    {% for prosecutorsoffice in prosecutorsoffices %}
+        <center><h2>{{ prosecutorsoffice }}</h2></center>
+        {% if prosecutorsoffice.employees.all %}
 
-{% for prosecutorsoffice in prosecutorsoffices %}
-    <center><h2>{{ prosecutorsoffice }}</h2></center>
-    {% if prosecutorsoffice.employees.all %}
+            <div style='margin-top:8px'>
+                <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
-        <div style='margin-top:8px'>
-        <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
-        <tr class='dark' style='font-weight: bold; text-align: center;' height='40'>
-        <td width='20' align='left'>№</td>
-        <td width='80' title='name'>Прізвище, ім'я, по батькові</td>
-        <td width='50' title='position'>Посада</td>
-        <td width='90' title='work_telephone'>Службовий телефон</td>
-        <td width='90' title='private_telephone'>Мобільний телефон</td></tr>
+                    {% include table_header %}
+                    {% for employee in prosecutorsoffice.employees.all %}
+                        {% include table_loop %}
+                    {% endfor %}
 
-        {% for employee in prosecutorsoffice.employees.all %}
-
-            <tr class='dark' style='text-align: center;'>
-            <td width='20' align='left'>{{ employee.id }}</td>
-            <td width='80' title='name'>{{ employee }}</td>
-            <td width='50' title='position'>{{ employee.position }}</td>
-            <td width='90' title='work_telephone'>{{ employee.work_telephone|safe }}</td>
-            <td width='90' title='private_telephone'>{{ employee.private_telephone|safe }}</td></tr>
-
-            {% endfor %}
-
-        </table>
-        </div>
+                </table>
+            </div>
 
         {% endif %}
-    {% if prosecutorsoffice.department.all %}
-        {% for department in prosecutorsoffice.department.all %}
-            <center><h3>{{ department }}</h3></center>
-            {% if department.employees.all %}
-                <div style='margin-top:8px'>
-                <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
-                <tr class='dark' style='font-weight: bold; text-align: center;' height='40'>
-                <td width='20' align='left'>№</td>
-                <td width='80' title='name'>Прізвище, ім'я, по батькові</td>
-                <td width='50' title='position'>Посада</td>
-                <td width='90' title='work_telephone'>Службовий телефон</td>
-                <td width='90' title='private_telephone'>Мобільний телефон</td></tr>
+        {% if prosecutorsoffice.department.all %}
+            {% for department in prosecutorsoffice.department.all %}
+                <center><h3>{{ department }}</h3></center>
+                {% if department.employees.all %}
 
-                {% for employee in department.employees.all %}
+                    <div style='margin-top:8px'>
+                    <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
-                    <tr class='dark' style='text-align: center;'>
-                    <td width='20' align='left'>{{ employee.id }}</td>
-                    <td width='80' title='name'>{{ employee }}</td>
-                    <td width='50' title='position'>{{ employee.position }}</td>
-                    <td width='90' title='work_telephone'>{{ employee.work_telephone|safe }}</td>
-                    <td width='90' title='private_telephone'>{{ employee.private_telephone|safe }}</td></tr>
-
+                    {% include table_header %}
+                    {% for employee in department.employees.all %}
+                        {% include table_loop %}
                     {% endfor %}
                 {% endif %}
 
             </table>
             </div>
 
-            {% if department.division.all %}
-                {% for division in department.division.all %}
-                    <center><h4>{{ division }}</h4></center>
-                    {% if division.employees.all %}
-                        <div style='margin-top:8px'>
-                        <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
-                        <tr class='dark' style='font-weight: bold; text-align: center;' height='40'>
-                        <td width='20' align='left'>№</td>
-                        <td width='80' title='name'>Прізвище, ім'я, по батькові</td>
-                        <td width='50' title='position'>Посада</td>
-                        <td width='90' title='work_telephone'>Службовий телефон</td>
-                        <td width='90' title='private_telephone'>Мобільний телефон</td></tr>
+                {% if department.division.all %}
+                    {% for division in department.division.all %}
+                        <center><h4>{{ division }}</h4></center>
+                        {% if division.employees.all %}
 
-                        {% for employee in division.employees.all %}
+                            <div style='margin-top:8px'>
+                            <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
-                            <tr class='dark' style='text-align: center;'>
-                            <td width='20' align='left'>{{ employee.id }}</td>
-                            <td width='80' title='name'>{{ employee }}</td>
-                            <td width='50' title='position'>{{ employee.position }}</td>
-                            <td width='90' title='work_telephone'>{{ employee.work_telephone|safe }}</td>
-                            <td width='90' title='private_telephone'>{{ employee.private_telephone|safe }}</td></tr>
-
+                            {% include table_header %}
+                            {% for employee in division.employees.all %}
+                                {% include table_loop %}
                             {% endfor %}
                         {% endif %}
 
@@ -95,34 +60,8 @@
         {% endif %}
     {% endfor %}
 
-{#<div style='margin-top:8px'>#}
-{#<table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>#}
-{#<tr class='dark' style='font-weight: bold; text-align: center;' height='40'>#}
-{#    <td width='20' align='left'>№</td>#}
-{#    <td width='80' title='name'>Прізвище, ім'я, по батькові</td>#}
-{#    <td width='50' title='position'>Посада</td>#}
-{#    <td width='90' title='work_telephone'>Службовий телефон</td>#}
-{#    <td width='90' title='private_telephone'>Мобільний телефон</td></tr>#}
-{##}
-{#{% for employee in employees %}#}
-{#    <tr class='dark' style='text-align: center;'>#}
-{#    <td width='20' align='left'>{{ employee.id }}</td>#}
-{#    <td width='80' title='name'>{{ employee }}</td>#}
-{#    <td width='50' title='position'>{{ employee.position }}</td>#}
-{#    <td width='90' title='work_telephone'>{{ employee.work_telephone|safe }}</td>#}
-{#    <td width='90' title='private_telephone'>{{ employee.private_telephone|safe }}</td></tr>#}
-{##}
-{##}
-{##}
-{#    {% endfor %}#}
-{#</table>#}
-{#</div>#}
 
 
-
-<pre>
-
-</pre>
 {% endblock %}
 
 
