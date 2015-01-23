@@ -58,9 +58,26 @@
                 {% endif %}
             {% endfor %}
         {% endif %}
+        {% if prosecutorsoffice.division.all %}
+            {% for division in prosecutorsoffice.division.all %}
+                <center><h4>{{ division }}</h4></center>
+                {% if division.employees.all %}
+
+                    <div style='margin-top:8px'>
+                    <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
+
+                    {% include table_header %}
+                    {% for employee in division.employees.all %}
+                        {% include table_loop %}
+                    {% endfor %}
+                {% endif %}
+
+            </table>
+            </div>
+
+            {% endfor %}
+        {% endif %}
     {% endfor %}
-
-
 
 {% endblock %}
 
