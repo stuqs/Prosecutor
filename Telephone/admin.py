@@ -1,6 +1,6 @@
 from django.contrib import admin
-from Telephone.models import ProsecutorsOffice, Department, Division, Employee
-
+# from Telephone.models import ProsecutorsOffice, Department, Division, Employee
+from Telephone.models import *
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
@@ -24,9 +24,23 @@ class DivisionAdmin(admin.ModelAdmin):
     filter_horizontal = ('employees',)
 
 
+class PositionAdmin(admin.ModelAdmin):
+    list_display = ('po_name', 'weigh')
 
 
 admin.site.register(ProsecutorsOffice, ProsecutorsOfficeAdmin)
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Division, DivisionAdmin)
 admin.site.register(Employee, EmployeeAdmin)
+admin.site.register(Position, PositionAdmin)
+
+
+# class TeamForm(forms.ModelForm):
+#     manager = forms.ModelChoiceField(queryset=User.objects.order_by('username'))
+#
+#     class Meta:
+#         model = Team
+#
+# class TeamAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'manager')
+#     form = TeamForm

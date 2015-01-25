@@ -1,6 +1,6 @@
 <tr style='text-align: left;'>
-    <td width='20' align='left'>{{ employee.id }}</td>
-    <td width='80' title='ПІБ'>{{ employee }}</td>
-    <td width='50' title='Посада'>{{ employee.position }}</td>
+    <td width='20' align='left'>{{ forloop.counter }}</td>
+    <td width='100' title='ПІБ'>{{ employee }}</td>
+    <td width='100' title='Посада'>{{ employee.position }}</td>
     <td width='90' title='Службовий телефон'>{{ employee.work_telephone|safe }}</td>
     <td width='90' title='Мобільний телефон'>{{ employee.private_telephone|safe }}</td></tr>
