@@ -44,7 +44,7 @@ class Division(models.Model):
     Модель для отделов
     """
     name = models.CharField(max_length=300, verbose_name='Відділ')
-    employees = models.ManyToManyField('Employee', blank=True, null=True, verbose_name='Працівники')
+    employees = models.ManyToManyField('Employee', blank=True, verbose_name='Працівники')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Зовнішній e-mail')
 
     class Meta:
@@ -61,8 +61,8 @@ class Department(models.Model):
     Модель для управлений
     """
     name = models.CharField(max_length=200, verbose_name='Управління')
-    division = models.ManyToManyField(Division, blank=True, null=True, verbose_name='Відділ')
-    employees = models.ManyToManyField('Employee', blank=True, null=True, verbose_name='Працівники',
+    division = models.ManyToManyField(Division, blank=True, verbose_name='Відділ')
+    employees = models.ManyToManyField('Employee', blank=True, verbose_name='Працівники',
                                        help_text='Работники без отдела, работающие в управлении <br>')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Зовнішній e-mail')
 
@@ -80,9 +80,9 @@ class ProsecutorsOffice(models.Model):
     Модель для прокуратур
     """
     name = models.CharField(max_length=300, verbose_name='Прокуратура')
-    department = models.ManyToManyField(Department, blank=True, null=True, verbose_name='Управління')
-    division = models.ManyToManyField(Division, blank=True, null=True, verbose_name='Відділ')
-    employees = models.ManyToManyField('Employee', blank=True, null=True, verbose_name='Працівники',
+    department = models.ManyToManyField(Department, blank=True, verbose_name='Управління')
+    division = models.ManyToManyField(Division, blank=True, verbose_name='Відділ')
+    employees = models.ManyToManyField('Employee', blank=True, verbose_name='Працівники',
                                        help_text='Работники работающие напрямую в прокуратуре без управления и отдела<br>')
     tel_cod = models.CharField(blank=True, null=True, max_length=7, verbose_name='Телефонный код')
     address = models.CharField(blank=True, null=True, max_length=200, verbose_name='Адрес')
