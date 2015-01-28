@@ -6,17 +6,27 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     ordering = ('surname',)
+    fields = (('name', 'surname', 'patronymic'), 'position', ('work_telephone', 'private_telephone'))
 
 
 class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     filter_horizontal = ('department', 'division', 'employees')
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'department'),
+        }),
+        ('Дополнительные данные', {
+            'classes': ('collapse',),
+            'fields': ('tel_cod', 'address', ('email_inside', 'email_outside'))
+        }),
+    )
+
 
 
 class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     filter_horizontal = ('division', 'employees')
-
 
 
 class DivisionAdmin(admin.ModelAdmin):

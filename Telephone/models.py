@@ -26,9 +26,9 @@ class Employee(models.Model):
     patronymic = models.CharField(blank=True, null=True, max_length=30, verbose_name='По батькові')
     position = models.ForeignKey(Position, blank=True, null=True, verbose_name='Посада')
     work_telephone = models.CharField(blank=True, null=True, max_length=100, verbose_name='Службовий телефон',
-                                      default='-', help_text='Номера разделяются символом ;')
+                                      default='-', help_text='Номера разделяются символом ; - XXXX;YYYY')
     private_telephone = models.CharField(blank=True, null=True, max_length=100, verbose_name='Мобільний телефон',
-                                         default='-', help_text='Номера разделяются символом ;')
+                                         default='-', help_text='Номера разделяются символом ; - XXXX;YYYY')
 
     class Meta:
         order_with_respect_to = 'position'
