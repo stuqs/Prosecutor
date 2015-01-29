@@ -4,15 +4,19 @@ from Telephone.models import *
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
+    list_display_links = ('surname', 'name', 'patronymic')
+    list_editable = ('position', 'work_telephone')
     search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     ordering = ('surname',)
     fields = (('name', 'surname', 'patronymic'), 'position', ('work_telephone', 'private_telephone'))
+    list_per_page = 50
 
 
 class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     filter_horizontal = ('department', 'division', 'employees')
-    list_display = ('name', 'counter_empl')
+    list_display = ('name', 'counter_empl', 'set_all')
+    ordering = ('name',)
     fieldsets = (
         (None, {
             'fields': ('name', 'department', 'division', 'employees'),
@@ -29,22 +33,25 @@ class ProsecutorsOfficeAdmin(admin.ModelAdmin):
         :param obj: Передается сам обьект
         :return: Количество работников
         """
-        return obj.employees.all().count()
-        counter_empl.short_description = 'Counter'
+        return obj.employees.count()
+    counter_empl.short_description = "Тестовая функция из admin"
 
 
 class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     filter_horizontal = ('division', 'employees')
+    ordering = ('name',)
 
 
 class DivisionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     filter_horizontal = ('employees',)
+    ordering = ('name',)
 
 
 class PositionAdmin(admin.ModelAdmin):
     list_display = ('po_name', 'weigh')
+    ordering = ('-weigh',)
 
 
 admin.site.register(ProsecutorsOffice, ProsecutorsOfficeAdmin)

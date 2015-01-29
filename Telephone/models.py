@@ -89,6 +89,10 @@ class ProsecutorsOffice(models.Model):
     email_inside = models.EmailField(blank=True, null=True, verbose_name='Внутрішній e-mail')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Зовнішній e-mail')
 
+    def set_all(self):
+        return self.employees.count()
+    set_all.short_description = "Тестовая функция из model"
+
     class Meta:
         ordering = ('name',)
         verbose_name = 'Прокуратура'

@@ -12,6 +12,7 @@
                 <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
                     {% include table_header %}
+                    {{ prosecutorsoffice.set_all }}
                     {% for employee in prosecutorsoffice.employees.all %}
                         {% include table_loop %}
                     {% endfor %}
