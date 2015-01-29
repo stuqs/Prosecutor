@@ -10,11 +10,12 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 
 class ProsecutorsOfficeAdmin(admin.ModelAdmin):
-    search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
+    search_fields = ('name',)
     filter_horizontal = ('department', 'division', 'employees')
+    list_display = ('name', 'counter_empl')
     fieldsets = (
         (None, {
-            'fields': ('name', 'department'),
+            'fields': ('name', 'department', 'division', 'employees'),
         }),
         ('Дополнительные данные', {
             'classes': ('collapse',),
@@ -22,6 +23,14 @@ class ProsecutorsOfficeAdmin(admin.ModelAdmin):
         }),
     )
 
+    def counter_empl(self, obj):
+        """
+        Подсчитывает количество работников
+        :param obj: Передается сам обьект
+        :return: Количество работников
+        """
+        return obj.employees.all().count()
+        counter_empl.short_description = 'Counter'
 
 
 class DepartmentAdmin(admin.ModelAdmin):
