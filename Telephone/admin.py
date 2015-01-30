@@ -9,7 +9,9 @@ class EmployeeAdmin(admin.ModelAdmin):
     search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     ordering = ('surname',)
     fields = (('name', 'surname', 'patronymic'), 'position', ('work_telephone', 'private_telephone'))
-    list_per_page = 50
+    # raw_id_fields = ("position",)     если должностей будет очень много
+    # list_per_page = 50
+    # save_on_top = True        для моделей с большим колвом данных
 
 
 class ProsecutorsOfficeAdmin(admin.ModelAdmin):
