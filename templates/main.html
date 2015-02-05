@@ -12,7 +12,7 @@
                 <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
                     {% include table_header %}
-                    {% for employee in prosecutorsoffice.employees.all %}
+                    {% for employee in prosecutorsoffice.sort_employees %}
                         {% include table_loop %}
                     {% endfor %}
 
@@ -29,7 +29,7 @@
                     <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
                     {% include table_header %}
-                    {% for employee in department.employees.all %}
+                    {% for employee in department.sort_employees %}
                         {% include table_loop %}
                     {% endfor %}
                 {% endif %}
@@ -46,7 +46,7 @@
                             <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
                             {% include table_header %}
-                            {% for employee in division.employees.all %}
+                            {% for employee in division.sort_employees %}
                                 {% include table_loop %}
                             {% endfor %}
                         {% endif %}
@@ -67,7 +67,7 @@
                     <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
                     {% include table_header %}
-                    {% for employee in division.employees.all %}
+                    {% for employee in division.sort_employees %}
                         {% include table_loop %}
                     {% endfor %}
                 {% endif %}

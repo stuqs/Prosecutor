@@ -31,13 +31,10 @@ class Employee(models.Model):
                                          default='-', help_text='Номера разделяются символом ; - XXXX;YYYY')
 
     def tel_work_escape(self):
-        return "<br>".join(self.work_telephone.split(';'))
-        # return 'just some text'
+        return "<br>".join(self.work_telephone.replace(" ", "").split(';'))
 
-    #     #Сделать проверку на безопастность (наличие только чисел с - и ;)
-    #      emp.work_telephone = "<br>".join(emp.work_telephone.split(';'))
-    #      emp.private_telephone = "<br>".join(emp.private_telephone.split(';'))
-
+    def tel_private_escape(self):
+        return "<br>".join(self.private_telephone.replace(" ", "").split(';'))
 
     class Meta:
         order_with_respect_to = 'position'
@@ -46,6 +43,9 @@ class Employee(models.Model):
 
     def __str__(self):
         return "{} {} {}".format(self.name, self.surname, self.patronymic)
+
+    def positin_sort(self):
+        return sorted(self.objects.all(), key=(lambda x=self.objects.all(): x.position.weight), reverse=True)
 
 
 class Division(models.Model):
@@ -97,7 +97,7 @@ class ProsecutorsOffice(models.Model):
     name = models.CharField(max_length=300, verbose_name='Прокуратура')
     department = models.ManyToManyField(Department, blank=True, verbose_name='Управління')
     division = models.ManyToManyField(Division, blank=True, verbose_name='Відділ')
-    employees = models.ManyToManyField('Employee', blank=True, verbose_name='Працівники',
+    employees = models.ManyToManyField('Employee', blank=True, verbose_name='Працівники', related_name="appearances",
                                        help_text='Работники работающие напрямую в прокуратуре без управления и отдела<br>')
     tel_cod = models.CharField(blank=True, null=True, max_length=7, verbose_name='Телефонный код')
     address = models.CharField(blank=True, null=True, max_length=200, verbose_name='Адрес')
