@@ -6,25 +6,25 @@ print(User.objects.create_superuser(username='admin', password='admin', email='A
 
 ##################################################################
 
-p1 = Position(po_name='заступник начальника управління', weigh=250)
+p1 = Position(po_name='заступник начальника управління', weight=250)
 p1.save()
 
-p2 = Position(po_name='начальник відділу', weigh=200)
+p2 = Position(po_name='начальник відділу', weight=200)
 p2.save()
 
-p3 = Position(po_name='прокурор', weigh=100)
+p3 = Position(po_name='прокурор', weight=100)
 p3.save()
 
-p4 = Position(po_name='Прокурор области', weigh=500)
+p4 = Position(po_name='Прокурор области', weight=500)
 p4.save()
 
-p4 = Position(po_name='Заступник Прокурор области', weigh=400)
+p4 = Position(po_name='Заступник Прокурор области', weight=400)
 p4.save()
 
-p5 = Position(po_name='Техныч працывник', weigh=50)
+p5 = Position(po_name='Техныч працывник', weight=50)
 p5.save()
 
-p6 = Position(po_name='начальник управлыння', weigh=300)
+p6 = Position(po_name='начальник управлыння', weight=300)
 p6.save()
 
 ##################################################################

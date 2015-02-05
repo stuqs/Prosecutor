@@ -7,12 +7,11 @@
     {% for prosecutorsoffice in prosecutorsoffices %}
         <center><h2>{{ prosecutorsoffice }}</h2></center>
         {% if prosecutorsoffice.employees.all %}
-
+{{ prosecutorsoffice.set_all }}
             <div style='margin-top:8px'>
                 <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
                     {% include table_header %}
-                    {{ prosecutorsoffice.set_all }}
                     {% for employee in prosecutorsoffice.employees.all %}
                         {% include table_loop %}
                     {% endfor %}

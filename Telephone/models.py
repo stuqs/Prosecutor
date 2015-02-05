@@ -6,10 +6,10 @@ class Position(models.Model):
     Модель для всех должности сотрудников, нужна что бы производить сортировку при выводе из БД
     """
     po_name = models.CharField(max_length=100, verbose_name='Посада')
-    weigh = models.PositiveSmallIntegerField(verbose_name='Вес для сортировки', default=1)
+    weight = models.PositiveSmallIntegerField(verbose_name='Вес для сортировки', default=1)
 
     class Meta:
-        ordering = ('-weigh',)
+        ordering = ('-weight',)
         verbose_name = 'Должность'
         verbose_name_plural = 'Должности'
 
@@ -30,6 +30,15 @@ class Employee(models.Model):
     private_telephone = models.CharField(blank=True, null=True, max_length=100, verbose_name='Мобільний телефон',
                                          default='-', help_text='Номера разделяются символом ; - XXXX;YYYY')
 
+    def tel_work_escape(self):
+        return "<br>".join(self.work_telephone.split(';'))
+        # return 'just some text'
+
+    #     #Сделать проверку на безопастность (наличие только чисел с - и ;)
+    #      emp.work_telephone = "<br>".join(emp.work_telephone.split(';'))
+    #      emp.private_telephone = "<br>".join(emp.private_telephone.split(';'))
+
+
     class Meta:
         order_with_respect_to = 'position'
         verbose_name = 'Работник'
@@ -46,6 +55,9 @@ class Division(models.Model):
     name = models.CharField(max_length=300, verbose_name='Відділ')
     employees = models.ManyToManyField('Employee', blank=True, verbose_name='Працівники')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Зовнішній e-mail')
+
+    def sort_employees(self):
+        return sorted(self.employees.all(), key=(lambda x=self.employees.all(): x.position.weight), reverse=True)
 
     class Meta:
         ordering = ('name',)
@@ -65,6 +77,9 @@ class Department(models.Model):
     employees = models.ManyToManyField('Employee', blank=True, verbose_name='Працівники',
                                        help_text='Работники без отдела, работающие в управлении <br>')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Зовнішній e-mail')
+
+    def sort_employees(self):
+        return sorted(self.employees.all(), key=(lambda x=self.employees.all(): x.position.weight), reverse=True)
 
     class Meta:
         ordering = ('name',)
@@ -89,9 +104,8 @@ class ProsecutorsOffice(models.Model):
     email_inside = models.EmailField(blank=True, null=True, verbose_name='Внутрішній e-mail')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Зовнішній e-mail')
 
-    def set_all(self):
-        return self.employees.count()
-    set_all.short_description = "Тестовая функция из model"
+    def sort_employees(self):
+        return sorted(self.employees.all(), key=(lambda x=self.employees.all(): x.position.weight), reverse=True)
 
     class Meta:
         ordering = ('name',)

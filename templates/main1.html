@@ -1,1 +1,89 @@
-{{ question }}
+{% extends "base.html" %}
+
+{% block title %}Прокуратура Одеської області{% endblock %}
+
+{% block content %}
+
+    {% for prosecutorsoffice in prosecutorsoffices %}
+        <center><h2>{{ prosecutorsoffice }}</h2></center>
+        {% if prosecutorsoffice.employees.all %}
+
+            <div style='margin-top:8px'>
+                <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
+
+                    {% include table_header %}
+                    {{ prosecutorsoffice.set_all }}
+                <br>
+                a tut test
+                <br>
+                    {{ prosecutorsoffice.employees.sort_by_weight }}
+                <br>
+                    {{ prosecutorsoffice.employees.all }}
+                    {% for employee in prosecutorsoffice.employees.all %}
+                        {% include table_loop %}
+                    {% endfor %}
+
+                </table>
+            </div>
+
+        {% endif %}
+        {% if prosecutorsoffice.department.all %}
+            {% for department in prosecutorsoffice.department.all %}
+                <center><h3>{{ department }}</h3></center>
+                {% if department.employees.all %}
+
+                    <div style='margin-top:8px'>
+                    <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
+
+                    {% include table_header %}
+                    {% for employee in department.employees.all %}
+                        {% include table_loop %}
+                    {% endfor %}
+                {% endif %}
+
+            </table>
+            </div>
+
+                {% if department.division.all %}
+                    {% for division in department.division.all %}
+                        <center><h4>{{ division }}</h4></center>
+                        {% if division.employees.all %}
+
+                            <div style='margin-top:8px'>
+                            <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
+
+                            {% include table_header %}
+                            {% for employee in division.employees.all %}
+                                {% include table_loop %}
+                            {% endfor %}
+                        {% endif %}
+
+                    </table>
+                    </div>
+
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if prosecutorsoffice.division.all %}
+            {% for division in prosecutorsoffice.division.all %}
+                <center><h4>{{ division }}</h4></center>
+                {% if division.employees.all %}
+
+                    <div style='margin-top:8px'>
+                    <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
+
+                    {% include table_header %}
+                    {% for employee in division.employees.all %}
+                        {% include table_loop %}
+                    {% endfor %}
+                {% endif %}
+
+            </table>
+            </div>
+
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

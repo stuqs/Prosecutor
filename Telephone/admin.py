@@ -3,7 +3,7 @@ from django.contrib import admin
 from Telephone.models import *
 
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
+    list_display = ('surname', 'name', 'patronymic', 'position', 'work_telephone', 'weight')
     list_display_links = ('surname', 'name', 'patronymic')
     list_editable = ('position', 'work_telephone')
     search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
@@ -13,11 +13,13 @@ class EmployeeAdmin(admin.ModelAdmin):
     # list_per_page = 50
     # save_on_top = True        для моделей с большим колвом данных
 
+    def weight(self, obj):
+        return obj.position.weight
 
 class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     filter_horizontal = ('department', 'division', 'employees')
-    list_display = ('name', 'counter_empl', 'set_all')
+    list_display = ('name', 'counter_empl')
     ordering = ('name',)
     fieldsets = (
         (None, {
@@ -52,8 +54,8 @@ class DivisionAdmin(admin.ModelAdmin):
 
 
 class PositionAdmin(admin.ModelAdmin):
-    list_display = ('po_name', 'weigh')
-    ordering = ('-weigh',)
+    list_display = ('po_name', 'weight')
+    ordering = ('-weight',)
 
 
 admin.site.register(ProsecutorsOffice, ProsecutorsOfficeAdmin)
