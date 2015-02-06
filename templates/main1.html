@@ -1,89 +1,41 @@
-{% extends "base.html" %}
+<style type="text/css"><!--
+fieldset.explicit-width{
+    width: 30%; /* Will expand to fit content */
+}
+fieldset.inline-block{
+    display: inline-block;
+}
+--></style>
 
-{% block title %}Прокуратура Одеської області{% endblock %}
 
-{% block content %}
 
-    {% for prosecutorsoffice in prosecutorsoffices %}
-        <center><h2>{{ prosecutorsoffice }}</h2></center>
-        {% if prosecutorsoffice.employees.all %}
 
-            <div style='margin-top:8px'>
-                <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
-                    {% include table_header %}
-                    {{ prosecutorsoffice.set_all }}
-                <br>
-                a tut test
-                <br>
-                    {{ prosecutorsoffice.employees.sort_by_weight }}
-                <br>
-                    {{ prosecutorsoffice.employees.all }}
-                    {% for employee in prosecutorsoffice.employees.all %}
-                        {% include table_loop %}
-                    {% endfor %}
+<form name="filter" action="/t/" method="GET">
+    {% csrf_token %}
 
-                </table>
-            </div>
+    <input name="exl" type="text" value="1"/><br>
+    <input name="exl" type="radio" value="2"/><br>
+    <input name="exl" type="submit" value="3"/><br>
 
-        {% endif %}
-        {% if prosecutorsoffice.department.all %}
-            {% for department in prosecutorsoffice.department.all %}
-                <center><h3>{{ department }}</h3></center>
-                {% if department.employees.all %}
+    ФИО:<br>
+    <input type="text" name="name"><br>
+    Tel:<br>
+    <input type="text" name="telephone"><br>
+    <input type="submit" align="right" value="Фільтрувати">
 
-                    <div style='margin-top:8px'>
-                    <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
 
-                    {% include table_header %}
-                    {% for employee in department.employees.all %}
-                        {% include table_loop %}
-                    {% endfor %}
-                {% endif %}
 
-            </table>
-            </div>
 
-                {% if department.division.all %}
-                    {% for division in department.division.all %}
-                        <center><h4>{{ division }}</h4></center>
-                        {% if division.employees.all %}
 
-                            <div style='margin-top:8px'>
-                            <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
+</form>
 
-                            {% include table_header %}
-                            {% for employee in division.employees.all %}
-                                {% include table_loop %}
-                            {% endfor %}
-                        {% endif %}
 
-                    </table>
-                    </div>
-
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-        {% if prosecutorsoffice.division.all %}
-            {% for division in prosecutorsoffice.division.all %}
-                <center><h4>{{ division }}</h4></center>
-                {% if division.employees.all %}
-
-                    <div style='margin-top:8px'>
-                    <table class='mover' width='100%' border='0' align='center' cellspacing='1' cellpadding='3'>
-
-                    {% include table_header %}
-                    {% for employee in division.employees.all %}
-                        {% include table_loop %}
-                    {% endfor %}
-                {% endif %}
-
-            </table>
-            </div>
-
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
-
-{% endblock %}
+{#параметры фильтрации#}
+{#1 блок работник#}
+{#    ФИО(фамилия имя отчество в одном поле)#}
+{#    Телефон (личный и рабочий в одном поле)#}
+{#2 блок Прокуратура#}
+{#    Название прокуратуры (список/название)#}
+{#    Управление#}
+{#    Отдел#}
