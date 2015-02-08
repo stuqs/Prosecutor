@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Прокуратура Одеської області{% endblock %}
+
+{% block content %}
+
+    {% for prosecutorsoffice in prosecutorsoffices %}
+        <center><h2>{{ prosecutorsoffice }}</h2></center>
+        {% if prosecutorsoffice.employees.all %}
+{{ prosecutorsoffice.set_all }}
+            <div>
+                <table class="simple-little-table" cellspacing='0'>
+
+                    {% include table_header %}
+                    {% for employee in prosecutorsoffice.sort_employees %}
+                        {% include table_loop %}
+                    {% endfor %}
+
+                </table>
+            </div>
+
+        {% endif %}
+        {% if prosecutorsoffice.department.all %}
+            {% for department in prosecutorsoffice.department.all %}
+                <center><h3>{{ department }}</h3></center>
+                {% if department.employees.all %}
+
+                    <div>
+                    <table class="simple-little-table" cellspacing='0'>
+
+                    {% include table_header %}
+                    {% for employee in department.sort_employees %}
+                        {% include table_loop %}
+                    {% endfor %}
+                {% endif %}
+
+            </table>
+            </div>
+
+                {% if department.division.all %}
+                    {% for division in department.division.all %}
+                        <center><h4>{{ division }}</h4></center>
+                        {% if division.employees.all %}
+
+                            <div>
+                            <table class="simple-little-table" cellspacing='0'>
+
+                            {% include table_header %}
+                            {% for employee in division.sort_employees %}
+                                {% include table_loop %}
+                            {% endfor %}
+                        {% endif %}
+
+                    </table>
+                    </div>
+
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if prosecutorsoffice.division.all %}
+            {% for division in prosecutorsoffice.division.all %}
+                <center><h4>{{ division }}</h4></center>
+                {% if division.employees.all %}
+
+                    <div>
+                    <table class="simple-little-table" cellspacing='0'>
+
+                    {% include table_header %}
+                    {% for employee in division.sort_employees %}
+                        {% include table_loop %}
+                    {% endfor %}
+                {% endif %}
+
+            </table>
+            </div>
+
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

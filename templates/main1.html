@@ -11,31 +11,28 @@ fieldset.inline-block{
 
 
 
-<form name="filter" action="/t/" method="GET">
+<form name="filter" action="/" method="GET" accept-charset="UTF-8" autocomplete="off">
     {% csrf_token %}
-
-    <input name="exl" type="text" value="1"/><br>
-    <input name="exl" type="radio" value="2"/><br>
-    <input name="exl" type="submit" value="3"/><br>
 
     ФИО:<br>
     <input type="text" name="name"><br>
-    Tel:<br>
+    Телефон:<br>
     <input type="text" name="telephone"><br>
-    <input type="submit" align="right" value="Фільтрувати">
 
 
 
+    Прокуратура:
+    <select name="pros_office">
+        <option value=""></option>
+        {% for office in prosecutorsoffices %}
+            <option value={{ office.id }}>{{ office.name }}</option>
+        {% endfor %}
+    </select><br>
 
+    Управление:
+    <input type="text" name="department"><br>
+    Отдел:
+    <input type="text" name="division"><br>
 
+    <input type="submit" align="right" value="Поиск">
 </form>
-
-
-{#параметры фильтрации#}
-{#1 блок работник#}
-{#    ФИО(фамилия имя отчество в одном поле)#}
-{#    Телефон (личный и рабочий в одном поле)#}
-{#2 блок Прокуратура#}
-{#    Название прокуратуры (список/название)#}
-{#    Управление#}
-{#    Отдел#}
