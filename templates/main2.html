@@ -8,7 +8,7 @@
         <center><h2>{{ prosecutorsoffice }}</h2></center>
         {% if prosecutorsoffice.employees.all %}
 {{ prosecutorsoffice.set_all }}
-            <div>
+
                 <table class="simple-little-table" cellspacing='0'>
 
                     {% include table_header %}
@@ -17,7 +17,6 @@
                     {% endfor %}
 
                 </table>
-            </div>
 
         {% endif %}
         {% if prosecutorsoffice.department.all %}
@@ -25,7 +24,6 @@
                 <center><h3>{{ department }}</h3></center>
                 {% if department.employees.all %}
 
-                    <div>
                     <table class="simple-little-table" cellspacing='0'>
 
                     {% include table_header %}
@@ -35,14 +33,12 @@
                 {% endif %}
 
             </table>
-            </div>
 
                 {% if department.division.all %}
                     {% for division in department.division.all %}
                         <center><h4>{{ division }}</h4></center>
                         {% if division.employees.all %}
 
-                            <div>
                             <table class="simple-little-table" cellspacing='0'>
 
                             {% include table_header %}
@@ -52,7 +48,6 @@
                         {% endif %}
 
                     </table>
-                    </div>
 
                     {% endfor %}
                 {% endif %}
@@ -63,7 +58,6 @@
                 <center><h4>{{ division }}</h4></center>
                 {% if division.employees.all %}
 
-                    <div>
                     <table class="simple-little-table" cellspacing='0'>
 
                     {% include table_header %}
@@ -73,7 +67,6 @@
                 {% endif %}
 
             </table>
-            </div>
 
             {% endfor %}
         {% endif %}
