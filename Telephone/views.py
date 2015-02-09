@@ -18,7 +18,7 @@ def main_page(request):
 
 
 
-    return render(request, 'main2.html', {'prosecutorsoffices': prosecutorsoffices, 'table_header': 'table_header.html',
+    return render(request, 'main.html', {'prosecutorsoffices': prosecutorsoffices, 'table_header': 'table_header.html',
                                          'table_loop': 'table_loop.html'})
 
 

@@ -107,6 +107,7 @@
 .main h1 {
 	margin: 0.8em 0 0.5em 0;
 	color: #333;
+    text-align: center;
 	font-weight: normal;
 	font-family: 'Orienta', sans-serif;
 	font-size: 36px;
@@ -116,6 +117,7 @@
 .main h2 {
 	margin: 0.8em 0 0.5em 0;
 	color: #333;
+    text-align: center;
 	font-weight: normal;
 	font-family: 'Orienta', sans-serif;
 	font-size: 30px;
@@ -128,6 +130,7 @@
 .main h3 {
 	margin: 0.8em 0 0.5em 0;
 	color: #333;
+    text-align: center;
 	font-weight: normal;
 	font-family: 'Orienta', sans-serif;
 	font-size: 24px;
@@ -137,6 +140,7 @@
 .main h4 {
 	margin: 0.8em 0 0.5em 0;
 	color: #333;
+    text-align: center;
 	font-weight: normal;
 	font-family: 'Orienta', sans-serif;
 	font-size: 18px;
