@@ -22,6 +22,28 @@ def main_page(request):
                                          'table_loop': 'table_loop.html'})
 
 
+
+def main_with_filter(request):
+    if request.GET['emp_name'] or request.GET['telephone']:
+        pass
+    elif request.GET['division']:
+        if request.GET['department']:
+
+            if request.GET['pros_office']:
+                pass
+
+            # just department
+            pass
+            # just division
+        pass
+    else:
+        # all view
+        pass
+
+
+
+
+
 def view_for_test(request, *args, **kwargs):
 
     print(request.GET)
