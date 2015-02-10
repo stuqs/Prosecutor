@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from Telephone.models import *
 
 def main_page(request):
-    print(request.GET)
+
     # print(request.GET['pros_office'])
     prosecutorsoffices = ProsecutorsOffice.objects.all()
     # if request.GET['pros_office']:
@@ -12,9 +12,9 @@ def main_page(request):
     # def sort_employees(self):
     #     return sorted(self.employees.all(), key=(lambda x=self.employees.all(): x.position.weight), reverse=True)
 
-# name
-# telephone
-# pros_office
+    # name
+    # telephone
+    # pros_office
 
 
 
@@ -24,12 +24,19 @@ def main_page(request):
 
 
 def main_with_filter(request):
-    if request.GET['emp_name'] or request.GET['telephone']:
-        pass
-    elif request.GET['division']:
-        if request.GET['department']:
+    emp = ''
+    print(request.GET)
 
-            if request.GET['pros_office']:
+
+    emp_name = request.GET.get('emp_name', default=None)
+    telephone = request.GET.get('telephone', default=None)
+    if emp_name or telephone:
+        emp = Employee.objects.filter(surname__icontains=emp_name, work_telephone__icontains=telephone)
+    elif request.GET.get('division', default=None):
+
+        if request.GET.get('department', default=None):
+
+            if request.GET.get('pros_office', default=None):
                 pass
 
             # just department
@@ -39,6 +46,10 @@ def main_with_filter(request):
     else:
         # all view
         pass
+
+
+    return render(request, 'main1.html', {'emp': emp})
+
 
 
 

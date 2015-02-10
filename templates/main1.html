@@ -35,7 +35,7 @@
 
 
 
-
+{{ emp }}
 
 
 
@@ -56,45 +56,45 @@
 
 
 
-
-
-
-
-<style type="text/css"><!--
-fieldset.explicit-width{
-    width: 30%; /* Will expand to fit content */
-}
-fieldset.inline-block{
-    display: inline-block;
-}
---></style>
-
-
-
-
-
-<form name="filter" action="/" method="GET" accept-charset="UTF-8" autocomplete="off">
-    {% csrf_token %}
-
-    ФИО:<br>
-    <input type="text" name="emp_name"><br>
-    Телефон:<br>
-    <input type="text" name="telephone"><br>
-
-
-
-    Прокуратура:
-    <select name="pros_office">
-        <option value=""></option>
-        {% for office in prosecutorsoffices %}
-            <option value={{ office.id }}>{{ office.name }}</option>
-        {% endfor %}
-    </select><br>
-
-    Управление:
-    <input type="text" name="department"><br>
-    Отдел:
-    <input type="text" name="division"><br>
-
-    <input type="submit" align="right" value="Поиск">
-</form>
+{##}
+{##}
+{##}
+{##}
+{#<style type="text/css"><!--#}
+{#fieldset.explicit-width{#}
+{#    width: 30%; /* Will expand to fit content */#}
+{#}#}
+{#fieldset.inline-block{#}
+{#    display: inline-block;#}
+{#}#}
+{#--></style>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#<form name="filter" action="/" method="GET" accept-charset="UTF-8" autocomplete="off">#}
+{#    {% csrf_token %}#}
+{##}
+{#    ФИО:<br>#}
+{#    <input type="text" name="emp_name"><br>#}
+{#    Телефон:<br>#}
+{#    <input type="text" name="telephone"><br>#}
+{##}
+{##}
+{##}
+{#    Прокуратура:#}
+{#    <select name="pros_office">#}
+{#        <option value=""></option>#}
+{#        {% for office in prosecutorsoffices %}#}
+{#            <option value={{ office.id }}>{{ office.name }}</option>#}
+{#        {% endfor %}#}
+{#    </select><br>#}
+{##}
+{#    Управление:#}
+{#    <input type="text" name="department"><br>#}
+{#    Отдел:#}
+{#    <input type="text" name="division"><br>#}
+{##}
+{#    <input type="submit" align="right" value="Поиск">#}
+{#</form>#}
