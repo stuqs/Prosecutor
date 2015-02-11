@@ -8,36 +8,46 @@
 <section class="main">
     <h1>Прокуратура Одеської області</h1>
 
-    <table class="simple-little-table" cellspacing='0'>
+
+    <table align="center">
+        <form name="filter" action="/t/" method="GET" accept-charset="UTF-8" autocomplete="off">
+
+            <tr>
+                <th>Поиск по ФИО</th>
+                <th>Фильтрация по прокуратуре</th>
+            </tr>
+            <tr>
+                <th><input type="text" name="employee"></th>
+                <th><input type="text" name="prosecutors_office"></th>
+            </tr>
+            <tr>
+                <th>Телефон</th>
+                <th>Управление</th>
+            </tr>
+            <tr>
+                <th><input type="text" name="telephone"></th>
+                <th><input type="text" name="department"></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Отдел</th>
+            </tr>
+            <tr>
+                <th><input type="submit" align="right" value="Поиск"></th>
+                <th><input type="text" name="division"></th>
+            </tr>
 
 
-        <tr>
-            <th width='50%'>#</th>
-            <th width='50%'>Фамилия имя отчество</th>
-        </tr>
-        <tr>
-            <th width='50%'>#</th>
-            <th width='50%'>Фамилия имя отчество</th>
-        </tr>
-        <tr>
-            <th width='50%'>#</th>
-            <th width='50%'>Фамилия имя отчество</th>
-        </tr>
-        <tr>
-            <th width='50%'>#</th>
-            <th width='50%'>Фамилия имя отчество</th>
-        </tr>
-
-
+        </form>
     </table>
 
 
 
+    {% for employee in employees %}
+<br>
+        {{ employee.department }}
 
-
-{{ emp }}
-
-
+    {% endfor %}
 
 
 

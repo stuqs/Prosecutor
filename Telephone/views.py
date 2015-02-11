@@ -24,40 +24,36 @@ def main_page(request):
 
 
 def main_with_filter(request):
-    emp = ''
+    employees = ''
     print(request.GET)
 
 
-    emp_name = request.GET.get('emp_name', default=None)
-    telephone = request.GET.get('telephone', default=None)
+    emp_name = request.GET.get('employee')
+    telephone = request.GET.get('telephone')
+    division = request.GET.get('division')
+    department = request.GET.get('department')
+    prosecutors_office = request.GET.get('prosecutors_office')
+
     if emp_name or telephone:
-        emp = Employee.objects.filter(surname__icontains=emp_name, work_telephone__icontains=telephone)
-    elif request.GET.get('division', default=None):
+        print(division)
+        employees = Employee.objects.filter(surname__icontains=emp_name, work_telephone__icontains=telephone)
+                                            # division__name__icontains=division, department__name__icontains=department)
+    elif division:
+        employees = Employee.objects.filter(division__icontains=division)
+        # return render(request, 'main1.html', {'employees': employees})
+        if department:
 
-        if request.GET.get('department', default=None):
-
-            if request.GET.get('pros_office', default=None):
+            if prosecutors_office:
                 pass
 
-            # just department
+            employees = Employee.objects.filter(division__icontains=division)
             pass
             # just division
         pass
     else:
-        # all view
+        # all
         pass
 
 
-    return render(request, 'main1.html', {'emp': emp})
+    return render(request, 'main1.html', {'employees': employees})
 
-
-
-
-
-
-def view_for_test(request, *args, **kwargs):
-
-    print(request.GET)
-    # return HttpResponseRedirect('/')
-    prosecutorsoffices = ProsecutorsOffice.objects.all()
-    return render(request, 'main1.html', {'prosecutorsoffices': prosecutorsoffices})

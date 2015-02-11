@@ -58,11 +58,18 @@ class PositionAdmin(admin.ModelAdmin):
     ordering = ('-weight',)
 
 
-admin.site.register(ProsecutorsOffice, ProsecutorsOfficeAdmin)
-admin.site.register(Department, DepartmentAdmin)
-admin.site.register(Division, DivisionAdmin)
-admin.site.register(Employee, EmployeeAdmin)
-admin.site.register(Position, PositionAdmin)
+# admin.site.register(ProsecutorsOffice, ProsecutorsOfficeAdmin)
+# admin.site.register(Department, DepartmentAdmin)
+# admin.site.register(Division, DivisionAdmin)
+# admin.site.register(Employee, EmployeeAdmin)
+# admin.site.register(Position, PositionAdmin)
+
+
+admin.site.register(ProsecutorsOffice)
+admin.site.register(Department)
+admin.site.register(Division)
+admin.site.register(Employee)
+admin.site.register(Position)
 
 
 # class TeamForm(forms.ModelForm):
