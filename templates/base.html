@@ -2,19 +2,22 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/media/css/style.css" type="text/css" />
+    <link rel="icon" type="image/ico" href="/media/img/favicon.ico" />
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 <section class="main">
-    <center><h1>Прокуратура Одеської області</h1></center>
+    <h1>Прокуратура Одеської області</h1>
+
+    {% block header %}{% endblock %}
+    {% block left %}{% endblock %}
+    {% block right %}{% endblock %}
     {% block content %}{% endblock %}
+
     {% block footer %}
-        <pre>
 
-
-</pre>
         <hr>
-        <p>Thanks for visiting my site.</p>
+        <p>FOOTER</p>
     {% endblock %}
 </section>
 </body>

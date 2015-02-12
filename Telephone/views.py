@@ -1,15 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from Telephone.models import *
+from Prosecutor.settings import FILTER
 
 
-FILTER = {
-    'employee': 'surname__icontains',
-    'telephone': 'work_telephone__icontains',
-    'division': 'division__name__icontains',
-    'department': 'department__name__icontains',
-    'prosecutors_office': 'prosecutors_office__name__icontains',
-    }
+def positin_sort(self):
+    return sorted(self.objects.all(), key=(lambda x=self.objects.all(): x.position.weight), reverse=True)
 
 def main_page(request):
     prosecutorsoffices = ProsecutorsOffice.objects.all()
@@ -26,8 +22,10 @@ def main_with_filter(request):
             field_query = {FILTER[k]: v}
             employee_list = employee_list.filter(**field_query)
     if filtered:
-        return render(request, 'main1.html', {'employees': employee_list})
+        return render(request, 'main.html', {'employees': employee_list, 'filter_header': 'filter_header.html', 'table_header': 'table_header.html',
+                                         'table_loop': 'table_loop.html'})
     else:
-        # Return all view
-        return render(request, 'main1.html', {'employees': ''})
+        # Return Po vashemu zaprosu nichego ne naideno
+        return render(request, 'main.html', {'employees': '', 'filter_header': 'filter_header.html', 'table_header': 'table_header.html',
+                                         'table_loop': 'table_loop.html'})
 

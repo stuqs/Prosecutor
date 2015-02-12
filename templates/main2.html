@@ -2,26 +2,30 @@
 
 {% block title %}Прокуратура Одеської області{% endblock %}
 
+{% block header %}
+    {% include filter_header %}
+{% endblock %}
+
 {% block content %}
 
     {% for prosecutorsoffice in prosecutorsoffices %}
-        <center><h2>{{ prosecutorsoffice }}</h2></center>
+        <h2>{{ prosecutorsoffice }}</h2>
         {% if prosecutorsoffice.employees.all %}
-{{ prosecutorsoffice.set_all }}
+            {{ prosecutorsoffice.set_all }}
 
-                <table class="simple-little-table" cellspacing='0'>
+            <table class="simple-little-table" cellspacing='0'>
 
-                    {% include table_header %}
-                    {% for employee in prosecutorsoffice.sort_employees %}
-                        {% include table_loop %}
-                    {% endfor %}
+                {% include table_header %}
+                {% for employee in prosecutorsoffice.sort_employees %}
+                    {% include table_loop %}
+                {% endfor %}
 
-                </table>
+            </table>
 
         {% endif %}
         {% if prosecutorsoffice.department.all %}
             {% for department in prosecutorsoffice.department.all %}
-                <center><h3>{{ department }}</h3></center>
+                <h3>{{ department }}</h3>
                 {% if department.employees.all %}
 
                     <table class="simple-little-table" cellspacing='0'>
@@ -36,7 +40,7 @@
 
                 {% if department.division.all %}
                     {% for division in department.division.all %}
-                        <center><h4>{{ division }}</h4></center>
+                        <h4>{{ division }}</h4>
                         {% if division.employees.all %}
 
                             <table class="simple-little-table" cellspacing='0'>
@@ -55,7 +59,7 @@
         {% endif %}
         {% if prosecutorsoffice.division.all %}
             {% for division in prosecutorsoffice.division.all %}
-                <center><h4>{{ division }}</h4></center>
+                <h4>{{ division }}</h4>
                 {% if division.employees.all %}
 
                     <table class="simple-little-table" cellspacing='0'>
