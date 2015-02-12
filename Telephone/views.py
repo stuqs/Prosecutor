@@ -2,58 +2,32 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from Telephone.models import *
 
+
+FILTER = {
+    'employee': 'surname__icontains',
+    'telephone': 'work_telephone__icontains',
+    'division': 'division__name__icontains',
+    'department': 'department__name__icontains',
+    'prosecutors_office': 'prosecutors_office__name__icontains',
+    }
+
 def main_page(request):
-
-    # print(request.GET['pros_office'])
     prosecutorsoffices = ProsecutorsOffice.objects.all()
-    # if request.GET['pros_office']:
-    #     prosecutorsoffices = ProsecutorsOffice.objects.filter(id=request.GET['pros_office'])
-    #
-    # def sort_employees(self):
-    #     return sorted(self.employees.all(), key=(lambda x=self.employees.all(): x.position.weight), reverse=True)
-
-    # name
-    # telephone
-    # pros_office
-
-
-
     return render(request, 'main.html', {'prosecutorsoffices': prosecutorsoffices, 'table_header': 'table_header.html',
                                          'table_loop': 'table_loop.html'})
 
 
-
 def main_with_filter(request):
-    employees = ''
-    print(request.GET)
-
-
-    emp_name = request.GET.get('employee')
-    telephone = request.GET.get('telephone')
-    division = request.GET.get('division')
-    department = request.GET.get('department')
-    prosecutors_office = request.GET.get('prosecutors_office')
-
-    if emp_name or telephone:
-        print(division)
-        employees = Employee.objects.filter(surname__icontains=emp_name, work_telephone__icontains=telephone)
-                                            # division__name__icontains=division, department__name__icontains=department)
-    elif division:
-        employees = Employee.objects.filter(division__icontains=division)
-        # return render(request, 'main1.html', {'employees': employees})
-        if department:
-
-            if prosecutors_office:
-                pass
-
-            employees = Employee.objects.filter(division__icontains=division)
-            pass
-            # just division
-        pass
+    employee_list = Employee.objects.all()
+    filtered = False
+    for k, v in request.GET.items():
+        if FILTER.get(k) and v:
+            filtered = True
+            field_query = {FILTER[k]: v}
+            employee_list = employee_list.filter(**field_query)
+    if filtered:
+        return render(request, 'main1.html', {'employees': employee_list})
     else:
-        # all
-        pass
-
-
-    return render(request, 'main1.html', {'employees': employees})
+        # Return all view
+        return render(request, 'main1.html', {'employees': ''})
 
