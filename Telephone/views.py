@@ -4,8 +4,9 @@ from Telephone.models import *
 from Prosecutor.settings import FILTER
 
 
-def positin_sort(self):
-    return sorted(self.objects.all(), key=(lambda x=self.objects.all(): x.position.weight), reverse=True)
+def positin_sort(emp_list):
+    return sorted(emp_list, key=(lambda x=emp_list: x.position.weight), reverse=True)
+
 
 def main_page(request):
     prosecutorsoffices = ProsecutorsOffice.objects.all()
@@ -22,10 +23,14 @@ def main_with_filter(request):
             field_query = {FILTER[k]: v}
             employee_list = employee_list.filter(**field_query)
     if filtered:
-        return render(request, 'main.html', {'employees': employee_list, 'filter_header': 'filter_header.html', 'table_header': 'table_header.html',
-                                         'table_loop': 'table_loop.html'})
+
+        return render(request, 'main.html', {'employees': positin_sort(employee_list), 'filter_header': 'filter_header.html',
+                                             'table_header': 'table_header.html', 'table_loop': 'table_loop.html'})
     else:
         # Return Po vashemu zaprosu nichego ne naideno
-        return render(request, 'main.html', {'employees': '', 'filter_header': 'filter_header.html', 'table_header': 'table_header.html',
-                                         'table_loop': 'table_loop.html'})
+        return render(request, 'main.html', {'employees': '', 'filter_header': 'filter_header.html',
+                                             'table_header': 'table_header.html', 'table_loop': 'table_loop.html'})
 
+
+def employees_all(request):
+    pass

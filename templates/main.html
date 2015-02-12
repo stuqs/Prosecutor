@@ -8,12 +8,12 @@
 
 {% block content %}
 
-
     {% if employees %}
         <table class="simple-little-table" cellspacing='0'>
         {% include table_header %}
         {% for employee in employees %}
             {% include table_loop %}
         {% endfor %}
+        </table>
     {% endif %}
 {% endblock %}
