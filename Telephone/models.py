@@ -47,9 +47,6 @@ class Employee(models.Model):
     def __str__(self):
         return "{} {} {}".format(self.name, self.surname, self.patronymic)
 
-    def positin_sort(self):
-        return sorted(self.objects.all(), key=(lambda x=self.objects.all(): x.position.weight), reverse=True)
-
 
 class Division(models.Model):
     """

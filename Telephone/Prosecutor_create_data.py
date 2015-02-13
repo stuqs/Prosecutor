@@ -6,26 +6,105 @@ print(User.objects.create_superuser(username='admin', password='admin', email='A
 
 ##################################################################
 
-p1 = Position(po_name='заступник начальника управління', weight=250)
+p1 = Position(po_name='Заступник начальника управління', weight=375)
 p1.save()
 
-p2 = Position(po_name='начальник відділу', weight=200)
+p2 = Position(po_name='Начальник відділу', weight=350)
 p2.save()
 
-p3 = Position(po_name='прокурор', weight=100)
+p3 = Position(po_name='Прокурор', weight=200)
 p3.save()
 
-p4 = Position(po_name='Прокурор области', weight=500)
+p4 = Position(po_name='Прокурор області', weight=500)
 p4.save()
 
-p4 = Position(po_name='Заступник Прокурор области', weight=400)
+p4 = Position(po_name='Заступник прокурора області', weight=450)
 p4.save()
 
-p5 = Position(po_name='Техныч працывник', weight=50)
+p5 = Position(po_name='Слідчий в ОВС', weight=150)
 p5.save()
 
-p6 = Position(po_name='начальник управлыння', weight=300)
+p6 = Position(po_name='Начальник управління', weight=400)
 p6.save()
+
+p7 = Position(po_name='Перший заступник прокурора області', weight=475)
+p7.save()
+
+p8 = Position(po_name='Старший прокурор', weight=250)
+p8.save()
+
+p9 = Position(po_name='Заступник начальника відділу', weight=325)
+p9.save()
+
+p10 = Position(po_name='Заступник начальника управління – начальник відділу', weight=390)
+p10.save()
+
+p11 = Position(po_name='Старший слідчий', weight=100)
+p11.save()
+
+p12 = Position(po_name='Старший прокурор відділу', weight=240)
+p12.save()
+
+p13 = Position(po_name='Прокурор відділу', weight=190)
+p13.save()
+
+p14 = Position(po_name='Головний спеціаліст - консультант', weight=90)
+p14.save()
+
+p15 = Position(po_name='Головний спеціаліст з питань мобілізаційної роботи', weight=85)
+p15.save()
+
+p16 = Position(po_name='Головний спеціаліст - психолог', weight=80)
+p16.save()
+
+p17 = Position(po_name='Провідний спеціаліст', weight=50)
+p17.save()
+
+p18 = Position(po_name='Спеціаліст 2 категорії', weight=40)
+p18.save()
+
+p19 = Position(po_name='Головний спеціаліст', weight=70)
+p19.save()
+
+p20 = Position(po_name='Завідувач господарства', weight=20)
+p20.save()
+
+p21 = Position(po_name='Завідувач складу', weight=15)
+p21.save()
+
+p21 = Position(po_name='Головний спеціаліст з питань захисту державних таємниць', weight=40)
+p21.save()
+
+p22 = Position(po_name='Начальник секретаріату', weight=90)
+p22.save()
+
+p23 = Position(po_name='Спеціаліст 1 категорії', weight=45)
+p23.save()
+
+p24 = Position(po_name='Завідувач копіювально-розмножувального бюро', weight=20)
+p24.save()
+
+p25 = Position(po_name='Архіваріус', weight=15)
+p25.save()
+
+p26 = Position(po_name='Начальник відділу – головний бухгалтер', weight=90)
+p26.save()
+
+p27 = Position(po_name='Заступник начальника відділу – заступник головного бухгалтера', weight=85)
+p27.save()
+
+p28 = Position(po_name='Прес-секретар', weight=30)
+p28.save()
+
+p29 = Position(po_name='Журналіст', weight=20)
+p29.save()
+
+
+
+
+
+
+
 
 ##################################################################
 

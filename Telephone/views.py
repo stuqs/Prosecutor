@@ -5,7 +5,7 @@ from Prosecutor.settings import FILTER
 
 
 def positin_sort(emp_list):
-    return sorted(emp_list, key=(lambda x=emp_list: x.position.weight), reverse=True)
+    return sorted(emp_list, key=lambda x=emp_list: (-x.position.weight, x.surname))
 
 
 def main_page(request):
@@ -16,21 +16,27 @@ def main_page(request):
 
 def main_with_filter(request):
     employee_list = Employee.objects.all()
-    filtered = False
     for k, v in request.GET.items():
         if FILTER.get(k) and v:
-            filtered = True
             field_query = {FILTER[k]: v}
             employee_list = employee_list.filter(**field_query)
-    if filtered:
-
-        return render(request, 'main.html', {'employees': positin_sort(employee_list), 'filter_header': 'filter_header.html',
-                                             'table_header': 'table_header.html', 'table_loop': 'table_loop.html'})
-    else:
-        # Return Po vashemu zaprosu nichego ne naideno
-        return render(request, 'main.html', {'employees': '', 'filter_header': 'filter_header.html',
-                                             'table_header': 'table_header.html', 'table_loop': 'table_loop.html'})
 
 
-def employees_all(request):
-    pass
+
+
+    PO = ProsecutorsOffice.objects.all()
+
+
+
+
+
+
+
+
+
+
+
+
+    return render(request, 'main.html', {'employees': positin_sort(employee_list), 'filter_header': 'filter_header.html',
+                                         'table_header': 'table_header.html', 'table_loop': 'table_loop.html'})
+
