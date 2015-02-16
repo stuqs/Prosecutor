@@ -7,19 +7,34 @@ from Prosecutor.settings import FILTER
 def positin_sort(emp_list):
     return sorted(emp_list, key=lambda x=emp_list: (-x.position.weight, x.surname))
 
+
+def adder(where, what, key):
+    if what in where:
+        pass
+    else:
+        where[what] = key
+
+
 def show_structure(employees, po_list):
     employees_dict = {}
     for pros_office in po_list:
-        employees_dict[pros_office] = {'employees': [], 'departments': {'employees': [], 'division': []}, 'division': []}
+        employees_dict[pros_office] = {'employees': [], 'departments': {}, 'division': {}}
     for employee in employees:
         if employee.prosecutors_office and employee.department and employee.division:
-            employees_dict[employee.prosecutors_office]
-            employees_dict[employee.prosecutors_office]['departments']['division'].append(employee.division)
-            # print(employees_dict[employee.prosecutors_office][employee.department][employee.division])#.add(employee)
-
-
-
+            adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
+            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], employee.division, [])
+            employees_dict[employee.prosecutors_office]['departments'][employee.department][employee.division].append(employee)
+        elif employee.prosecutors_office and employee.department:
+            adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
+            adder(employees_dict[employee.prosecutors_office]['departments'], 'employees', [])
+            employees_dict[employee.prosecutors_office]['departments']['employees'].append(employee)
+        elif employee.prosecutors_office and employee.division:
+            adder(employees_dict[employee.prosecutors_office]['division'], employee.division, [])
+            employees_dict[employee.prosecutors_office]['division'][employee.division].append(employee)
+        elif employee.prosecutors_office:
+            employees_dict[employee.prosecutors_office]['employees'].append(employee)
     return employees_dict
+
 
 def main_page(request):
     prosecutorsoffices = ProsecutorsOffice.objects.all()
@@ -46,7 +61,7 @@ def main_with_filter(request):
 
 
     print(show_structure(employee_list, po_list))
-    print(employee_list)
+
 
 
     # Division-department
