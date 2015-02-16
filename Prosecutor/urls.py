@@ -9,8 +9,8 @@ from django.conf import settings
 urlpatterns = patterns('',
 
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^$', main_page),
-                       url(r'^t/$', main_with_filter),
+                       url(r'^$', main_with_filter),
+                       # url(r'^t/$', main_with_filter),
 )
 
 if settings.DEBUG:
