@@ -25,8 +25,8 @@ def show_structure(employees, po_list):
             employees_dict[employee.prosecutors_office]['departments'][employee.department][employee.division].append(employee)
         elif employee.prosecutors_office and employee.department:
             adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
-            adder(employees_dict[employee.prosecutors_office]['departments'], 'employees', [])
-            employees_dict[employee.prosecutors_office]['departments']['employees'].append(employee)
+            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'employees', [])
+            employees_dict[employee.prosecutors_office]['departments'][employee.department]['employees'].append(employee)
         elif employee.prosecutors_office and employee.division:
             adder(employees_dict[employee.prosecutors_office]['division'], employee.division, [])
             employees_dict[employee.prosecutors_office]['division'][employee.division].append(employee)

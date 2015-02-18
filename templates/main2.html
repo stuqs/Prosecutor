@@ -5,57 +5,56 @@
 {% for po in employees_dict %}
     {{ po }}
     <br>
-{#    Проверить если список пустой что будет, писать ли иф#}
-{#    Зафигачить шапку#}
-{% for employee in employees_dict|tel_get:po|tel_get:'employees' %}
-    {{ employee }}
-    <br>
+    {#    Проверить если список пустой что будет, писать ли иф#}
+
+
+    {% if employees_dict|tel_get:po|tel_get:'employees' %}
+
+        ШАПКА
+        <br>
+
+        {% for employee in employees_dict|tel_get:po|tel_get:'employees' %}
+
+            {{ employee }}
+            <br>
+        {% endfor %}
+    {% endif %}
+
+
+
+    {% for department in employees_dict|tel_get:po|tel_get:'departments' %}
+
+        {{ department }}
+        <br>
+
+        {% if employees_dict|tel_get:po|tel_get:department %}
+
+            ШАПКА
+            <br>
+
+            {% for employee in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'employees' %}
+
+                {{ employee }}
+                <br>
+            {% endfor %}
+
+        {% endif %}
+
+        ТУТ фиачим отделы управления
+        работники отделов
+
+
+
+
     {% endfor %}
-    {% endfor %}
-
-{#    {{ employees_dict|tel_get:po|tel_get:'employees' }}#}
-{#{% endfor %}#}
 
 
-{#{% for po in employees_dict %}#}
-{##}
-{##}
-{#        {{ key }}<br>#}
-{#       {{ val }}#}
-{##}
-{##}
-{#        {% if po.employees %}#}
-{#            {{ po.employees }}#}
-{##}
-{#    {% endif %}#}
-{#    {% endfor %}#}
+
+        отделы прокуратуры
+        работники отделов прокуратуры
 
 
-{#    {{ po.name }}#}
-{#    {{ employees_dict }}#}
-{##}
-{#        {% if po.employees %}#}
-{#            {{ po.employees }}#}
-{##}
-{#    {% endif %}#}
-{#    {% endfor %}#}
-{##}
-{##}
-{#    {% if po['employees'] %}#}
-{#        {% for employee in department['employees'] %}#}
-{#        {{ employee }}#}
-{#    {% endif %}#}
-{#    {% for department in po['department'] %}#}
-{#        {{ department.name }}#}
-{#        {% if department['employees'] %}#}
-{#            {% for employees in department['employees'] %}#}
-{#            {{ employee }}#}
-{#        {% endif %}#}
-{#        {% for division in department['divisions '] %}#}
-{#            {% for employee in division %}#}
-{#                {{ employee }}#}
-{#            {% endfor %}#}
-{#        {% endfor %}#}
-{#    {% endfor %}#}
-{#{% endfor %}#}
-{#{% endfor %}#}
+
+
+{% endfor %}
+
