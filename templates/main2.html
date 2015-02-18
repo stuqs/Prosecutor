@@ -1,8 +1,13 @@
 {% for po in employees_dict %}
     {{ po.name }}
+    {{ po.employees }}
+        {% if po.employees %}
+            {{ po.employees }}
+
+    {% endif %}
     {% endfor %}
-
-
+{##}
+{##}
 {#    {% if po['employees'] %}#}
 {#        {% for employee in department['employees'] %}#}
 {#        {{ employee }}#}
