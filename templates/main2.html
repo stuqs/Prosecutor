@@ -1,11 +1,44 @@
-{% for po in employees_dict %}
-    {{ po.name }}
-    {{ po.employees }}
-        {% if po.employees %}
-            {{ po.employees }}
+{% load app_filters %}
 
-    {% endif %}
+
+
+{% for po in employees_dict %}
+    {{ po }}
+    <br>
+{#    Проверить если список пустой что будет, писать ли иф#}
+{#    Зафигачить шапку#}
+{% for employee in employees_dict|tel_get:po|tel_get:'employees' %}
+    {{ employee }}
+    <br>
     {% endfor %}
+    {% endfor %}
+
+{#    {{ employees_dict|tel_get:po|tel_get:'employees' }}#}
+{#{% endfor %}#}
+
+
+{#{% for po in employees_dict %}#}
+{##}
+{##}
+{#        {{ key }}<br>#}
+{#       {{ val }}#}
+{##}
+{##}
+{#        {% if po.employees %}#}
+{#            {{ po.employees }}#}
+{##}
+{#    {% endif %}#}
+{#    {% endfor %}#}
+
+
+{#    {{ po.name }}#}
+{#    {{ employees_dict }}#}
+{##}
+{#        {% if po.employees %}#}
+{#            {{ po.employees }}#}
+{##}
+{#    {% endif %}#}
+{#    {% endfor %}#}
 {##}
 {##}
 {#    {% if po['employees'] %}#}

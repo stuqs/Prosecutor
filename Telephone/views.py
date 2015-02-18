@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from Telephone.models import *
 from Prosecutor.settings import FILTER
 
@@ -53,21 +52,8 @@ def main_with_filter(request):
 
 
     po_list = ProsecutorsOffice.objects.all()
-    #
-    # department_list = Department.objects.all()
-    # divisions_list = Division.objects.all()
-    # employees_dict = {}
-    #
-
 
     print(show_structure(employee_list, po_list))
-
-
-
-    # Division-department
-    # Division-prosecutors_office
-    #
-    # Department-prosecutors_office
 
     return render(request, 'main.html', {'employees': positin_sort(employee_list), 'filter_header': 'filter_header.html',
                                          'table_header': 'table_header.html', 'table_loop': 'table_loop.html'})
