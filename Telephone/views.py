@@ -17,19 +17,20 @@ def adder(where, what, key):
 def show_structure(employees, po_list):
     employees_dict = {}
     for pros_office in po_list:
-        employees_dict[pros_office] = {'employees': [], 'departments': {}, 'division': {}}
+        employees_dict[pros_office] = {'employees': [], 'departments': {}, 'divisions': {}}
     for employee in employees:
         if employee.prosecutors_office and employee.department and employee.division:
             adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
-            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], employee.division, [])
-            employees_dict[employee.prosecutors_office]['departments'][employee.department][employee.division].append(employee)
+            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'divisions', {})
+            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'], employee.division, [])
+            employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'][employee.division].append(employee)
         elif employee.prosecutors_office and employee.department:
             adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
             adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'employees', [])
             employees_dict[employee.prosecutors_office]['departments'][employee.department]['employees'].append(employee)
         elif employee.prosecutors_office and employee.division:
-            adder(employees_dict[employee.prosecutors_office]['division'], employee.division, [])
-            employees_dict[employee.prosecutors_office]['division'][employee.division].append(employee)
+            adder(employees_dict[employee.prosecutors_office]['divisions'], employee.division, [])
+            employees_dict[employee.prosecutors_office]['divisions'][employee.division].append(employee)
         elif employee.prosecutors_office:
             employees_dict[employee.prosecutors_office]['employees'].append(employee)
     return employees_dict

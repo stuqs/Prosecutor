@@ -5,7 +5,6 @@
 {% for po in employees_dict %}
     {{ po }}
     <br>
-    {#    Проверить если список пустой что будет, писать ли иф#}
 
 
     {% if employees_dict|tel_get:po|tel_get:'employees' %}
@@ -27,7 +26,7 @@
         {{ department }}
         <br>
 
-        {% if employees_dict|tel_get:po|tel_get:department %}
+        {% if employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'employees' %}
 
             ШАПКА
             <br>
@@ -37,21 +36,33 @@
                 {{ employee }}
                 <br>
             {% endfor %}
-
         {% endif %}
 
-        ТУТ фиачим отделы управления
-        работники отделов
+        {% for division in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'divisions' %}
 
 
+            {{ division }}
+            <br>
 
+            {% for employee in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'divisions'|tel_get:division %}
 
+                {{ employee }}
+                <br>
+            {% endfor %}
+        {% endfor %}
     {% endfor %}
 
 
 
-        отделы прокуратуры
-        работники отделов прокуратуры
+    {% for division in employees_dict|tel_get:po|tel_get:'divisions' %}
+        {{ division }}
+        <br>
+        {% for employee in employees_dict|tel_get:po|tel_get:'divisions'|tel_get:division %}
+            {{ employee }}
+            <br>
+        {% endfor %}
+    {% endfor %}
+
 
 
 
