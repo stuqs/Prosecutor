@@ -20,6 +20,21 @@ class EmployeeAdmin(admin.ModelAdmin):
     # list_per_page = 50
     # save_on_top = True        #для моделей с большим колвом данных
 
+    def save_model(self, request, obj, form, change):
+        """
+        Function for before saving object edit, set the right division-department-po tree structure
+        """
+        if obj.division:
+            obj.department = obj.division.department
+            obj.prosecutors_office = obj.division.prosecutors_office
+        elif obj.department:
+            obj.prosecutors_office = obj.department.prosecutors_office
+        obj.save()
+
+
+
+
+
 
 class DivisionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
