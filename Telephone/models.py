@@ -3,7 +3,7 @@ from django.db import models
 
 class Position(models.Model):
     """
-    Модель для всех должности сотрудников, нужна что бы производить сортировку при выводе из БД
+    Модель для должностей сотрудников, нужна что бы производить сортировку при выводе из БД
     """
     po_name = models.CharField(max_length=100, verbose_name='Должность')
     weight = models.PositiveSmallIntegerField(verbose_name='Вес для сортировки', default=1)
@@ -34,9 +34,15 @@ class Employee(models.Model):
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', blank=True, null=True, verbose_name='Прокуратура')
 
     def tel_work_escape(self):
+        """
+        Returns tel. numbers with tegs if it is many (splitted by ;)
+        """
         return "<br>".join(self.work_telephone.replace(" ", "").split(';'))
 
     def tel_private_escape(self):
+        """
+        Returns tel. numbers with tegs if it is many (splitted by ;)
+        """
         return "<br>".join(self.private_telephone.replace(" ", "").split(';'))
 
     class Meta:

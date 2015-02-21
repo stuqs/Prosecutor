@@ -11,18 +11,19 @@ class ProsecutorsOfficeInline(admin.TabularInline):
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
+    ordering = ['position']
     list_display_links = ('surname', 'name', 'patronymic')
     list_editable = ('work_telephone',)
     search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     fields = (('name', 'surname', 'patronymic'), 'position', ('work_telephone', 'private_telephone'),
               'prosecutors_office', 'department', 'division')
-    # raw_id_fields = ("position",)     если должностей будет очень много
+    # raw_id_fields = ("position",)     если должностей будет очень много(поле поиска а не селект)
     # list_per_page = 50
-    # save_on_top = True        #для моделей с большим колвом данных
+    # save_on_top = True        #для моделей с большим колвом данных (добавляет поле сохранения сверху)
 
     def save_model(self, request, obj, form, change):
         """
-        Function for before saving object edit, set the right division-department-po tree structure
+        Function for editing object before save, set the right division-department-po tree structure
         """
         if obj.division:
             obj.department = obj.division.department
@@ -32,17 +33,31 @@ class EmployeeAdmin(admin.ModelAdmin):
         obj.save()
 
 
-
-
-
-
 class DivisionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
+    list_display = ('name', 'counter_empl')
 
+    def counter_empl(self, obj):
+        """
+        Count for eployees in Division
+        :param obj: Division object
+        :return: Number of employees
+        """
+        return Employee.objects.filter(division__id=obj.id).count()
+    counter_empl.short_description = "Количество работников"
 
 class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ('name',)
+    list_display = ('name', 'counter_empl')
 
+    def counter_empl(self, obj):
+        """
+        Count for eployees in Department
+        :param obj: Department object
+        :return: Number of employees
+        """
+        return Employee.objects.filter(department__id=obj.id).count()
+    counter_empl.short_description = "Количество работников"
 
 class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
@@ -52,18 +67,12 @@ class ProsecutorsOfficeAdmin(admin.ModelAdmin):
 
     def counter_empl(self, obj):
         """
-        Подсчитывает количество работников в Прокуратуре
-        :param obj: Передается сам обьект
-        :return: Количество работников
+        Count for eployees in PO
+        :param obj: PO object
+        :return: Number of employees
         """
         return Employee.objects.filter(prosecutors_office__id=obj.id).count()
     counter_empl.short_description = "Количество работников"
-
-
-
-
-
-
 
 
 admin.site.register(Employee, EmployeeAdmin)
@@ -71,16 +80,3 @@ admin.site.register(Position, PositionAdmin)
 admin.site.register(Division, DivisionAdmin)
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(ProsecutorsOffice, ProsecutorsOfficeAdmin)
-
-
-
-
-# class TeamForm(forms.ModelForm):
-#     manager = forms.ModelChoiceField(queryset=User.objects.order_by('username'))
-#
-#     class Meta:
-#         model = Team
-#
-# class TeamAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'manager')
-#     form = TeamForm

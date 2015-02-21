@@ -103,7 +103,7 @@ TEMPLATES = [
         },
     },
 ]
-
+# Keywords for searching in database
 FILTER = {
     'employee': 'surname__icontains',
     'telephone': 'work_telephone__icontains',

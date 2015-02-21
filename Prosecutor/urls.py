@@ -7,10 +7,8 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', main_with_filter),
-                       url(r'^t/$', main_test),
 )
 
 if settings.DEBUG:

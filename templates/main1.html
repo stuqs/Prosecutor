@@ -1,69 +1,19 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="/media/css/style.css" type="text/css" />
-    <title>Filter</title>
-</head>
-<body>
-<section class="main">
-    <h1>Прокуратура Одеської області</h1>
+{% extends "base.html" %}
 
+{% block title %}Прокуратура Одеської області{% endblock %}
 
-    <table align="center">
-        <form name="filter" action="/t/" method="GET" accept-charset="UTF-8" autocomplete="off">
+{% block header %}
+    {% include filter_header %}
+{% endblock %}
 
-            <tr>
-                <th>Поиск по ФИО</th>
-                <th>Фильтрация по прокуратуре</th>
-            </tr>
-            <tr>
-                <th><input type="text" name="employee"></th>
-                <th><input type="text" name="prosecutors_office"></th>
-            </tr>
-            <tr>
-                <th>Телефон</th>
-                <th>Управление</th>
-            </tr>
-            <tr>
-                <th><input type="text" name="telephone"></th>
-                <th><input type="text" name="department"></th>
-            </tr>
-            <tr>
-                <th></th>
-                <th>Отдел</th>
-            </tr>
-            <tr>
-                <th><input type="submit" align="right" value="Поиск"></th>
-                <th><input type="text" name="division"></th>
-            </tr>
+{% block content %}
 
-
-        </form>
-    </table>
-
-
-
-    {% for employee in employees %}
-<br>
-       {{ employee }} --- {{ employee.tel_work_escape }} --- {{ employee.division }} --- {{ employee.department }} --- {{ employee.prosecutors_office }}
-
-    {% endfor %}
-
-
-
-</section>
-</body>
-</html>
-
-
-
-
-
-{#    Прокуратура:#}
-{#    <select name="pros_office">#}
-{#        <option value=""></option>#}
-{#        {% for office in prosecutorsoffices %}#}
-{#            <option value={{ office.id }}>{{ office.name }}</option>#}
-{#        {% endfor %}#}
-{#    </select><br>#}
-{##}
+    {% if employees %}
+        <table class="simple-little-table" cellspacing='0'>
+        {% include table_header %}
+        {% for employee in employees %}
+            {% include table_loop %}
+        {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
