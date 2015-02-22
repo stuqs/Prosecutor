@@ -39,7 +39,8 @@ def creat_employee_structure(employees):
             adder(employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'], employee.division, [])
             employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'][employee.division].append(employee)
         elif employee.prosecutors_office and employee.department:
-            adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {'employees': []})
+            adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
+            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'employees', [])
             employees_dict[employee.prosecutors_office]['departments'][employee.department]['employees'].append(employee)
         elif employee.prosecutors_office and employee.division:
             adder(employees_dict[employee.prosecutors_office]['divisions'], employee.division, [])
@@ -79,9 +80,7 @@ def main_with_filter(request):
     return render(request, 'main.html', {'employees_dict': employees_dict, 'filter_header': 'filter_header.html',
                                          'table_header': 'table_header.html', 'table_loop': 'table_loop.html'})
 
+
 def tree_structure(request):
-    po = ProsecutorsOffice.objects.all()
-
-
-    print(creat_tree_structure())
-    return render(request, 'main2.html', {'po': po, })
+    structure = creat_tree_structure()
+    return render(request, 'structure.html', {'structure': structure})
