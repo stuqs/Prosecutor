@@ -35,7 +35,8 @@ def creat_employee_structure(employees):
     for employee in positin_sort(employees):
         adder(employees_dict, employee.prosecutors_office, {'employees': [], 'departments': {}, 'divisions': {}})
         if employee.prosecutors_office and employee.department and employee.division:
-            adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {'divisions': {}})
+            adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
+            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'divisions', {})
             adder(employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'], employee.division, [])
             employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'][employee.division].append(employee)
         elif employee.prosecutors_office and employee.department:
