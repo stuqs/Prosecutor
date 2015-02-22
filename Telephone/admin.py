@@ -46,6 +46,15 @@ class DivisionAdmin(admin.ModelAdmin):
         return Employee.objects.filter(division__id=obj.id).count()
     counter_empl.short_description = "Количество работников"
 
+    def save_model(self, request, obj, form, change):
+        """
+        Function for editing object before save, set the right department-po tree structure
+        """
+        if obj.department:
+            obj.prosecutors_office = obj.department.prosecutors_office
+        obj.save()
+
+
 class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_display = ('name', 'counter_empl')

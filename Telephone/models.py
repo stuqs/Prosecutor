@@ -63,7 +63,6 @@ class Division(models.Model):
     department = models.ForeignKey('Department', blank=True, null=True, verbose_name='Управление')
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', blank=True, null=True, verbose_name='Прокуратура')
 
-
     class Meta:
         ordering = ('name',)
         verbose_name = 'Отдел'
