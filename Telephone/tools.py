@@ -76,6 +76,9 @@ def create_tree_structure():
 
 
 def regular_telephone(telephone_list):
+    """
+    Create nice view to telephone numbers
+    """
     return_tel_list = []
     for telephone in telephone_list:
         if len(telephone) == 6:

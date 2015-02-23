@@ -4,7 +4,6 @@ from Prosecutor.settings import FILTER
 from Telephone.tools import *
 
 
-
 def main_with_filter(request):
     """
     Main page with filter
