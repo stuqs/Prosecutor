@@ -15,7 +15,7 @@
             {% for department in structure|tel_get:po|tel_get:'departments' %}
 
                 <li>{{ department }}</li>
-<hr>
+
                 <ul>
                     {% for division in structure|tel_get:po|tel_get:'departments'|tel_get:department %}
 
@@ -23,15 +23,15 @@
 
                     {% endfor %}
                 </ul>
+<hr>
             {% endfor %}
 
-            <hr>
+
 
                 {% for division in structure|tel_get:po|tel_get:'divisions' %}
                     <li>{{ division }}</li>
 
                 {% endfor %}
-
 
 
         </ul>

@@ -17,14 +17,20 @@ class EmployeeAdmin(admin.ModelAdmin):
     search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     fields = (('name', 'surname', 'patronymic'), 'position', ('work_telephone', 'private_telephone'),
               'prosecutors_office', 'department', 'division')
-    # raw_id_fields = ("position",)     если должностей будет очень много(поле поиска а не селект)
+    raw_id_fields = ('position',)#     если должностей будет очень много(поле поиска а не селект)
     # list_per_page = 50
     # save_on_top = True        #для моделей с большим колвом данных (добавляет поле сохранения сверху)
 
     def save_model(self, request, obj, form, change):
         """
-        Function for editing object before save, set the right division-department-po tree structure
+        Function for editing object before save, set the right division-department-po tree structure, edit telephones
         """
+        if obj.work_telephone:
+            obj.work_telephone = obj.work_telephone.replace("-", "")
+            obj.work_telephone = obj.work_telephone.replace(" ", "")
+        if obj.private_telephone:
+            obj.private_telephone = obj.private_telephone.replace("-", "")
+            obj.private_telephone = obj.private_telephone.replace(" ", "")
         if obj.division:
             obj.department = obj.division.department
             obj.prosecutors_office = obj.division.prosecutors_office

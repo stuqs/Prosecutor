@@ -1,4 +1,5 @@
 from django.db import models
+from Telephone.tools import regular_telephone
 
 
 class Position(models.Model):
@@ -26,9 +27,9 @@ class Employee(models.Model):
     patronymic = models.CharField(blank=True, null=True, max_length=30, verbose_name='Отчество')
     position = models.ForeignKey(Position, blank=True, null=True, verbose_name='Должность')
     work_telephone = models.CharField(blank=True, null=True, max_length=100, verbose_name='Служебный телефон',
-                                      default='-', help_text='Номера разделяются символом ; - XXXX;YYYY')
+                                      help_text='Номера разделяются символом ; - XXXX;YYYY')
     private_telephone = models.CharField(blank=True, null=True, max_length=100, verbose_name='Мобильный телефон',
-                                         default='-', help_text='Номера разделяются символом ; - XXXX;YYYY')
+                                         help_text='Номера разделяются символом ; - XXXX;YYYY')
     division = models.ForeignKey('Division', blank=True, null=True, verbose_name='Отдел')
     department = models.ForeignKey('Department', blank=True, null=True, verbose_name='Управление')
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', blank=True, null=True, verbose_name='Прокуратура')
@@ -37,13 +38,13 @@ class Employee(models.Model):
         """
         Returns tel. numbers with tegs if it is many (splitted by ;)
         """
-        return "<br>".join(self.work_telephone.replace(" ", "").split(';'))
+        return "<br>".join(regular_telephone(self.work_telephone.split(';')))
 
     def tel_private_escape(self):
         """
         Returns tel. numbers with tegs if it is many (splitted by ;)
         """
-        return "<br>".join(self.private_telephone.replace(" ", "").split(';'))
+        return "<br>".join(regular_telephone(self.private_telephone.split(';')))
 
     class Meta:
         order_with_respect_to = 'position'
