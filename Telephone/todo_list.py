@@ -1,6 +1,6 @@
 """
 
-https://djangosnippets.org/snippets/741/
+
 
 3 class based view
     3.1 Добавить функции во вью для обработки отдельных ссылок
