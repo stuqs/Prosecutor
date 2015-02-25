@@ -1,7 +1,6 @@
 from operator import add
 from functools import reduce
 from itertools import zip_longest
-from Telephone.models import *
 
 
 def roman2arabic(roman):
@@ -58,13 +57,13 @@ def create_employee_structure(employees):
     return employees_dict
 
 
-def create_tree_structure():
+def create_tree_structure(PO):
     """
     Create tree structure (dict)
     :return: dictionary
     """
     tree_dict = {}
-    prosecutor_offices = ProsecutorsOffice.objects.all()
+    prosecutor_offices = PO
     for prosecutor_office in prosecutor_offices:
         adder(tree_dict, prosecutor_office, {'departments': {}, 'divisions': []})
         for department in prosecutor_office.department_set.all():
@@ -82,11 +81,11 @@ def regular_telephone(telephone_list):
     return_tel_list = []
     for telephone in telephone_list:
         if len(telephone) == 6:
-            telephone = telephone[0:2] + '-' + telephone[2:4] + '-' + telephone[4:6]
+            telephone = '{}-{}-{}'.format(telephone[0:2], telephone[2:4], telephone[4:6])
         elif len(telephone) == 7:
-            telephone = telephone[0:3] + '-' + telephone[3:5] + '-' + telephone[5:7]
+            telephone = '{}-{}-{}'.format(telephone[0:3], telephone[3:5], telephone[5:7])
         elif len(telephone) == 10:
-            telephone = telephone[0:3] + '-' + telephone[3:6] + '-' + telephone[6:8] + '-' + telephone[8:10]
+            telephone = '{}-{}-{}-{}'.format(telephone[0:3], telephone[3:6], telephone[6:8], telephone[8:10])
         return_tel_list.append(telephone)
     return return_tel_list
 
