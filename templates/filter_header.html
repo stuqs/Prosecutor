@@ -1,3 +1,10 @@
+<style>
+    select {
+        width: 300px; /* Ширина списка в пикселах */
+    }
+</style>
+
+
 <form name="filter" action="." method="GET" accept-charset="UTF-8" autocomplete="off">
     <table align="center">
         <tr>
@@ -5,8 +12,20 @@
             <th>Фильтрация по прокуратуре</th>
         </tr>
         <tr>
-            <th><input type="text" name="employee"></th>
-            <th><input type="text" name="prosecutors_office"></th>
+            <th><input type="text" name="employee" size="30"></th>
+
+
+
+            <th> <select name="prosecutors_office" name="select">
+                <option selected disabled>Выберите Прокуратуру</option>
+                {% for po in po_list %}
+                    <option>{{ po }}</option>
+                {% endfor %}
+            </select></th>
+
+
+
+
             <th><input type="reset" value="Очистить"></th>
         </tr>
         <tr>
@@ -14,15 +33,42 @@
             <th>Управление</th>
         </tr>
         <tr>
-            <th><input type="text" name="telephone"></th>
-            <th><input type="text" name="department"></th>
+            <th><input type="text" name="telephone" size="30"></th>
+
+
+
+            <th> <select name="department" name="select">
+                <option selected disabled>Выберите Управление</option>
+                {% for department in department_list %}
+                    <option>{{ department }}</option>
+                {% endfor %}
+            </select></th>
+
+
+
             <th><input type="submit" value="Поиск"></th>
         </tr>
         <tr>
+            <th></th>
             <th>Отдел</th>
         </tr>
         <tr>
-            <th><input type="text" name="division"></th>
+            <th></th>
+
+
+
+
+            <th> <select name="division" name="select">
+                <option selected disabled>Выберите Отдел</option>
+                {% for division in division_list %}
+                    <option>{{ division }}</option>
+                {% endfor %}
+            </select></th>
+
+
+
+
+
         </tr>
     </table>
 </form>
