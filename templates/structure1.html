@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load app_filters %}
+
+{% block title %}Структура{% endblock %}
+
+
+{% block content %}
+
+    {% for po in structure %}
+       <a href="/structure/{{ po }}/">{{ po }}</a>
+        <ul>
+
+
+
+            {% for department in structure|tel_get:po|tel_get:'departments' %}
+
+                <li><a href="/structure/{{ po }}/{{ department }}/">{{ department }}</a></li>
+
+                <ul>
+                    {% for division in structure|tel_get:po|tel_get:'departments'|tel_get:department %}
+
+                        <li><a href="/structure/{{ po }}/{{ department }}/{{ division }}/">{{ division }}</a></li>
+
+
+                    {% endfor %}
+                </ul>
+<hr>
+            {% endfor %}
+
+
+
+                {% for division in structure|tel_get:po|tel_get:'divisions' %}
+
+                    <li><a href="/structure/{{ po }}/{{ division }}/">{{ division }}</a></li>
+
+                {% endfor %}
+
+
+        </ul>
+
+    {% endfor %}
+
+
+{% endblock %}

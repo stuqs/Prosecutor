@@ -24,4 +24,13 @@ def main_with_filter(request):
 
 def tree_structure(request):
     structure = create_tree_structure(ProsecutorsOffice.objects.all())
-    return render(request, 'structure.html', {'structure': structure})
+    return render(request, 'structure1.html', {'structure': structure})
+
+
+def test_f(request, po=None, department=None, division=None):
+    if po:
+        print(po)
+    if department:
+        print(department)
+    if division:
+        print(division)

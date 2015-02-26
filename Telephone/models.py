@@ -52,7 +52,7 @@ class Employee(models.Model):
         verbose_name_plural = 'Работники'
 
     def __str__(self):
-        return "{} {} {}".format(self.name, self.surname, self.patronymic)
+        return "{} {} {}".format(self.surname, self.name, self.patronymic)
 
 
 class Division(models.Model):

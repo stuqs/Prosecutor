@@ -9,10 +9,13 @@ from django.conf import settings
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', main_with_filter),
-                       url(r'^tree/', tree_structure),
-)
+                       url(r'^structure/$', tree_structure),
+                       url(r'^structure/(?P<po>.+)/$', test_f),
+                       url(r'^structure/(?P<po>.+)/(?P<department>.+)/$', test_f),
+                       url(r'^structure/(?P<po>.+)/(?P<department>.+)/(?P<division>.+)/$', test_f),
+                       )
 
 if settings.DEBUG:
     urlpatterns += patterns('',
-                            (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'./media/'}),
+                            (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './media/'}),
                             )
