@@ -1,49 +1,76 @@
 {% extends "base.html" %}
 {% load app_filters %}
 
-{% block title %}Структура{% endblock %}
-
-
-
-
-
+{% block title %}Прокуратура Одесской области{% endblock %}
 
 
 {% block content %}
-
-    {% for po in structure %}
-       {{ po }}
-        <ul>
+    {% for po in employees_dict %}
+        <h2>{{ po }}</h2>
 
 
 
-            {% for department in structure|tel_get:po|tel_get:'departments' %}
+        {% if employees_dict|tel_get:po|tel_get:'employees' %}
 
-                <li>{{ department }}</li>
-<hr>
-                <ul>
-                    {% for division in structure|tel_get:po|tel_get:'departments'|tel_get:department %}
+            <table class="simple-little-table" cellspacing='0'>
 
-                        <li>{{ division }}</li>
-
-                    {% endfor %}
-                </ul>
-            {% endfor %}
-
-            <hr>
-
-                {% for division in structure|tel_get:po|tel_get:'divisions' %}
-                    <li>{{ division }}</li>
-
+                {% include table_header %}
+                {% for employee in employees_dict|tel_get:po|tel_get:'employees' %}
+                    {% include table_loop %}
                 {% endfor %}
 
+            </table>
+
+        {% endif %}
+
+        {% for department in employees_dict|tel_get:po|tel_get:'departments' %}
+
+            <h3>{{ department }}</h3>
+
+            {% if employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'employees' %}
+
+                <table class="simple-little-table" cellspacing='0'>
+
+                    {% include table_header %}
+                    {% for employee in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'employees' %}
+                        {% include table_loop %}
+                    {% endfor %}
+
+                </table>
+
+            {% endif %}
+
+            {% for division in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'divisions' %}
+
+                <h4>{{ division }}</h4>
+
+                <table class="simple-little-table" cellspacing='0'>
+
+                    {% include table_header %}
+                    {% for employee in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'divisions'|tel_get:division %}
+                        {% include table_loop %}
+                    {% endfor %}
+                </table>
+            {% endfor %}
+        {% endfor %}
 
 
-        </ul>
+
+        {% for division in employees_dict|tel_get:po|tel_get:'divisions' %}
+            <h4>{{ division }}</h4>
+            <table class="simple-little-table" cellspacing='0'>
+
+                {% include table_header %}
+                {% for employee in employees_dict|tel_get:po|tel_get:'divisions'|tel_get:division %}
+                    {% include table_loop %}
+                {% endfor %}
+            </table>
+        {% endfor %}
+
+
+
+
 
     {% endfor %}
-
-
-
 
 {% endblock %}

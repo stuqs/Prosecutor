@@ -57,13 +57,13 @@ def create_employee_structure(employees):
     return employees_dict
 
 
-def create_tree_structure(PO):
+def create_tree_structure(po):
     """
     Create tree structure (dict)
     :return: dictionary
     """
     tree_dict = {}
-    prosecutor_offices = PO
+    prosecutor_offices = po
     for prosecutor_office in prosecutor_offices:
         adder(tree_dict, prosecutor_office, {'departments': {}, 'divisions': []})
         for department in prosecutor_office.department_set.all():

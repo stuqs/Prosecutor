@@ -7,19 +7,20 @@
 {% block content %}
 
     {% for po in structure %}
-       {{ po }}
+       <a href="/structure/{{ po }}/">{{ po }}</a>
         <ul>
 
 
 
             {% for department in structure|tel_get:po|tel_get:'departments' %}
 
-                <li>{{ department }}</li>
+                <li><a href="/structure/{{ po }}/{{ department }}/">{{ department }}</a></li>
 
                 <ul>
                     {% for division in structure|tel_get:po|tel_get:'departments'|tel_get:department %}
 
-                        <li>{{ division }}</li>
+                        <li><a href="/structure/{{ po }}/{{ department }}/{{ division }}/">{{ division }}</a></li>
+
 
                     {% endfor %}
                 </ul>
@@ -29,7 +30,8 @@
 
 
                 {% for division in structure|tel_get:po|tel_get:'divisions' %}
-                    <li>{{ division }}</li>
+
+                    <li><a href="/structure/{{ po }}/{{ division }}/">{{ division }}</a></li>
 
                 {% endfor %}
 
@@ -37,8 +39,6 @@
         </ul>
 
     {% endfor %}
-
-
 
 
 {% endblock %}
