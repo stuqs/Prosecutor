@@ -10,11 +10,11 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', main_with_filter),
                        url(r'^structure/$', tree_structure),
-                       url(r'^structure/(?P<po>.+?)/(?P<department>.+?)/(?P<division>.+?)/$', test_f),
-                       url(r'^structure/(?P<po>.+?)/(?P<department>.+?)/$', test_f),
-                       url(r'^structure/(?P<po>.+?)/$', test_f),
-
-                       url(r'^ajax/categ/$', feeds_subcat),
+                       url(r'^structure/(?P<po>.+?)/(?P<department>.+?)/(?P<division>.+?)/$', show_structure),
+                       url(r'^structure/(?P<po>.+?)/(?P<department>.+?)/$', show_structure),
+                       url(r'^structure/(?P<po>.+?)/$', show_structure),
+                       url(r'^ajax/department/$', ajax_department),
+                       url(r'^ajax/division/$', ajax_division),
                        )
 
 if settings.DEBUG:

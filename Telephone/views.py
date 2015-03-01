@@ -29,7 +29,7 @@ def tree_structure(request):
     return render(request, 'structure.html', {'structure': structure})
 
 
-def test_f(request, po=None, department=None, division=None):
+def show_structure(request, po=None, department=None, division=None):
     employee_list = Employee.objects.all()
     if po:
         employee_list = employee_list.filter(prosecutors_office__name__icontains=po)
@@ -45,7 +45,14 @@ def test_f(request, po=None, department=None, division=None):
         return redirect('/structure/')
 
 
-def feeds_subcat(request):
+def ajax_department(request):
+    print(request)
+    from django.core import serializers
+    json_subcat = serializers.serialize("json", Department.objects.filter(prosecutors_office__id=request.GET.get('prosecutors_office_id')))
+    return HttpResponse(json_subcat, content_type="application/javascript")
+
+
+def ajax_division(request):
     print(request)
     from django.core import serializers
     json_subcat = serializers.serialize("json", Division.objects.filter(department__id=request.GET.get('department_id')))
