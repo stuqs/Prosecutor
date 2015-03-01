@@ -14,7 +14,7 @@ urlpatterns = patterns('',
                        url(r'^structure/(?P<po>.+?)/(?P<department>.+?)/$', test_f),
                        url(r'^structure/(?P<po>.+?)/$', test_f),
 
-
+                       url(r'^ajax/categ/$', feeds_subcat),
                        )
 
 if settings.DEBUG:

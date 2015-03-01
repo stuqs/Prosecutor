@@ -1,14 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from Telephone.models import *
 from Prosecutor.settings import FILTER
 from Telephone.tools import *
-from django.shortcuts import redirect
+from django.http import HttpResponse
 
 
 def main_with_filter(request):
     """
     Main page with filter
     """
+    print(request)
     employee_list = Employee.objects.all()
     for k, v in request.GET.items():
         if FILTER.get(k) and v:
@@ -44,4 +45,8 @@ def test_f(request, po=None, department=None, division=None):
         return redirect('/structure/')
 
 
-
+def feeds_subcat(request):
+    print(request)
+    from django.core import serializers
+    json_subcat = serializers.serialize("json", Division.objects.filter(department__id=request.GET.get('department_id')))
+    return HttpResponse(json_subcat, content_type="application/javascript")

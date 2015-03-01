@@ -107,9 +107,9 @@ TEMPLATES = [
 FILTER = {
     'employee': 'surname__icontains',
     'telephone': 'work_telephone__icontains',
-    'division': 'division__name__icontains',
-    'department': 'department__name__icontains',
-    'prosecutors_office': 'prosecutors_office__name__icontains',
+    'division': 'division__id',
+    'department': 'department__id',
+    'prosecutors_office': 'prosecutors_office__id',
     }
 
 #######################

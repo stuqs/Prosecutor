@@ -146,3 +146,13 @@
 	font-size: 18px;
 	line-height: 20px;
 }
+.SelectBox {
+    width:200px;
+    height:24px;
+    font:14px Arial, Tahoma, Helvetica, Verdana;
+    text-align:left;
+    background:#fff;
+    line-height:30px;
+    white-space:nowrap; /* запрещаем перенос */
+    zoom:1; /* для IE6 */
+}

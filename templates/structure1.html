@@ -7,33 +7,62 @@
 {% block content %}
 
     {% for po in structure %}
-       <a href="/structure/{{ po }}/">{{ po }}</a>
+        {% if po.employee_set.count > 0 %}
+
+            <a href="/structure/{{ po }}/">{{ po }}</a><br>
+
+        {% else %}
+            {{ po }}<br>
+
+        {% endif %}
         <ul>
 
 
 
             {% for department in structure|tel_get:po|tel_get:'departments' %}
 
-                <li><a href="/structure/{{ po }}/{{ department }}/">{{ department }}</a></li>
+                {% if department.employee_set.count > 0 %}
+
+                    <li><a href="/structure/{{ po }}/{{ department }}/">{{ department }}</a></li>
+
+                {% else %}
+                    <li>{{ department }}</li>
+
+                {% endif %}
+
 
                 <ul>
                     {% for division in structure|tel_get:po|tel_get:'departments'|tel_get:department %}
 
-                        <li><a href="/structure/{{ po }}/{{ department }}/{{ division }}/">{{ division }}</a></li>
+                        {% if division.employee_set.count > 0 %}
 
+                            <li><a href="/structure/{{ po }}/{{ department }}/{{ division }}/">{{ division }}</a></li>
+
+                        {% else %}
+                            <li>{{ division }}</li>
+
+                        {% endif %}
 
                     {% endfor %}
                 </ul>
-<hr>
+                <hr>
             {% endfor %}
 
 
 
-                {% for division in structure|tel_get:po|tel_get:'divisions' %}
+            {% for division in structure|tel_get:po|tel_get:'divisions' %}
+
+                {% if division.employee_set.count > 0 %}
 
                     <li><a href="/structure/{{ po }}/{{ division }}/">{{ division }}</a></li>
 
-                {% endfor %}
+                {% else %}
+                    <li>{{ division }}</li>
+
+                {% endif %}
+
+
+            {% endfor %}
 
 
         </ul>
