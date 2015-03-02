@@ -146,7 +146,7 @@
 	font-size: 18px;
 	line-height: 20px;
 }
-.SelectBox {
+select {
     width:200px;
     height:24px;
     font:14px Arial, Tahoma, Helvetica, Verdana;
@@ -156,3 +156,19 @@
     white-space:nowrap; /* запрещаем перенос */
     zoom:1; /* для IE6 */
 }
+
+a.button {
+  color: #fff; /* цвет текста */
+  text-decoration: none; /* убирать подчёркивание у ссылок */
+  user-select: none; /* убирать выделение текста */
+  background: rgb(212,75,56); /* фон кнопки */
+  padding: .7em 1.5em; /* отступ от текста */
+  outline: none; /* убирать контур в Mozilla */
+}
+a.button:hover { background: rgb(232,95,76); } /* при наведении курсора мышки */
+a.button:active { background: rgb(152,15,0); } /* при нажатии */
+
+
+
+a.url1 {  text-decoration:underline; color: #333344; font-size:15px; font-weight:bold}
+a.url1:hover { text-decoration:underline; color:#f25100; font-size:15px; font-weight:bold}
