@@ -9,7 +9,6 @@ def main_with_filter(request):
     """
     Main page with filter
     """
-    print(request)
     employee_list = Employee.objects.all()
     for k, v in request.GET.items():
         if FILTER.get(k) and v:
@@ -25,11 +24,20 @@ def main_with_filter(request):
 
 
 def tree_structure(request):
+    """
+    Create tree structure from all PO
+    """
     structure = create_tree_structure(ProsecutorsOffice.objects.all())
     return render(request, 'structure.html', {'structure': structure})
 
 
 def show_structure(request, po=None, department=None, division=None):
+    """
+    If employees exist in input, then show, else back to structure
+    :param po: Name of PO
+    :param department: Name of department
+    :param division: Name of division
+    """
     employee_list = Employee.objects.all()
     if po:
         employee_list = employee_list.filter(prosecutors_office__name__icontains=po)
@@ -39,21 +47,27 @@ def show_structure(request, po=None, department=None, division=None):
         employee_list = employee_list.filter(division__name__icontains=division)
     if employee_list:
         employees_dict = create_employee_structure(employee_list)
-        return render(request, 'main2.html', {'employees_dict': employees_dict, 'table_header': 'table_header.html',
-                                              'table_loop': 'table_loop.html'})
+        return render(request, 'main_wt_filter.html', {'employees_dict': employees_dict, 'table_header': 'table_header.html',
+                                                       'table_loop': 'table_loop.html'})
     else:
         return redirect('/structure/')
 
 
 def ajax_department(request):
-    print(request)
+    """
+    Ajax request to db, for select in po return list of departments
+    :return: json object
+    """
     from django.core import serializers
     json_subcat = serializers.serialize("json", Department.objects.filter(prosecutors_office__id=request.GET.get('prosecutors_office_id')))
     return HttpResponse(json_subcat, content_type="application/javascript")
 
 
 def ajax_division(request):
-    print(request)
+    """
+    Ajax request to db, for select in departments return list of divisions
+    :return: json object
+    """
     from django.core import serializers
     json_subcat = serializers.serialize("json", Division.objects.filter(department__id=request.GET.get('department_id')))
     return HttpResponse(json_subcat, content_type="application/javascript")
