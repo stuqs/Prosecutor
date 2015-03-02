@@ -9,7 +9,7 @@
     {% for po in structure %}
         {% if po.employee_set.count > 0 %}
 
-            <a href="/structure/{{ po }}/" class="url1">{{ po }}</a><br>
+            <a href="/structure/{{ po }}/">{{ po }}</a><br>
 
         {% else %}
             {{ po }}<br>
@@ -23,7 +23,7 @@
 
                 {% if department.employee_set.count > 0 %}
 
-                    <li><a href="/structure/{{ po }}/{{ department }}/" class="url1">{{ department }}</a></li>
+                    <li><a href="/structure/{{ po }}/{{ department }}/">{{ department }}</a></li>
 
                 {% else %}
                     <li>{{ department }}</li>
@@ -36,7 +36,7 @@
 
                         {% if division.employee_set.count > 0 %}
 
-                            <li><a href="/structure/{{ po }}/{{ department }}/{{ division }}/" class="url1">{{ division }}</a></li>
+                            <li><a href="/structure/{{ po }}/{{ department }}/{{ division }}/">{{ division }}</a></li>
 
                         {% else %}
                             <li>{{ division }}</li>
@@ -54,7 +54,7 @@
 
                 {% if division.employee_set.count > 0 %}
 
-                    <li><a href="/structure/{{ po }}/{{ division }}/" class="url1">{{ division }}</a></li>
+                    <li><a href="/structure/{{ po }}/{{ division }}/">{{ division }}</a></li>
 
                 {% else %}
                     <li>{{ division }}</li>

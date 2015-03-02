@@ -1,19 +1,23 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/media/css/style.css" type="text/css" />
     <link rel="icon" type="image/ico" href="/media/img/favicon.ico" />
+    <link rel="stylesheet" href="/media/css/site_style2.css" type="text/css" />
+    <link rel="stylesheet" href="/media/css/style.css" type="text/css" />
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-<section class="main">
-    <h1>Прокуратура Одеської області</h1>
-
-    {% block header %}{% endblock %}
-    {% block left %}{% endblock %}
-    {% block right %}{% endblock %}
-    {% block content %}{% endblock %}
-    {% block footer %}{% endblock %}
-</section>
+<header>
+    <section class="headblock">
+        <a href="/" class="logo"><img src="http://od.gp.gov.ua/main2//img/d/gp.png" alt="" /></a>
+        <div class="logo1" style="  background: url('http://od.gp.gov.ua/main2//img/d/od.png') no-repeat scroll 0 0 transparent;"></div>
+        <div class="pageName" style="  background: url('http://od.gp.gov.ua/main2/img/d/text/TEXT_od.png') no-repeat scroll 0 0 transparent;"></div>
+    </section>
+</header>
+{% block header %}{% endblock %}
+{% block left %}{% endblock %}
+{% block right %}{% endblock %}
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}
 </body>
 </html>
