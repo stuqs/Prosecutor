@@ -143,6 +143,7 @@ h4 {
     font-size: 18px;
     line-height: 20px;
 }
+
 select {
     width:200px;
     height:24px;
@@ -155,21 +156,95 @@ select {
 }
 
 a.button {
-    color: #fff; /* цвет текста */
+    color: #e7d900; /* цвет текста */
+    font-size: 18px;
+    font-family: 'Orienta', sans-serif;
+    line-height: 20px;
     text-decoration: none; /* убирать подчёркивание у ссылок */
     user-select: none; /* убирать выделение текста */
-    background: rgb(212,75,56); /* фон кнопки */
-    padding: .9em 30.9em; /* отступ от текста */
+    background: rgb(83, 144, 190); /* фон кнопки */
+    padding: 0.9em 25.24em; /* отступ от текста */
     outline: none; /* убирать контур в Mozilla */
-
 }
+
 a.button:hover { /* при наведении курсора мышки */
-    background: rgb(232,95,76);
+    color: #999999; /* цвет текста */
+    background: rgb(31,108,160);
+    font-size: 18px;
+    font-family: 'Orienta', sans-serif;
     text-decoration: none;
 }
-a.button:active { background: rgb(152,15,0); } /* при нажатии */
 
+a.button:active { background: #145281; } /* при нажатии */
 
+a {
+    text-decoration:none;
+    color: #333344;
+    font-size:15px;
+    font-weight:bold
+}
 
-a {  text-decoration:underline; color: #333344; font-size:15px; font-weight:bold}
-a:hover { text-decoration:underline; color:#f25100; font-size:15px; font-weight:bold}
+a:hover {
+    text-decoration:none;
+    color:#f25100;
+    font-size:15px;
+    font-weight:bold
+}
+
+html, body
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+header
+{
+	height: 198px;
+	background-color: #145281;
+	width: 1000px;
+	margin: 0px auto;
+}
+
+.headblock
+{
+	margin: 0px;
+	height: 198px;
+	width: 1000px;
+	background-image: url("/media/img/main/header/headerbg.jpg");
+	position: absolute;
+}
+
+.headblock .logo
+{
+	width: 105px;
+	height: 127px;
+	position: absolute;
+	display: block;
+	top: 30px;
+	left: 57px;
+	text-decoration: none;
+}
+
+.headblock .logo1
+{
+    display: block;
+    height: 127px;
+    position: absolute;
+    right: 25px;
+    text-decoration: none;
+    top: 55px;
+    width: 105px;
+    background: url('/media/img/main/header/od.png')
+}
+
+.pageName
+{
+	position: absolute;
+	margin: 83px 0 0 155px;
+	background: url("/media/img/main/header/companyName.png") no-repeat  scroll 0 0 transparent;;
+    width: 720px;
+	height: 30px;
+	font-size: 0px;
+	line-height: 0px;
+    display: block;
+}
