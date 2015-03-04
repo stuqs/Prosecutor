@@ -61,6 +61,8 @@ class Division(models.Model):
     """
     name = models.CharField(max_length=300, verbose_name='Отдел')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Внешний e-mail')
+    email_inside = models.EmailField(blank=True, null=True, verbose_name='Внутренний e-mail')
+    address = models.CharField(blank=True, null=True, max_length=200, verbose_name='Адрес')
     department = models.ForeignKey('Department', blank=True, null=True, verbose_name='Управление')
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', blank=True, null=True, verbose_name='Прокуратура')
 
@@ -79,7 +81,9 @@ class Department(models.Model):
     """
     name = models.CharField(max_length=200, verbose_name='Управление')
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', blank=True, null=True, verbose_name='Прокуратура')
+    address = models.CharField(blank=True, null=True, max_length=200, verbose_name='Адрес')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Внешний e-mail')
+    email_inside = models.EmailField(blank=True, null=True, verbose_name='Внутренний e-mail')
 
     class Meta:
         ordering = ('name',)
@@ -97,8 +101,8 @@ class ProsecutorsOffice(models.Model):
     name = models.CharField(max_length=300, verbose_name='Прокуратура')
     tel_cod = models.CharField(blank=True, null=True, max_length=7, verbose_name='Телефонный код')
     address = models.CharField(blank=True, null=True, max_length=200, verbose_name='Адрес')
-    email_inside = models.EmailField(blank=True, null=True, verbose_name='Внутренний e-mail')
     email_outside = models.EmailField(blank=True, null=True, verbose_name='Внешний e-mail')
+    email_inside = models.EmailField(blank=True, null=True, verbose_name='Внутренний e-mail')
 
     class Meta:
         ordering = ('name',)

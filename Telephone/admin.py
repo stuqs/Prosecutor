@@ -41,7 +41,9 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 class DivisionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
+    fields = ('name', 'department', 'prosecutors_office', 'address', ('email_inside', 'email_outside'))
     list_display = ('name', 'counter_empl')
+
 
     def counter_empl(self, obj):
         """
@@ -63,6 +65,7 @@ class DivisionAdmin(admin.ModelAdmin):
 
 class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ('name',)
+    fields = ('name', 'prosecutors_office', 'address', ('email_inside', 'email_outside'))
     list_display = ('name', 'counter_empl')
 
     def counter_empl(self, obj):
