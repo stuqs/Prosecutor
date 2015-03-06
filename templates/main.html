@@ -2,206 +2,77 @@
 {% load app_filters %}
 
 {% block title %}Прокуратура Одесской области{% endblock %}
-
+{#Заголовок#}
 {% block header %}
     <p align="center"><a href="/structure/" target="_blank" class="button">Структура</a></p>
     <br><br>
+    {#Фильтр#}
     {% include filter_header %}
 {% endblock %}
 
-
-
-
 {% block content %}
+    {#Прокуратура#}
     {% for po in employees_dict %}
-
         <h2>{{ po }}</h2>
-
         {#Атрибуты Прокуратуры#}
-        {% if po.address or po.tel_cod or po.email_inside or po.email_outside%}
-            <table align="center" cellspacing="0">
-                {% if po.address %}
-                    <tr>
-                        <td>Адресс:</td>
-                        <td>{{ po.address }}</td>
-                    </tr>
-                {% endif %}
-                {% if po.tel_cod%}
-                    <tr>
-                        <td>Теллефонный код:</td>
-                        <td>{{ po.tel_cod }}</td>
-                    </tr>
-                {% endif %}
-                {% if po.email_inside or po.email_outside%}
-                    <tr>
-                        <td colspan="2" align="center">Электронный адресс:</td>
-                    </tr>
-                    {% if po.email_inside%}
-                        <tr>
-                            <td>Внутренний</td>
-                            <td>{{ po.email_inside }}</td>
-                        </tr>
-                    {% endif %}
-                    {% if po.email_outside%}
-                        <tr>
-                            <td>Внешний</td>
-                            <td>{{ po.email_outside }}</td>
-                        </tr>
-                    {% endif %}
-                {% endif %}
-            </table>
-        {% endif %}
-
-
+        {% with temp_node=po %}
+            {% include table_attribute %}
+        {% endwith %}
+        {#Работники Прокуратуры#}
         {% if employees_dict|tel_get:po|tel_get:'employees' %}
-
             <table class="simple-little-table" cellspacing='0'>
-
                 {% include table_header %}
                 {% for employee in employees_dict|tel_get:po|tel_get:'employees' %}
                     {% include table_loop %}
                 {% endfor %}
-
             </table>
-
         {% endif %}
-
+        {#Управление#}
         {% for department in employees_dict|tel_get:po|tel_get:'departments' %}
-
             <h3>{{ department }}</h3>
-
             {#Атрибуты Управления#}
-            {% if department.address or department.email_inside or department.email_outside%}
-                <table align="center" cellspacing="0">
-                    {% if department.address %}
-                        <tr>
-                            <td>Адресс:</td>
-                            <td>{{ department.address }}</td>
-                        </tr>
-                    {% endif %}
-                    {% if department.email_inside or department.email_outside%}
-                        <tr>
-                            <td colspan="2" align="center">Электронный адресс:</td>
-                        </tr>
-                        {% if department.email_inside%}
-                            <tr>
-                                <td>Внутренний</td>
-                                <td>{{ department.email_inside }}</td>
-                            </tr>
-                        {% endif %}
-                        {% if department.email_outside%}
-                            <tr>
-                                <td>Внешний</td>
-                                <td>{{ department.email_outside }}</td>
-                            </tr>
-                        {% endif %}
-                    {% endif %}
-                </table>
-            {% endif %}
-
-
+            {% with temp_node=department %}
+                {% include table_attribute %}
+            {% endwith %}
+            {#Работники Управления#}
             {% if employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'employees' %}
-
                 <table class="simple-little-table" cellspacing='0'>
-
                     {% include table_header %}
                     {% for employee in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'employees' %}
                         {% include table_loop %}
                     {% endfor %}
-
                 </table>
-
             {% endif %}
-
+            {#Отдел#}
             {% for division in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'divisions' %}
-
                 <h4>{{ division }}</h4>
-
                 {#Атрибуты Отдела#}
-                {% if division.address or division.email_inside or division.email_outside%}
-                    <table align="center" cellspacing="0">
-                        {% if division.address %}
-                            <tr>
-                                <td>Адресс:</td>
-                                <td>{{ division.address }}</td>
-                            </tr>
-                        {% endif %}
-                        {% if division.email_inside or division.email_outside%}
-                            <tr>
-                                <td colspan="2" align="center">Электронный адресс:</td>
-                            </tr>
-                            {% if division.email_inside%}
-                                <tr>
-                                    <td>Внутренний</td>
-                                    <td>{{ division.email_inside }}</td>
-                                </tr>
-                            {% endif %}
-                            {% if division.email_outside%}
-                                <tr>
-                                    <td>Внешний</td>
-                                    <td>{{ division.email_outside }}</td>
-                                </tr>
-                            {% endif %}
-                        {% endif %}
-                    </table>
-                {% endif %}
-
-
-
+                {% with temp_node=division %}
+                    {% include table_attribute %}
+                {% endwith %}
                 <table class="simple-little-table" cellspacing='0'>
-
                     {% include table_header %}
+                    {#Работники Отдела#}
                     {% for employee in employees_dict|tel_get:po|tel_get:'departments'|tel_get:department|tel_get:'divisions'|tel_get:division %}
                         {% include table_loop %}
                     {% endfor %}
                 </table>
             {% endfor %}
         {% endfor %}
-
-
-
+        {#Отдел#}
         {% for division in employees_dict|tel_get:po|tel_get:'divisions' %}
             <h4>{{ division }}</h4>
-
             {#Атрибуты Отдела#}
-            {% if division.address or division.email_inside or division.email_outside%}
-                <table align="center" cellspacing="0">
-                    {% if division.address %}
-                        <tr>
-                            <td>Адресс:</td>
-                            <td>{{ division.address }}</td>
-                        </tr>
-                    {% endif %}
-                    {% if division.email_inside or division.email_outside%}
-                        <tr>
-                            <td colspan="2" align="center">Электронный адресс:</td>
-                        </tr>
-                        {% if division.email_inside%}
-                            <tr>
-                                <td>Внутренний</td>
-                                <td>{{ division.email_inside }}</td>
-                            </tr>
-                        {% endif %}
-                        {% if division.email_outside%}
-                            <tr>
-                                <td>Внешний</td>
-                                <td>{{ division.email_outside }}</td>
-                            </tr>
-                        {% endif %}
-                    {% endif %}
-                </table>
-            {% endif %}
-
+            {% with temp_node=division %}
+                {% include table_attribute %}
+            {% endwith %}
             <table class="simple-little-table" cellspacing='0'>
-
                 {% include table_header %}
+                {#Работники Отдела#}
                 {% for employee in employees_dict|tel_get:po|tel_get:'divisions'|tel_get:division %}
                     {% include table_loop %}
                 {% endfor %}
             </table>
         {% endfor %}
-
-
     {% endfor %}
-
 {% endblock %}

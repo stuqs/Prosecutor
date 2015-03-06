@@ -15,7 +15,8 @@ def main_with_filter(request):
     if not request.GET:
         return render(request, 'main.html', {'employees_dict': {}, 'filter_header': 'filter_header.html',
                                              'table_header': 'table_header.html', 'table_loop': 'table_loop.html',
-                                             'po_list': po_list, 'department_list': department_list, 'division_list': division_list})
+                                             'po_list': po_list, 'department_list': department_list, 'division_list': division_list,
+                                             'table_attribute': 'table_attribute.html'})
     else:
         employee_list = Employee.objects.all()
         for k, v in request.GET.items():
@@ -26,7 +27,8 @@ def main_with_filter(request):
 
         return render(request, 'main.html', {'employees_dict': employees_dict, 'filter_header': 'filter_header.html',
                                              'table_header': 'table_header.html', 'table_loop': 'table_loop.html',
-                                             'po_list': po_list, 'department_list': department_list, 'division_list': division_list})
+                                             'po_list': po_list, 'department_list': department_list, 'division_list': division_list,
+                                             'table_attribute': 'table_attribute.html'})
 
 
 def tree_structure(request):
@@ -54,7 +56,7 @@ def show_structure(request, po=None, department=None, division=None):
     if employee_list:
         employees_dict = create_employee_structure(employee_list)
         return render(request, 'main_wt_filter.html', {'employees_dict': employees_dict, 'table_header': 'table_header.html',
-                                                       'table_loop': 'table_loop.html'})
+                                                       'table_loop': 'table_loop.html', 'table_attribute': 'table_attribute.html'})
     else:
         return redirect('/structure/')
 

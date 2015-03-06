@@ -1,0 +1,33 @@
+{% if temp_node.address or temp_node.tel_cod or temp_node.email_inside or temp_node.email_outside%}
+    <div align="center"><table align="center" cellspacing="0" class="attr-table">
+        {% if temp_node.address %}
+            <tr>
+                <th>Адресс: </th>
+                <td>{{ temp_node.address }}</td>
+            </tr>
+        {% endif %}
+        {% if temp_node.tel_cod%}
+            <tr>
+                <th>Теллефонный код: </th>
+                <td>{{ temp_node.tel_cod }}</td>
+            </tr>
+        {% endif %}
+        {% if temp_node.email_inside or temp_node.email_outside%}
+            <tr>
+                <th colspan="2" align="center">Электронный адресс:</th>
+            </tr>
+            {% if temp_node.email_inside%}
+                <tr>
+                    <th>Внутренний: </th>
+                    <td>{{ temp_node.email_inside }}</td>
+                </tr>
+            {% endif %}
+            {% if temp_node.email_outside%}
+                <tr>
+                    <th>Внешний: </th>
+                    <td>{{ temp_node.email_outside }}</td>
+                </tr>
+            {% endif %}
+        {% endif %}
+    </table></div>
+{% endif %}

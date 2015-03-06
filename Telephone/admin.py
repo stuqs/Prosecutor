@@ -5,9 +5,9 @@ from Telephone.models import *
 class PositionAdmin(admin.ModelAdmin):
     list_display = ('po_name', 'weight')
 
-class ProsecutorsOfficeInline(admin.TabularInline):
-    model = Employee
-    extra = 2
+# class ProsecutorsOfficeInline(admin.TabularInline):
+#     model = Employee
+#     extra = 2
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
@@ -81,7 +81,7 @@ class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_display = ('name', 'counter_empl')
     fields = ('name', 'tel_cod', 'address', ('email_inside', 'email_outside'))
-    inlines = (ProsecutorsOfficeInline, )
+    # inlines = (ProsecutorsOfficeInline, )
 
     def counter_empl(self, obj):
         """
