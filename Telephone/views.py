@@ -24,7 +24,7 @@ def main_with_filter(request):
                 field_query = {FILTER[k]: v}
                 employee_list = employee_list.filter(**field_query)
         employees_dict = create_employee_structure(employee_list)
-
+        excel_out(employees_dict)
         return render(request, 'main.html', {'employees_dict': employees_dict, 'filter_header': 'filter_header.html',
                                              'table_header': 'table_header.html', 'table_loop': 'table_loop.html',
                                              'po_list': po_list, 'department_list': department_list, 'division_list': division_list,

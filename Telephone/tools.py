@@ -1,6 +1,7 @@
 from operator import add
 from functools import reduce
 from itertools import zip_longest
+import xlsxwriter
 
 
 def roman2arabic(roman):
@@ -57,13 +58,12 @@ def create_employee_structure(employees):
     return employees_dict
 
 
-def create_tree_structure(po):
+def create_tree_structure(prosecutor_offices):
     """
     Create tree structure (dict)
     :return: dictionary
     """
     tree_dict = {}
-    prosecutor_offices = po
     for prosecutor_office in prosecutor_offices:
         adder(tree_dict, prosecutor_office, {'departments': {}, 'divisions': []})
         for department in prosecutor_office.department_set.all():
@@ -88,6 +88,113 @@ def regular_telephone(telephone_list):
             telephone = '{}-{}-{}-{}'.format(telephone[0:3], telephone[3:6], telephone[6:8], telephone[8:10])
         return_tel_list.append(telephone)
     return return_tel_list
+
+
+def excel_out(employees_dict):
+    try:
+        workbook = xlsxwriter.Workbook('Телефонный справочник.xlsx')
+        worksheet = workbook.add_worksheet(name='Прокуратура')
+    except:
+        print("Error during creation")
+        pass
+
+    merge_format_headers = workbook.add_format({'align':        'center',
+                                                'valign':       'vcenter',
+                                                'bold':         True})
+    format_rows = workbook.add_format({'valign':        'vcenter',
+                                       'text_wrap':     True,
+                                       'bold':          True})
+
+
+    worksheet.set_column(0, 0, 5)
+    worksheet.set_column(1, 1, 23)
+    worksheet.set_column(2, 2, 21)
+    worksheet.set_column(3, 3, 21)
+    worksheet.set_column(4, 4, 21)
+
+    worksheet.set_default_row(40, False)
+
+
+    col = 1
+
+    for po in employees_dict:
+        # Прокуратура
+        # worksheet.write(col, 3, po.name, bold)
+        worksheet.merge_range(col, 0, col, 4, data=po.name, cell_format=merge_format_headers)
+        col += 1
+        # Атрибуты Прокуратуры
+
+        # Работники Прокуратуры
+        for employee in employees_dict[po]['employees']:
+            worksheet.write(col, 1, str(employee), format_rows)
+            col += 1
+
+        # Управление
+        for department in employees_dict[po]['departments']:
+            worksheet.merge_range(col, 0, col, 4, data=department.name, cell_format=merge_format_headers)
+            col += 1
+            # Атрибуты Управления
+
+            # Работники Управления
+            for employee in employees_dict[po]['departments'][department]['employees']:
+                worksheet.write(col, 1, str(employee), format_rows)
+                col += 1
+
+            # Отдел Управления
+            for division in employees_dict[po]['departments'][department]['divisions']:
+                worksheet.merge_range(col, 0, col, 4, data=division.name, cell_format=merge_format_headers)
+                col += 1
+                # Атрибуты Отдела
+
+                # Работники Отдела
+                for employee in employees_dict[po]['departments'][department]['divisions'][division]:
+                    worksheet.write(col, 1, str(employee), format_rows)
+                    col += 1
+
+        # Отдел Прокуратуры
+        for division in employees_dict[po]['divisions']:
+            worksheet.merge_range(col, 0, col, 4, data=division.name, cell_format=merge_format_headers)
+            col += 1
+            # Атрибуты Отдела
+
+            # Работники Отдела
+            for employee in employees_dict[po]['divisions'][division]:
+                worksheet.write(col, 1, str(employee), format_rows)
+                col += 1
+
+    try:
+        workbook.close()
+    except:
+        print('Error during save')
+        pass
+
+
+
+
+    '''
+    from datetime import datetime
+    # Add a bold format to use to highlight cells.
+    bold = workbook.add_format({'bold': True})
+
+    # Add a number format for cells with money.
+    money = workbook.add_format({'num_format': '$#,##0'})
+
+    # Add an Excel date format.
+    date_format = workbook.add_format({'num_format': 'mmmm d yyyy'})
+    date = datetime.strptime('2013-01-13', "%Y-%m-%d")
+
+    # Adjust the column width.
+    worksheet.set_column(1, 1, 15)
+    # Adjust the column width.
+    worksheet.set_column('B:B', 15)
+
+    # worksheet.write_datetime
+    '''
+
+
+
+
+
 
 
 """
