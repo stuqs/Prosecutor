@@ -100,22 +100,77 @@ def excel_out(employees_dict):
 
     merge_format_headers = workbook.add_format({'align':        'center',
                                                 'valign':       'vcenter',
-                                                'bold':         True})
+                                                'bold':         True,
+                                                'font_size':    12,
+                                                'font_name':    'Times New Roman'})
+
+
+
+    merge_format_headers1 = workbook.add_format({'align':       'center',
+                                                'valign':       'vcenter',
+                                                'bold':         True,
+                                                'font_size':    12,
+                                                'font_name':    'Times New Roman',
+                                                'bg_color':     '#FFCA28'})
+    merge_format_headers2 = workbook.add_format({'align':       'center',
+                                                'valign':       'vcenter',
+                                                'bold':         True,
+                                                'font_size':    12,
+                                                'font_name':    'Times New Roman',
+                                                'bg_color':     '#FFD54F'})
+    merge_format_headers3 = workbook.add_format({'align':       'center',
+                                                'valign':       'vcenter',
+                                                'bold':         True,
+                                                'font_size':    12,
+                                                'font_name':    'Times New Roman',
+                                                'bg_color':     '#FFE082'})
+    merge_format_headers4 = workbook.add_format({'align':       'center',
+                                                'valign':       'vcenter',
+                                                'bold':         True,
+                                                'font_size':    12,
+                                                'font_name':    'Times New Roman',
+                                                'bg_color':     '#FFF59D'})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     format_rows = workbook.add_format({'valign':        'vcenter',
                                        'text_wrap':     True,
-                                       'bold':          True})
+                                       'bold':          True,
+                                       'font_size':     12,
+                                       'font_name':     'Times New Roman',
+                                       'bg_color':      '#FFCA28'})
 
 
+
+
+    worksheet.set_default_row(40, False)
     worksheet.set_column(0, 0, 5)
-    worksheet.set_column(1, 1, 23)
+    worksheet.set_column(1, 1, 25)
     worksheet.set_column(2, 2, 21)
     worksheet.set_column(3, 3, 21)
     worksheet.set_column(4, 4, 21)
 
-    worksheet.set_default_row(40, False)
+    worksheet.merge_range(0, 0, 1, 0, '№', cell_format=merge_format_headers1)
+    worksheet.merge_range(0, 1, 1, 1, 'Фамилия имя отчество', cell_format=merge_format_headers2)
+    worksheet.merge_range(0, 2, 1, 2, 'Должность', cell_format=merge_format_headers3)
+    worksheet.merge_range(0, 3, 0, 4, 'Телефоны', cell_format=merge_format_headers4)
+    worksheet.write(1, 3, 'Служебный', merge_format_headers)
+    worksheet.write(1, 4, 'Мобильный', merge_format_headers)
 
-
-    col = 1
+    col = 2
 
     for po in employees_dict:
         # Прокуратура

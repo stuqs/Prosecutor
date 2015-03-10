@@ -33,18 +33,21 @@ class Employee(models.Model):
     division = models.ForeignKey('Division', blank=True, null=True, verbose_name='Отдел')
     department = models.ForeignKey('Department', blank=True, null=True, verbose_name='Управление')
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', blank=True, null=True, verbose_name='Прокуратура')
+    secretary = models.ForeignKey('self', blank=True, null=True, verbose_name='Приемная')
 
     def tel_work_escape(self):
         """
         Returns tel. numbers with tegs if it is many (splitted by ;)
         """
-        return "<br>".join(regular_telephone(self.work_telephone.split(';')))
+        if self.work_telephone:
+            return "<br>".join(regular_telephone(self.work_telephone.split(';')))
 
     def tel_private_escape(self):
         """
         Returns tel. numbers with tegs if it is many (splitted by ;)
         """
-        return "<br>".join(regular_telephone(self.private_telephone.split(';')))
+        if self.private_telephone:
+            return "<br>".join(regular_telephone(self.private_telephone.split(';')))
 
     class Meta:
         order_with_respect_to = 'position'
