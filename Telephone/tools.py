@@ -40,21 +40,22 @@ def create_employee_structure(employees):
     """
     employees_dict = {}
     for employee in position_sort(employees):
-        adder(employees_dict, employee.prosecutors_office, {'employees': [], 'departments': {}, 'divisions': {}})
-        if employee.prosecutors_office and employee.department and employee.division:
-            adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
-            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'divisions', {})
-            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'], employee.division, [])
-            employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'][employee.division].append(employee)
-        elif employee.prosecutors_office and employee.department:
-            adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
-            adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'employees', [])
-            employees_dict[employee.prosecutors_office]['departments'][employee.department]['employees'].append(employee)
-        elif employee.prosecutors_office and employee.division:
-            adder(employees_dict[employee.prosecutors_office]['divisions'], employee.division, [])
-            employees_dict[employee.prosecutors_office]['divisions'][employee.division].append(employee)
-        elif employee.prosecutors_office:
-            employees_dict[employee.prosecutors_office]['employees'].append(employee)
+        if not employee.is_secretary:
+            adder(employees_dict, employee.prosecutors_office, {'employees': [], 'departments': {}, 'divisions': {}})
+            if employee.prosecutors_office and employee.department and employee.division:
+                adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
+                adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'divisions', {})
+                adder(employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'], employee.division, [])
+                employees_dict[employee.prosecutors_office]['departments'][employee.department]['divisions'][employee.division].append(employee)
+            elif employee.prosecutors_office and employee.department:
+                adder(employees_dict[employee.prosecutors_office]['departments'], employee.department, {})
+                adder(employees_dict[employee.prosecutors_office]['departments'][employee.department], 'employees', [])
+                employees_dict[employee.prosecutors_office]['departments'][employee.department]['employees'].append(employee)
+            elif employee.prosecutors_office and employee.division:
+                adder(employees_dict[employee.prosecutors_office]['divisions'], employee.division, [])
+                employees_dict[employee.prosecutors_office]['divisions'][employee.division].append(employee)
+            elif employee.prosecutors_office:
+                employees_dict[employee.prosecutors_office]['employees'].append(employee)
     return employees_dict
 
 
@@ -106,33 +107,40 @@ def excel_out(employees_dict):
 
 
 
-    merge_format_headers1 = workbook.add_format({'align':       'center',
-                                                'valign':       'vcenter',
-                                                'bold':         True,
-                                                'font_size':    12,
-                                                'font_name':    'Times New Roman',
-                                                'bg_color':     '#FFCA28'})
-    merge_format_headers2 = workbook.add_format({'align':       'center',
-                                                'valign':       'vcenter',
-                                                'bold':         True,
-                                                'font_size':    12,
-                                                'font_name':    'Times New Roman',
-                                                'bg_color':     '#FFD54F'})
-    merge_format_headers3 = workbook.add_format({'align':       'center',
-                                                'valign':       'vcenter',
-                                                'bold':         True,
-                                                'font_size':    12,
-                                                'font_name':    'Times New Roman',
-                                                'bg_color':     '#FFE082'})
-    merge_format_headers4 = workbook.add_format({'align':       'center',
-                                                'valign':       'vcenter',
-                                                'bold':         True,
-                                                'font_size':    12,
-                                                'font_name':    'Times New Roman',
-                                                'bg_color':     '#FFF59D'})
+    format_headers_po = workbook.add_format(           {'align':       'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    12,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_rowor':     '#FFCA28'})
+    format_headers_department = workbook.add_format(   {'align':       'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    12,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_rowor':     '#FFD54F'})
+    format_headers_division = workbook.add_format(     {'align':       'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    12,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_rowor':     '#FFE082'})
+    format_header = workbook.add_format(               {'align':       'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    12,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_rowor':     '#FFF59D'})
 
 
-
+    def add_header(row):
+        worksheet.merge_range(row, 0, row+1, 0, '№', cell_format=format_header)
+        worksheet.merge_range(row, 1, row+1, 1, 'Фамилия имя отчество', cell_format=format_header)
+        worksheet.merge_range(row, 2, row+1, 2, 'Должность', cell_format=format_header)
+        worksheet.merge_range(row, 3, row, 4, 'Телефоны', cell_format=format_header)
+        worksheet.write(row+1, 3, 'Служебный', format_header)
+        worksheet.write(row+1, 4, 'Мобильный', format_header)
+        row += 2
 
 
 
@@ -150,72 +158,75 @@ def excel_out(employees_dict):
                                        'text_wrap':     True,
                                        'bold':          True,
                                        'font_size':     12,
-                                       'font_name':     'Times New Roman',
-                                       'bg_color':      '#FFCA28'})
+                                       'font_name':     'Times New Roman'})
 
 
 
 
     worksheet.set_default_row(40, False)
-    worksheet.set_column(0, 0, 5)
-    worksheet.set_column(1, 1, 25)
-    worksheet.set_column(2, 2, 21)
-    worksheet.set_column(3, 3, 21)
-    worksheet.set_column(4, 4, 21)
+    worksheet.set_rowumn(0, 0, 5)
+    worksheet.set_rowumn(1, 1, 25)
+    worksheet.set_rowumn(2, 2, 21)
+    worksheet.set_rowumn(3, 3, 21)
+    worksheet.set_rowumn(4, 4, 21)
 
-    worksheet.merge_range(0, 0, 1, 0, '№', cell_format=merge_format_headers1)
-    worksheet.merge_range(0, 1, 1, 1, 'Фамилия имя отчество', cell_format=merge_format_headers2)
-    worksheet.merge_range(0, 2, 1, 2, 'Должность', cell_format=merge_format_headers3)
-    worksheet.merge_range(0, 3, 0, 4, 'Телефоны', cell_format=merge_format_headers4)
-    worksheet.write(1, 3, 'Служебный', merge_format_headers)
-    worksheet.write(1, 4, 'Мобильный', merge_format_headers)
+    worksheet.merge_range(0, 0, 1, 0, '№', cell_format=format_header)
+    worksheet.merge_range(0, 1, 1, 1, 'Фамилия имя отчество', cell_format=format_header)
+    worksheet.merge_range(0, 2, 1, 2, 'Должность', cell_format=format_header)
+    worksheet.merge_range(0, 3, 0, 4, 'Телефоны', cell_format=format_header)
+    worksheet.write(1, 3, 'Служебный', format_header)
+    worksheet.write(1, 4, 'Мобильный', format_header)
 
-    col = 2
+
+
+
+
+    row = 2
 
     for po in employees_dict:
         # Прокуратура
-        # worksheet.write(col, 3, po.name, bold)
-        worksheet.merge_range(col, 0, col, 4, data=po.name, cell_format=merge_format_headers)
-        col += 1
+        # worksheet.write(row, 3, po.name, bold)
+        worksheet.merge_range(row, 0, row, 4, data=po.name, cell_format=format_headers_po)
+        row += 1
         # Атрибуты Прокуратуры
 
         # Работники Прокуратуры
         for employee in employees_dict[po]['employees']:
-            worksheet.write(col, 1, str(employee), format_rows)
-            col += 1
+            worksheet.write(row, 1, str(employee), format_rows)
+            row += 1
 
         # Управление
         for department in employees_dict[po]['departments']:
-            worksheet.merge_range(col, 0, col, 4, data=department.name, cell_format=merge_format_headers)
-            col += 1
+            worksheet.merge_range(row, 0, row, 4, data=department.name, cell_format=format_headers_department)
+            row += 1
             # Атрибуты Управления
 
             # Работники Управления
             for employee in employees_dict[po]['departments'][department]['employees']:
-                worksheet.write(col, 1, str(employee), format_rows)
-                col += 1
+                worksheet.write(row, 1, str(employee), format_rows)
+                row += 1
 
             # Отдел Управления
             for division in employees_dict[po]['departments'][department]['divisions']:
-                worksheet.merge_range(col, 0, col, 4, data=division.name, cell_format=merge_format_headers)
-                col += 1
+                worksheet.merge_range(row, 0, row, 4, data=division.name, cell_format=format_headers_division)
+                row += 1
                 # Атрибуты Отдела
 
                 # Работники Отдела
                 for employee in employees_dict[po]['departments'][department]['divisions'][division]:
-                    worksheet.write(col, 1, str(employee), format_rows)
-                    col += 1
+                    worksheet.write(row, 1, str(employee), format_rows)
+                    row += 1
 
         # Отдел Прокуратуры
         for division in employees_dict[po]['divisions']:
-            worksheet.merge_range(col, 0, col, 4, data=division.name, cell_format=merge_format_headers)
-            col += 1
+            worksheet.merge_range(row, 0, row, 4, data=division.name, cell_format=format_headers_division)
+            row += 1
             # Атрибуты Отдела
 
             # Работники Отдела
             for employee in employees_dict[po]['divisions'][division]:
-                worksheet.write(col, 1, str(employee), format_rows)
-                col += 1
+                worksheet.write(row, 1, str(employee), format_rows)
+                row += 1
 
     try:
         workbook.close()
@@ -238,10 +249,10 @@ def excel_out(employees_dict):
     date_format = workbook.add_format({'num_format': 'mmmm d yyyy'})
     date = datetime.strptime('2013-01-13', "%Y-%m-%d")
 
-    # Adjust the column width.
-    worksheet.set_column(1, 1, 15)
-    # Adjust the column width.
-    worksheet.set_column('B:B', 15)
+    # Adjust the rowumn width.
+    worksheet.set_rowumn(1, 1, 15)
+    # Adjust the rowumn width.
+    worksheet.set_rowumn('B:B', 15)
 
     # worksheet.write_datetime
     '''

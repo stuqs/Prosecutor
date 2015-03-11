@@ -16,7 +16,7 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_editable = ('work_telephone',)
     search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     fields = (('name', 'surname', 'patronymic'), 'position', ('work_telephone', 'private_telephone'),
-              'prosecutors_office', 'department', 'division', 'secretary')
+              'prosecutors_office', 'department', 'division', 'secretary', 'is_secretary')
     raw_id_fields = ('position', 'secretary')#     поле поиска по id а не селект
     # list_per_page = 50
     # save_on_top = True        #для моделей с большим колвом данных (добавляет поле сохранения сверху)

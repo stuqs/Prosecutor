@@ -34,6 +34,7 @@ class Employee(models.Model):
     department = models.ForeignKey('Department', blank=True, null=True, verbose_name='Управление')
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', blank=True, null=True, verbose_name='Прокуратура')
     secretary = models.ForeignKey('self', blank=True, null=True, verbose_name='Приемная')
+    is_secretary = models.NullBooleanField(blank=True, null=True, verbose_name="Приемная")
 
     def tel_work_escape(self):
         """
