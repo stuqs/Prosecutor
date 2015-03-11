@@ -99,89 +99,116 @@ def excel_out(employees_dict):
         print("Error during creation")
         pass
 
-    merge_format_headers = workbook.add_format({'align':        'center',
-                                                'valign':       'vcenter',
-                                                'bold':         True,
-                                                'font_size':    12,
-                                                'font_name':    'Times New Roman'})
-
-
-
-    format_headers_po = workbook.add_format(           {'align':       'center',
+    # merge_format_headers = workbook.add_format(        {'align':        'center',
+    #                                                     'valign':       'vcenter',
+    #                                                     'bold':         True,
+    #                                                     'font_size':    12,
+    #                                                     'font_name':    'Times New Roman'})
+    format_headers_po = workbook.add_format(           {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    14,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_color':     '#FFCA28'})
+    format_headers_department = workbook.add_format(   {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    13,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_color':     '#FFD54F'})
+    format_headers_division = workbook.add_format(     {'align':        'center',
                                                         'valign':       'vcenter',
                                                         'bold':         True,
                                                         'font_size':    12,
                                                         'font_name':    'Times New Roman',
-                                                        'bg_rowor':     '#FFCA28'})
-    format_headers_department = workbook.add_format(   {'align':       'center',
+                                                        'bg_color':     '#FFE082'})
+    format_header = workbook.add_format(               {'align':        'center',
                                                         'valign':       'vcenter',
                                                         'bold':         True,
                                                         'font_size':    12,
                                                         'font_name':    'Times New Roman',
-                                                        'bg_rowor':     '#FFD54F'})
-    format_headers_division = workbook.add_format(     {'align':       'center',
+                                                        'bg_color':     '#FFF59D'})
+    format_rows_bold = workbook.add_format(            {'align':        'left',
                                                         'valign':       'vcenter',
+                                                        'text_wrap':    True,
                                                         'bold':         True,
                                                         'font_size':    12,
-                                                        'font_name':    'Times New Roman',
-                                                        'bg_rowor':     '#FFE082'})
-    format_header = workbook.add_format(               {'align':       'center',
+                                                        'font_name':    'Times New Roman'})
+    format_rows = workbook.add_format(                 {'align':        'center',
                                                         'valign':       'vcenter',
-                                                        'bold':         True,
+                                                        'text_wrap':    True,
                                                         'font_size':    12,
                                                         'font_name':    'Times New Roman',
-                                                        'bg_rowor':     '#FFF59D'})
+                                                        'border':       1})
 
 
-    def add_header(row):
-        worksheet.merge_range(row, 0, row+1, 0, '№', cell_format=format_header)
-        worksheet.merge_range(row, 1, row+1, 1, 'Фамилия имя отчество', cell_format=format_header)
-        worksheet.merge_range(row, 2, row+1, 2, 'Должность', cell_format=format_header)
-        worksheet.merge_range(row, 3, row, 4, 'Телефоны', cell_format=format_header)
-        worksheet.write(row+1, 3, 'Служебный', format_header)
-        worksheet.write(row+1, 4, 'Мобильный', format_header)
-        row += 2
+    def add_header(worksheet, row, format):
+        worksheet.merge_range(row, 0, row+1, 0, '№', cell_format=format)
+        worksheet.merge_range(row, 1, row+1, 1, 'Фамилия имя отчество', cell_format=format)
+        worksheet.merge_range(row, 2, row+1, 2, 'Должность', cell_format=format)
+        worksheet.merge_range(row, 3, row, 4, 'Телефоны', cell_format=format)
+        worksheet.write(row+1, 3, 'Служебный', format)
+        worksheet.write(row+1, 4, 'Мобильный', format)
+        return 2
 
 
+    def add_employee(worksheet, row, employee):
+
+        if employee.work_telephone:
+            work_telephone_list = regular_telephone(employee.work_telephone.split(';'))
+        else:
+            work_telephone_list = []
+        if employee.private_telephone:
+            private_telephone_list = regular_telephone(employee.private_telephone.split(';'))
+        else:
+            private_telephone_list = []
 
 
+        rows_for_emp = max(len(work_telephone_list), len(private_telephone_list))
 
+        if rows_for_emp >= 2:
+            worksheet.merge_range(row, 0, row+rows_for_emp-1, 0, row, cell_format=format_rows)
+            worksheet.merge_range(row, 1, row+rows_for_emp-1, 1, str(employee), cell_format=format_rows_bold)
+            worksheet.merge_range(row, 2, row+rows_for_emp-1, 2, str(employee.position), cell_format=format_rows)
+        else:
+            worksheet.write(row, 0, row, format_rows)
+            worksheet.write(row, 1, str(employee), format_rows_bold)
+            worksheet.write(row, 2, str(employee.position), format_rows)
 
+        for num, work_telephone in enumerate(work_telephone_list):
+            worksheet.write(row+num, 3, work_telephone, format_rows)
+        for num, private_telephone in enumerate(private_telephone_list):
+            worksheet.write(row+num, 4, private_telephone, format_rows)
 
-
-
-
-
-
-
-    format_rows = workbook.add_format({'valign':        'vcenter',
-                                       'text_wrap':     True,
-                                       'bold':          True,
-                                       'font_size':     12,
-                                       'font_name':     'Times New Roman'})
-
+        return rows_for_emp
 
 
 
     worksheet.set_default_row(40, False)
-    worksheet.set_rowumn(0, 0, 5)
-    worksheet.set_rowumn(1, 1, 25)
-    worksheet.set_rowumn(2, 2, 21)
-    worksheet.set_rowumn(3, 3, 21)
-    worksheet.set_rowumn(4, 4, 21)
-
-    worksheet.merge_range(0, 0, 1, 0, '№', cell_format=format_header)
-    worksheet.merge_range(0, 1, 1, 1, 'Фамилия имя отчество', cell_format=format_header)
-    worksheet.merge_range(0, 2, 1, 2, 'Должность', cell_format=format_header)
-    worksheet.merge_range(0, 3, 0, 4, 'Телефоны', cell_format=format_header)
-    worksheet.write(1, 3, 'Служебный', format_header)
-    worksheet.write(1, 4, 'Мобильный', format_header)
+    worksheet.set_column(0, 0, 5)
+    worksheet.set_column(1, 1, 25)
+    worksheet.set_column(2, 2, 21)
+    worksheet.set_column(3, 3, 21)
+    worksheet.set_column(4, 4, 21)
 
 
 
 
 
-    row = 2
+
+
+
+
+
+
+
+    row = 0
+
+    row += add_header(worksheet, row, format_header)
+
+
+
+
 
     for po in employees_dict:
         # Прокуратура
@@ -192,8 +219,9 @@ def excel_out(employees_dict):
 
         # Работники Прокуратуры
         for employee in employees_dict[po]['employees']:
-            worksheet.write(row, 1, str(employee), format_rows)
-            row += 1
+            row += add_employee(worksheet, row, employee)
+            # worksheet.write(row, 1, str(employee), format_rows)
+            # row += 1
 
         # Управление
         for department in employees_dict[po]['departments']:
@@ -203,8 +231,7 @@ def excel_out(employees_dict):
 
             # Работники Управления
             for employee in employees_dict[po]['departments'][department]['employees']:
-                worksheet.write(row, 1, str(employee), format_rows)
-                row += 1
+                row += add_employee(worksheet, row, employee)
 
             # Отдел Управления
             for division in employees_dict[po]['departments'][department]['divisions']:
@@ -214,8 +241,7 @@ def excel_out(employees_dict):
 
                 # Работники Отдела
                 for employee in employees_dict[po]['departments'][department]['divisions'][division]:
-                    worksheet.write(row, 1, str(employee), format_rows)
-                    row += 1
+                    row += add_employee(worksheet, row, employee)
 
         # Отдел Прокуратуры
         for division in employees_dict[po]['divisions']:
@@ -225,8 +251,7 @@ def excel_out(employees_dict):
 
             # Работники Отдела
             for employee in employees_dict[po]['divisions'][division]:
-                worksheet.write(row, 1, str(employee), format_rows)
-                row += 1
+                row += add_employee(worksheet, row, employee)
 
     try:
         workbook.close()

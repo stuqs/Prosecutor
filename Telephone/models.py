@@ -42,6 +42,8 @@ class Employee(models.Model):
         """
         if self.work_telephone:
             return "<br>".join(regular_telephone(self.work_telephone.split(';')))
+        else:
+            return ''
 
     def tel_private_escape(self):
         """
@@ -49,6 +51,8 @@ class Employee(models.Model):
         """
         if self.private_telephone:
             return "<br>".join(regular_telephone(self.private_telephone.split(';')))
+        else:
+            return ''
 
     class Meta:
         order_with_respect_to = 'position'
