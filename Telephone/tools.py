@@ -92,56 +92,9 @@ def regular_telephone(telephone_list):
 
 
 def excel_out(employees_dict):
-    try:
-        workbook = xlsxwriter.Workbook('Телефонный справочник.xlsx')
-        worksheet = workbook.add_worksheet(name='Прокуратура')
-    except:
-        print("Error during creation")
-        pass
-
-    # merge_format_headers = workbook.add_format(        {'align':        'center',
-    #                                                     'valign':       'vcenter',
-    #                                                     'bold':         True,
-    #                                                     'font_size':    12,
-    #                                                     'font_name':    'Times New Roman'})
-    format_headers_po = workbook.add_format(           {'align':        'center',
-                                                        'valign':       'vcenter',
-                                                        'bold':         True,
-                                                        'font_size':    14,
-                                                        'font_name':    'Times New Roman',
-                                                        'bg_color':     '#FFCA28'})
-    format_headers_department = workbook.add_format(   {'align':        'center',
-                                                        'valign':       'vcenter',
-                                                        'bold':         True,
-                                                        'font_size':    13,
-                                                        'font_name':    'Times New Roman',
-                                                        'bg_color':     '#FFD54F'})
-    format_headers_division = workbook.add_format(     {'align':        'center',
-                                                        'valign':       'vcenter',
-                                                        'bold':         True,
-                                                        'font_size':    12,
-                                                        'font_name':    'Times New Roman',
-                                                        'bg_color':     '#FFE082'})
-    format_header = workbook.add_format(               {'align':        'center',
-                                                        'valign':       'vcenter',
-                                                        'bold':         True,
-                                                        'font_size':    12,
-                                                        'font_name':    'Times New Roman',
-                                                        'bg_color':     '#FFF59D'})
-    format_rows_bold = workbook.add_format(            {'align':        'left',
-                                                        'valign':       'vcenter',
-                                                        'text_wrap':    True,
-                                                        'bold':         True,
-                                                        'font_size':    12,
-                                                        'font_name':    'Times New Roman'})
-    format_rows = workbook.add_format(                 {'align':        'center',
-                                                        'valign':       'vcenter',
-                                                        'text_wrap':    True,
-                                                        'font_size':    12,
-                                                        'font_name':    'Times New Roman',
-                                                        'border':       1})
-
-
+    """
+    Create xlsx file with data from employees_dict
+    """
     def add_header(worksheet, row, format):
         worksheet.merge_range(row, 0, row+1, 0, '№', cell_format=format)
         worksheet.merge_range(row, 1, row+1, 1, 'Фамилия имя отчество', cell_format=format)
@@ -152,8 +105,56 @@ def excel_out(employees_dict):
         return 2
 
 
-    def add_employee(worksheet, row, employee):
+    # Create workbook and worksheet
+    workbook = xlsxwriter.Workbook(r'Телефонный справочник.xlsx')
+    worksheet = workbook.add_worksheet(name='Прокуратура')
+    # Add format to workbook
+    format_headers_po = workbook.add_format(           {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    14,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_color':     '#FFCA28',
+                                                        'border':       2})
+    format_headers_department = workbook.add_format(   {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    13,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_color':     '#FFD54F',
+                                                        'border':       2})
+    format_headers_division = workbook.add_format(     {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    12,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_color':     '#FFE082',
+                                                        'border':       2})
+    format_header = workbook.add_format(               {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    12,
+                                                        'font_name':    'Times New Roman',
+                                                        'bg_color':     '#FFF59D',
+                                                        'border':       2})
+    format_rows_bold = workbook.add_format(            {'align':        'left',
+                                                        'valign':       'vcenter',
+                                                        'text_wrap':    True,
+                                                        'bold':         True,
+                                                        'font_size':    12,
+                                                        'font_name':    'Times New Roman',
+                                                        'border':       2})
+    format_rows = workbook.add_format(                 {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'text_wrap':    True,
+                                                        'font_size':    12,
+                                                        'font_name':    'Times New Roman',
+                                                        'border':       2})
 
+
+
+    def add_employee(worksheet, row, employee, num):
+        # Get number of row for employee
         if employee.work_telephone:
             work_telephone_list = regular_telephone(employee.work_telephone.split(';'))
         else:
@@ -162,25 +163,33 @@ def excel_out(employees_dict):
             private_telephone_list = regular_telephone(employee.private_telephone.split(';'))
         else:
             private_telephone_list = []
-
-
-        rows_for_emp = max(len(work_telephone_list), len(private_telephone_list))
-
-        if rows_for_emp >= 2:
-            worksheet.merge_range(row, 0, row+rows_for_emp-1, 0, row, cell_format=format_rows)
-            worksheet.merge_range(row, 1, row+rows_for_emp-1, 1, str(employee), cell_format=format_rows_bold)
-            worksheet.merge_range(row, 2, row+rows_for_emp-1, 2, str(employee.position), cell_format=format_rows)
-        else:
-            worksheet.write(row, 0, row, format_rows)
-            worksheet.write(row, 1, str(employee), format_rows_bold)
-            worksheet.write(row, 2, str(employee.position), format_rows)
-
+        rows_for_emp = max(len(work_telephone_list), len(private_telephone_list), 2)
+        # Add name and position
+        worksheet.merge_range(row, 0, row+rows_for_emp-1, 0, num, cell_format=format_rows)
+        worksheet.merge_range(row, 1, row+rows_for_emp-1, 1, str(employee), cell_format=format_rows_bold)
+        worksheet.merge_range(row, 2, row+rows_for_emp-1, 2, str(employee.position), cell_format=format_rows)
+        # Add work telephone numbers
         for num, work_telephone in enumerate(work_telephone_list):
-            worksheet.write(row+num, 3, work_telephone, format_rows)
+            if (len(work_telephone_list) < rows_for_emp) and ((num + 1) == len(work_telephone_list)):
+                worksheet.merge_range(row+num, 3, row+rows_for_emp-1, 3, work_telephone, cell_format=format_rows)
+            else:
+                worksheet.write(row+num, 3, work_telephone, format_rows)
+        if len(work_telephone_list) == 0:
+            worksheet.merge_range(row, 3, row+rows_for_emp-1, 3, '', cell_format=format_rows)
+        # Add private telephone numbers
         for num, private_telephone in enumerate(private_telephone_list):
-            worksheet.write(row+num, 4, private_telephone, format_rows)
-
+            if (len(private_telephone_list) < rows_for_emp) and ((num + 1) == len(private_telephone_list)):
+                worksheet.merge_range(row+num, 4, row+rows_for_emp-1, 4, private_telephone, cell_format=format_rows)
+            else:
+                worksheet.write(row+num, 4, private_telephone, format_rows)
+            if (len(private_telephone_list) < rows_for_emp) and ((num - 1) == len(private_telephone_list)):
+                worksheet.merge_range(row+num, 4, row+rows_for_emp-1, 4, '', cell_format=format_rows)
+        if len(private_telephone_list) == 0:
+            worksheet.merge_range(row, 4, row+rows_for_emp-1, 4, '', cell_format=format_rows)
         return rows_for_emp
+
+
+
 
 
 
@@ -218,8 +227,8 @@ def excel_out(employees_dict):
         # Атрибуты Прокуратуры
 
         # Работники Прокуратуры
-        for employee in employees_dict[po]['employees']:
-            row += add_employee(worksheet, row, employee)
+        for num, employee in enumerate(employees_dict[po]['employees'], 1):
+            row += add_employee(worksheet, row, employee, num)
             # worksheet.write(row, 1, str(employee), format_rows)
             # row += 1
 
@@ -230,8 +239,8 @@ def excel_out(employees_dict):
             # Атрибуты Управления
 
             # Работники Управления
-            for employee in employees_dict[po]['departments'][department]['employees']:
-                row += add_employee(worksheet, row, employee)
+            for num, employee in enumerate(employees_dict[po]['departments'][department]['employees'], 1):
+                row += add_employee(worksheet, row, employee, num)
 
             # Отдел Управления
             for division in employees_dict[po]['departments'][department]['divisions']:
@@ -240,8 +249,8 @@ def excel_out(employees_dict):
                 # Атрибуты Отдела
 
                 # Работники Отдела
-                for employee in employees_dict[po]['departments'][department]['divisions'][division]:
-                    row += add_employee(worksheet, row, employee)
+                for num, employee in enumerate(employees_dict[po]['departments'][department]['divisions'][division], 1):
+                    row += add_employee(worksheet, row, employee, num)
 
         # Отдел Прокуратуры
         for division in employees_dict[po]['divisions']:
@@ -250,8 +259,8 @@ def excel_out(employees_dict):
             # Атрибуты Отдела
 
             # Работники Отдела
-            for employee in employees_dict[po]['divisions'][division]:
-                row += add_employee(worksheet, row, employee)
+            for num, employee in enumerate(employees_dict[po]['divisions'][division], 1):
+                row += add_employee(worksheet, row, employee, num)
 
     try:
         workbook.close()
