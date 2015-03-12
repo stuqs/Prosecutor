@@ -15,6 +15,7 @@ urlpatterns = patterns('',
                        url(r'^structure/(?P<po>.+?)/$', show_structure),
                        url(r'^ajax/department/$', ajax_department),
                        url(r'^ajax/division/$', ajax_division),
+                       url(r'^file/$', download_file),
                        )
 
 if settings.DEBUG:

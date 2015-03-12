@@ -79,3 +79,9 @@ def ajax_division(request):
     from django.core import serializers
     json_subcat = serializers.serialize("json", Division.objects.filter(department__id=request.GET.get('department_id')))
     return HttpResponse(json_subcat, content_type="application/javascript")
+
+def download_file(request):
+    fsock = open('media/files/Tel_base.xlsx', 'rb')
+    response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
+    return response

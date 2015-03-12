@@ -104,9 +104,8 @@ def excel_out(employees_dict):
         worksheet.write(row+1, 4, 'Мобильный', format)
         return 2
 
-
     # Create workbook and worksheet
-    workbook = xlsxwriter.Workbook(r'Телефонный справочник.xlsx')
+    workbook = xlsxwriter.Workbook(r'media/files/Tel_base.xlsx')
     worksheet = workbook.add_worksheet(name='Прокуратура')
     # Add format to workbook
     format_headers_po = workbook.add_format(           {'align':        'center',
@@ -151,8 +150,6 @@ def excel_out(employees_dict):
                                                         'font_name':    'Times New Roman',
                                                         'border':       2})
 
-
-
     def add_employee(worksheet, row, employee, num):
         # Get number of row for employee
         if employee.work_telephone:
@@ -188,11 +185,7 @@ def excel_out(employees_dict):
             worksheet.merge_range(row, 4, row+rows_for_emp-1, 4, '', cell_format=format_rows)
         return rows_for_emp
 
-
-
-
-
-
+    # Set width of columns and high of rows
     worksheet.set_default_row(40, False)
     worksheet.set_column(0, 0, 5)
     worksheet.set_column(1, 1, 25)
@@ -200,24 +193,10 @@ def excel_out(employees_dict):
     worksheet.set_column(3, 3, 21)
     worksheet.set_column(4, 4, 21)
 
-
-
-
-
-
-
-
-
-
-
-
+    # Begin from row
     row = 0
 
     row += add_header(worksheet, row, format_header)
-
-
-
-
 
     for po in employees_dict:
         # Прокуратура
