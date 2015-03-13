@@ -247,29 +247,7 @@ def excel_out(employees_dict):
         print('Error during save')
         pass
 
-
-
-
-    '''
-    from datetime import datetime
-    # Add a bold format to use to highlight cells.
-    bold = workbook.add_format({'bold': True})
-
-    # Add a number format for cells with money.
-    money = workbook.add_format({'num_format': '$#,##0'})
-
-    # Add an Excel date format.
-    date_format = workbook.add_format({'num_format': 'mmmm d yyyy'})
-    date = datetime.strptime('2013-01-13', "%Y-%m-%d")
-
-    # Adjust the rowumn width.
-    worksheet.set_rowumn(1, 1, 15)
-    # Adjust the rowumn width.
-    worksheet.set_rowumn('B:B', 15)
-
-    # worksheet.write_datetime
-    '''
-
+    return r'media/files/Tel_base.xlsx'
 
 
 

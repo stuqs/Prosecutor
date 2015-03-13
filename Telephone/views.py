@@ -4,6 +4,7 @@ from Prosecutor.settings import FILTER
 from Telephone.tools import *
 from django.http import HttpResponse
 
+DB_CHANGE = True
 
 def main_with_filter(request):
     """
@@ -24,7 +25,6 @@ def main_with_filter(request):
                 field_query = {FILTER[k]: v}
                 employee_list = employee_list.filter(**field_query)
         employees_dict = create_employee_structure(employee_list)
-        excel_out(employees_dict)
         return render(request, 'main.html', {'employees_dict': employees_dict, 'filter_header': 'filter_header.html',
                                              'table_header': 'table_header.html', 'table_loop': 'table_loop.html',
                                              'po_list': po_list, 'department_list': department_list, 'division_list': division_list,
@@ -81,7 +81,21 @@ def ajax_division(request):
     return HttpResponse(json_subcat, content_type="application/javascript")
 
 def download_file(request):
-    fsock = open('media/files/Tel_base.xlsx', 'rb')
+    global LAST_DICT
+    employee_list = Employee.objects.all()
+    path = r'media/files/Tel_base.xlsx'
+    if employee_list != LAST_DICT:
+        print("произошли изменения")
+        print(LAST_DICT)
+        asd = employee_list
+        print(asd)
+        print(LAST_DICT == employee_list)
+        employees_dict = create_employee_structure(employee_list)
+        path = excel_out(employees_dict)
+        LAST_DICT = employee_list[:]
+
+
+    fsock = open(path, 'rb')
     response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
     return response
