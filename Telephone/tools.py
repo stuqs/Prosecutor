@@ -104,6 +104,30 @@ def excel_out(employees_dict):
         worksheet.write(row+1, 4, 'Мобильный', format)
         return 2
 
+    def add_attribute(temp_node, worksheet, row, format):
+        if temp_node.address or getattr(temp_node, 'tel_cod', None) or temp_node.email_inside or temp_node.email_outside:
+            if temp_node.address:
+                worksheet.merge_range(row, 0, row, 4, 'Адресс: ' + str(temp_node.address), cell_format=format)
+                worksheet.set_row(row, 20)
+                row += 1
+            if getattr(temp_node, 'tel_cod', None):
+                worksheet.merge_range(row, 0, row, 4, 'Теллефонный код: ' + str(temp_node.tel_cod), cell_format=format)
+                worksheet.set_row(row, 20)
+                row += 1
+            if temp_node.email_inside or temp_node.email_outside:
+                worksheet.merge_range(row, 0, row, 4, 'Электронный адресс: ', cell_format=format)
+                worksheet.set_row(row, 20)
+                row += 1
+                if temp_node.email_inside:
+                    worksheet.merge_range(row, 0, row, 4, 'Внутренний: ' + str(temp_node.email_inside), cell_format=format)
+                    worksheet.set_row(row, 20)
+                    row += 1
+                if temp_node.email_outside:
+                    worksheet.merge_range(row, 0, row, 4, 'Внешний: ' + str(temp_node.email_outside), cell_format=format)
+                    worksheet.set_row(row, 20)
+                    row += 1
+        return row
+
     # Create workbook and worksheet
     workbook = xlsxwriter.Workbook(r'media/files/Tel_base.xlsx')
     worksheet = workbook.add_worksheet(name='Прокуратура')
@@ -149,6 +173,12 @@ def excel_out(employees_dict):
                                                         'font_size':    12,
                                                         'font_name':    'Times New Roman',
                                                         'border':       2})
+    format_attribute = workbook.add_format(            {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'text_wrap':    True,
+                                                        'font_size':    10,
+                                                        'font_name':    'Times New Roman',
+                                                        'border':       1})
 
     def add_employee(worksheet, row, employee, num):
         # Get number of row for employee
@@ -183,6 +213,18 @@ def excel_out(employees_dict):
                 worksheet.merge_range(row+num, 4, row+rows_for_emp-1, 4, '', cell_format=format_rows)
         if len(private_telephone_list) == 0:
             worksheet.merge_range(row, 4, row+rows_for_emp-1, 4, '', cell_format=format_rows)
+
+
+
+
+        # If secretary exist
+        if employee.secretary:
+
+            add_employee(worksheet, row+rows_for_emp, employee.secretary, '')
+
+
+
+
         return rows_for_emp
 
     # Set width of columns and high of rows
@@ -198,13 +240,26 @@ def excel_out(employees_dict):
 
     row += add_header(worksheet, row, format_header)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     for po in employees_dict:
         # Прокуратура
         # worksheet.write(row, 3, po.name, bold)
         worksheet.merge_range(row, 0, row, 4, data=po.name, cell_format=format_headers_po)
         row += 1
         # Атрибуты Прокуратуры
-
+        row = add_attribute(po, worksheet, row, format_attribute)
         # Работники Прокуратуры
         for num, employee in enumerate(employees_dict[po]['employees'], 1):
             row += add_employee(worksheet, row, employee, num)
@@ -216,7 +271,7 @@ def excel_out(employees_dict):
             worksheet.merge_range(row, 0, row, 4, data=department.name, cell_format=format_headers_department)
             row += 1
             # Атрибуты Управления
-
+            row = add_attribute(department, worksheet, row, format_attribute)
             # Работники Управления
             for num, employee in enumerate(employees_dict[po]['departments'][department]['employees'], 1):
                 row += add_employee(worksheet, row, employee, num)
@@ -226,7 +281,7 @@ def excel_out(employees_dict):
                 worksheet.merge_range(row, 0, row, 4, data=division.name, cell_format=format_headers_division)
                 row += 1
                 # Атрибуты Отдела
-
+                row = add_attribute(division, worksheet, row, format_attribute)
                 # Работники Отдела
                 for num, employee in enumerate(employees_dict[po]['departments'][department]['divisions'][division], 1):
                     row += add_employee(worksheet, row, employee, num)
@@ -236,7 +291,7 @@ def excel_out(employees_dict):
             worksheet.merge_range(row, 0, row, 4, data=division.name, cell_format=format_headers_division)
             row += 1
             # Атрибуты Отдела
-
+            row = add_attribute(division, worksheet, row, format_attribute)
             # Работники Отдела
             for num, employee in enumerate(employees_dict[po]['divisions'][division], 1):
                 row += add_employee(worksheet, row, employee, num)
@@ -250,6 +305,9 @@ def excel_out(employees_dict):
     return r'media/files/Tel_base.xlsx'
 
 
+def create_file(employee_list):
+    employees_dict = create_employee_structure(employee_list)
+    excel_out(employees_dict)
 
 
 

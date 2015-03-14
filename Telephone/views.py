@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from Telephone.models import *
-from Prosecutor.settings import FILTER
+from Telephone.settings import FILTER
 from Telephone.tools import *
 from django.http import HttpResponse
 
@@ -81,21 +81,19 @@ def ajax_division(request):
     return HttpResponse(json_subcat, content_type="application/javascript")
 
 def download_file(request):
-    global LAST_DICT
+    global DB_CHANGE
     employee_list = Employee.objects.all()
-    path = r'media/files/Tel_base.xlsx'
-    if employee_list != LAST_DICT:
+    if DB_CHANGE:
         print("произошли изменения")
-        print(LAST_DICT)
-        asd = employee_list
-        print(asd)
-        print(LAST_DICT == employee_list)
-        employees_dict = create_employee_structure(employee_list)
-        path = excel_out(employees_dict)
-        LAST_DICT = employee_list[:]
-
-
-    fsock = open(path, 'rb')
+        create_file(employee_list)
+        DB_CHANGE = False
+    path = r'media/files/Tel_base.xlsx'
+    try:
+        fsock = open(path, 'rb')
+    except FileNotFoundError:
+        DB_CHANGE = True
+        download_file(request)
+        fsock = open(path, 'rb')
     response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
     return response

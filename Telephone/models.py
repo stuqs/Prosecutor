@@ -23,9 +23,9 @@ class Employee(models.Model):
     Модель для всех сотрудников
     """
     name = models.CharField(blank=True, null=True, max_length=30, verbose_name="Имя")
-    surname = models.CharField(blank=True, null=True, max_length=30, verbose_name='Фамилия')
+    surname = models.CharField(null=True, max_length=30, verbose_name='Фамилия')
     patronymic = models.CharField(blank=True, null=True, max_length=30, verbose_name='Отчество')
-    position = models.ForeignKey(Position, blank=True, null=True, verbose_name='Должность')
+    position = models.ForeignKey(Position, null=True, verbose_name='Должность')
     work_telephone = models.CharField(blank=True, null=True, max_length=100, verbose_name='Служебный телефон',
                                       help_text='Номера разделяются символом ; - XXXX;YYYY')
     private_telephone = models.CharField(blank=True, null=True, max_length=100, verbose_name='Мобильный телефон',
