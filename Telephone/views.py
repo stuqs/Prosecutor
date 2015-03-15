@@ -84,7 +84,6 @@ def download_file(request):
     global DB_CHANGE
     employee_list = Employee.objects.all()
     if DB_CHANGE:
-        print("произошли изменения")
         create_file(employee_list)
         DB_CHANGE = False
     path = r'media/files/Tel_base.xlsx'

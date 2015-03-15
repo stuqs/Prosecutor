@@ -91,43 +91,105 @@ def regular_telephone(telephone_list):
     return return_tel_list
 
 
+####################################################################
+                        # Excel section
+####################################################################
+def create_file(employee_list):
+    """
+    Create excel file from employee_list
+    """
+    employees_dict = create_employee_structure(employee_list)
+    excel_out(employees_dict)
+
+
+def add_header(worksheet, row, header_format):
+    """
+    Add header to worksheet
+    """
+    worksheet.merge_range(row, 0, row+1, 0, '№', cell_format=header_format)
+    worksheet.merge_range(row, 1, row+1, 1, 'Фамилия имя отчество', cell_format=header_format)
+    worksheet.merge_range(row, 2, row+1, 2, 'Должность', cell_format=header_format)
+    worksheet.merge_range(row, 3, row, 4, 'Телефоны', cell_format=header_format)
+    worksheet.write(row+1, 3, 'Служебный', header_format)
+    worksheet.write(row+1, 4, 'Мобильный', header_format)
+    return row+2
+
+
+def add_attribute(temp_node, worksheet, row, attr_format):
+    """
+    Add attributes for po/department/division to worksheet
+    """
+    if temp_node.address or getattr(temp_node, 'tel_cod', None) or temp_node.email_inside or temp_node.email_outside:
+        if temp_node.address:
+            worksheet.merge_range(row, 0, row, 4, 'Адресс: ' + str(temp_node.address), cell_format=attr_format)
+            worksheet.set_row(row, 20)
+            row += 1
+        if getattr(temp_node, 'tel_cod', None):
+            worksheet.merge_range(row, 0, row, 4, 'Теллефонный код: ' + str(temp_node.tel_cod), cell_format=attr_format)
+            worksheet.set_row(row, 20)
+            row += 1
+        if temp_node.email_inside or temp_node.email_outside:
+            worksheet.merge_range(row, 0, row, 4, 'Электронный адресс: ', cell_format=attr_format)
+            worksheet.set_row(row, 20)
+            row += 1
+            if temp_node.email_inside:
+                worksheet.merge_range(row, 0, row, 4, 'Внутренний: ' + str(temp_node.email_inside), cell_format=attr_format)
+                worksheet.set_row(row, 20)
+                row += 1
+            if temp_node.email_outside:
+                worksheet.merge_range(row, 0, row, 4, 'Внешний: ' + str(temp_node.email_outside), cell_format=attr_format)
+                worksheet.set_row(row, 20)
+                row += 1
+    return row
+
+
+def add_employee(worksheet, row, employee, num_in_list, employee_format, employee_format_b):
+    """
+    Add employee to worksheet
+    """
+    # Get number of row for employee
+    if employee.work_telephone:
+        work_telephone_list = regular_telephone(employee.work_telephone.split(';'))
+    else:
+        work_telephone_list = []
+    if employee.private_telephone:
+        private_telephone_list = regular_telephone(employee.private_telephone.split(';'))
+    else:
+        private_telephone_list = []
+    rows_for_emp = max(len(work_telephone_list), len(private_telephone_list), 2)
+    # Add name and position
+    worksheet.merge_range(row, 0, row+rows_for_emp-1, 0, num_in_list, cell_format=employee_format)
+    worksheet.merge_range(row, 1, row+rows_for_emp-1, 1, str(employee), cell_format=employee_format_b)
+    worksheet.merge_range(row, 2, row+rows_for_emp-1, 2, str(employee.position), cell_format=employee_format)
+    # Add work telephone numbers
+    for num, work_telephone in enumerate(work_telephone_list):
+        if (len(work_telephone_list) < rows_for_emp) and ((num + 1) == len(work_telephone_list)):
+            worksheet.merge_range(row+num, 3, row+rows_for_emp-1, 3, work_telephone, cell_format=employee_format)
+        else:
+            worksheet.write(row+num, 3, work_telephone, employee_format)
+    if len(work_telephone_list) == 0:
+        worksheet.merge_range(row, 3, row+rows_for_emp-1, 3, '', cell_format=employee_format)
+    # Add private telephone numbers
+    for num, private_telephone in enumerate(private_telephone_list):
+        if (len(private_telephone_list) < rows_for_emp) and ((num + 1) == len(private_telephone_list)):
+            worksheet.merge_range(row+num, 4, row+rows_for_emp-1, 4, private_telephone, cell_format=employee_format)
+        else:
+            worksheet.write(row+num, 4, private_telephone, employee_format)
+        if (len(private_telephone_list) < rows_for_emp) and ((num - 1) == len(private_telephone_list)):
+            worksheet.merge_range(row+num, 4, row+rows_for_emp-1, 4, '', cell_format=employee_format)
+    if len(private_telephone_list) == 0:
+        worksheet.merge_range(row, 4, row+rows_for_emp-1, 4, '', cell_format=employee_format)
+    # If secretary exist
+    if employee.secretary:
+        row = row + rows_for_emp
+        add_employee(worksheet, row, employee.secretary, '', employee_format, employee_format_b)
+    return row+rows_for_emp
+
+
 def excel_out(employees_dict):
     """
     Create xlsx file with data from employees_dict
     """
-    def add_header(worksheet, row, format):
-        worksheet.merge_range(row, 0, row+1, 0, '№', cell_format=format)
-        worksheet.merge_range(row, 1, row+1, 1, 'Фамилия имя отчество', cell_format=format)
-        worksheet.merge_range(row, 2, row+1, 2, 'Должность', cell_format=format)
-        worksheet.merge_range(row, 3, row, 4, 'Телефоны', cell_format=format)
-        worksheet.write(row+1, 3, 'Служебный', format)
-        worksheet.write(row+1, 4, 'Мобильный', format)
-        return 2
-
-    def add_attribute(temp_node, worksheet, row, format):
-        if temp_node.address or getattr(temp_node, 'tel_cod', None) or temp_node.email_inside or temp_node.email_outside:
-            if temp_node.address:
-                worksheet.merge_range(row, 0, row, 4, 'Адресс: ' + str(temp_node.address), cell_format=format)
-                worksheet.set_row(row, 20)
-                row += 1
-            if getattr(temp_node, 'tel_cod', None):
-                worksheet.merge_range(row, 0, row, 4, 'Теллефонный код: ' + str(temp_node.tel_cod), cell_format=format)
-                worksheet.set_row(row, 20)
-                row += 1
-            if temp_node.email_inside or temp_node.email_outside:
-                worksheet.merge_range(row, 0, row, 4, 'Электронный адресс: ', cell_format=format)
-                worksheet.set_row(row, 20)
-                row += 1
-                if temp_node.email_inside:
-                    worksheet.merge_range(row, 0, row, 4, 'Внутренний: ' + str(temp_node.email_inside), cell_format=format)
-                    worksheet.set_row(row, 20)
-                    row += 1
-                if temp_node.email_outside:
-                    worksheet.merge_range(row, 0, row, 4, 'Внешний: ' + str(temp_node.email_outside), cell_format=format)
-                    worksheet.set_row(row, 20)
-                    row += 1
-        return row
-
     # Create workbook and worksheet
     workbook = xlsxwriter.Workbook(r'media/files/Tel_base.xlsx')
     worksheet = workbook.add_worksheet(name='Прокуратура')
@@ -160,14 +222,14 @@ def excel_out(employees_dict):
                                                         'font_name':    'Times New Roman',
                                                         'bg_color':     '#FFF59D',
                                                         'border':       2})
-    format_rows_bold = workbook.add_format(            {'align':        'left',
+    employee_format_b = workbook.add_format(           {'align':        'left',
                                                         'valign':       'vcenter',
                                                         'text_wrap':    True,
                                                         'bold':         True,
                                                         'font_size':    12,
                                                         'font_name':    'Times New Roman',
                                                         'border':       2})
-    format_rows = workbook.add_format(                 {'align':        'center',
+    employee_format = workbook.add_format(             {'align':        'center',
                                                         'valign':       'vcenter',
                                                         'text_wrap':    True,
                                                         'font_size':    12,
@@ -180,54 +242,7 @@ def excel_out(employees_dict):
                                                         'font_name':    'Times New Roman',
                                                         'border':       1})
 
-    def add_employee(worksheet, row, employee, num):
-        # Get number of row for employee
-        if employee.work_telephone:
-            work_telephone_list = regular_telephone(employee.work_telephone.split(';'))
-        else:
-            work_telephone_list = []
-        if employee.private_telephone:
-            private_telephone_list = regular_telephone(employee.private_telephone.split(';'))
-        else:
-            private_telephone_list = []
-        rows_for_emp = max(len(work_telephone_list), len(private_telephone_list), 2)
-        # Add name and position
-        worksheet.merge_range(row, 0, row+rows_for_emp-1, 0, num, cell_format=format_rows)
-        worksheet.merge_range(row, 1, row+rows_for_emp-1, 1, str(employee), cell_format=format_rows_bold)
-        worksheet.merge_range(row, 2, row+rows_for_emp-1, 2, str(employee.position), cell_format=format_rows)
-        # Add work telephone numbers
-        for num, work_telephone in enumerate(work_telephone_list):
-            if (len(work_telephone_list) < rows_for_emp) and ((num + 1) == len(work_telephone_list)):
-                worksheet.merge_range(row+num, 3, row+rows_for_emp-1, 3, work_telephone, cell_format=format_rows)
-            else:
-                worksheet.write(row+num, 3, work_telephone, format_rows)
-        if len(work_telephone_list) == 0:
-            worksheet.merge_range(row, 3, row+rows_for_emp-1, 3, '', cell_format=format_rows)
-        # Add private telephone numbers
-        for num, private_telephone in enumerate(private_telephone_list):
-            if (len(private_telephone_list) < rows_for_emp) and ((num + 1) == len(private_telephone_list)):
-                worksheet.merge_range(row+num, 4, row+rows_for_emp-1, 4, private_telephone, cell_format=format_rows)
-            else:
-                worksheet.write(row+num, 4, private_telephone, format_rows)
-            if (len(private_telephone_list) < rows_for_emp) and ((num - 1) == len(private_telephone_list)):
-                worksheet.merge_range(row+num, 4, row+rows_for_emp-1, 4, '', cell_format=format_rows)
-        if len(private_telephone_list) == 0:
-            worksheet.merge_range(row, 4, row+rows_for_emp-1, 4, '', cell_format=format_rows)
-
-
-
-
-        # If secretary exist
-        if employee.secretary:
-
-            add_employee(worksheet, row+rows_for_emp, employee.secretary, '')
-
-
-
-
-        return rows_for_emp
-
-    # Set width of columns and high of rows
+    # Set width of columns and height of rows
     worksheet.set_default_row(40, False)
     worksheet.set_column(0, 0, 5)
     worksheet.set_column(1, 1, 25)
@@ -238,33 +253,18 @@ def excel_out(employees_dict):
     # Begin from row
     row = 0
 
-    row += add_header(worksheet, row, format_header)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # Parser for employees dictionary
     for po in employees_dict:
         # Прокуратура
-        # worksheet.write(row, 3, po.name, bold)
         worksheet.merge_range(row, 0, row, 4, data=po.name, cell_format=format_headers_po)
         row += 1
         # Атрибуты Прокуратуры
         row = add_attribute(po, worksheet, row, format_attribute)
+        # Header
+        row = add_header(worksheet, row, format_header)
         # Работники Прокуратуры
         for num, employee in enumerate(employees_dict[po]['employees'], 1):
-            row += add_employee(worksheet, row, employee, num)
-            # worksheet.write(row, 1, str(employee), format_rows)
-            # row += 1
+            row = add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
 
         # Управление
         for department in employees_dict[po]['departments']:
@@ -274,7 +274,7 @@ def excel_out(employees_dict):
             row = add_attribute(department, worksheet, row, format_attribute)
             # Работники Управления
             for num, employee in enumerate(employees_dict[po]['departments'][department]['employees'], 1):
-                row += add_employee(worksheet, row, employee, num)
+                row = add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
 
             # Отдел Управления
             for division in employees_dict[po]['departments'][department]['divisions']:
@@ -284,7 +284,7 @@ def excel_out(employees_dict):
                 row = add_attribute(division, worksheet, row, format_attribute)
                 # Работники Отдела
                 for num, employee in enumerate(employees_dict[po]['departments'][department]['divisions'][division], 1):
-                    row += add_employee(worksheet, row, employee, num)
+                    row = add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
 
         # Отдел Прокуратуры
         for division in employees_dict[po]['divisions']:
@@ -294,67 +294,12 @@ def excel_out(employees_dict):
             row = add_attribute(division, worksheet, row, format_attribute)
             # Работники Отдела
             for num, employee in enumerate(employees_dict[po]['divisions'][division], 1):
-                row += add_employee(worksheet, row, employee, num)
-
+                row += add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
     try:
         workbook.close()
     except:
-        print('Error during save')
         pass
-
     return r'media/files/Tel_base.xlsx'
 
 
-def create_file(employee_list):
-    employees_dict = create_employee_structure(employee_list)
-    excel_out(employees_dict)
 
-
-
-
-"""
-Ugly code
-import re
-
-s1 = "1111111111"
-s2 = "1111111"
-s3 = "111111"
-PHONE_RE = re.compile(r'^(\d{3}|\d{2})()(\d{3}|\d{2})()(\d{2}|\d{2})()(\d{2}|)$')
-MINUS_RE = re.compile(r'-$')
-
-def format_phone_number(number):
-  	temp = PHONE_RE.sub('\\1-\\3-\\5-\\7', number)
-    return MINUS_RE.sub('', temp)
-
-def main():
-    for number in [s1, s2, s3]:
-        print(format_phone_number(number))
-
-if __name__ == '__main__':
-    main()
-"""
-
-"""
-filter for template
-{% load your_file_name %}
-
-{% for item in your_list|order_by:"field1,-field2,other_class__field_name"
-1
-2
-3
-4
-5
-6
-7
-8
-from django.template import Library
-
-register = Library()
-
-@register.filter_function
-def order_by(queryset, args):
-    args = [x.strip() for x in args.split(',')]
-    return queryset.order_by(*args)
-
-
-"""

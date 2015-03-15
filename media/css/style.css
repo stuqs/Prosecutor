@@ -193,8 +193,13 @@ a:hover {
 
 html, body
 {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
+}
+
+nav
+{
+    display: block;
 }
 
 header
@@ -202,12 +207,12 @@ header
 	height: 198px;
 	background-color: #145281;
 	width: 1000px;
-	margin: 0px auto;
+	margin: 0 auto;
 }
 
 .headblock
 {
-	margin: 0px;
+	margin: 0;
 	height: 198px;
 	width: 1000px;
 	background-image: url("/media/img/main/header/headerbg.jpg");
@@ -244,17 +249,16 @@ header
 	background: url("/media/img/main/header/companyName.png") no-repeat  scroll 0 0 transparent;;
     width: 720px;
 	height: 30px;
-	font-size: 0px;
-	line-height: 0px;
+	font-size: 0;
+	line-height: 0;
     display: block;
 }
-
 
 .attr-table {
     font-family:Arial, Helvetica, sans-serif;
     color:#666;
     font-size:12px;
-    text-shadow: 1px 1px 0px #fff;
+    text-shadow: 1px 1px 0 #fff;
     background:#eaebec;
     margin:20px;
     border:#ccc 1px solid;
@@ -278,4 +282,38 @@ header
 
 .attr-table th {
     padding: 6px 3px 4px 3px;
+}
+
+.topMenu
+{
+        width: 500px;
+        height: 45px;
+        margin: 0 auto;
+        padding:0;
+        position: relative;
+        z-index: 1100;
+        text-align: left;
+}
+
+.static_menu
+{
+        background: rgb(93, 153, 198) url("/media/img/main/menu/menubutton.gif") 0 100% no-repeat;
+        float: left;
+        min-height: 45px;
+        outline: medium none;
+        width: 250px;
+}
+
+.static_menu a, .static_menu2 a {
+        color: #FFFFFF;
+        display: table-cell;
+        vertical-align: middle;
+        font-family:Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        min-height: 45px;
+        line-height: 45px;
+        outline: medium none;
+        text-align: center;
+        text-decoration: none;
+        width: 250px;
 }
