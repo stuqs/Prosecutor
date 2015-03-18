@@ -54,16 +54,30 @@ ROOT_URLCONF = 'Prosecutor.urls'
 
 WSGI_APPLICATION = 'Prosecutor.wsgi.application'
 
+# CREATE DATABASE `Prosecutor` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'Prosecutor',
+        'USER': 'prosecutor',
+        'PASSWORD': 'test',
+        'HOST': '10.10.50.185',
+        'OPTIONS': {
+            'autocommit': True,
+            }
+        }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -113,6 +127,6 @@ FILTER = {
     }
 
 #######################
-import django
-django.setup()
+# import django
+# django.setup()
 #######################
