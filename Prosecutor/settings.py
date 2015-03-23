@@ -62,10 +62,10 @@ WSGI_APPLICATION = 'Prosecutor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'Prosecutor',
+        'NAME': 'prosecutor',
         'USER': 'prosecutor',
-        'PASSWORD': 'test',
-        'HOST': '10.10.50.185',
+        'PASSWORD': 'ntktajyysqcghfdjxybr',
+        'HOST': '10.10.64.28',
         'OPTIONS': {
             'autocommit': True,
             }

@@ -30,11 +30,12 @@ class Employee(models.Model):
                                       help_text='Номера разделяются символом ; - XXXX;YYYY')
     private_telephone = models.CharField(blank=True, null=True, max_length=100, verbose_name='Мобильный телефон',
                                          help_text='Номера разделяются символом ; - XXXX;YYYY')
+    email = models.EmailField(blank=True, null=True, verbose_name='E-mail')
     division = models.ForeignKey('Division', blank=True, null=True, verbose_name='Отдел')
     department = models.ForeignKey('Department', blank=True, null=True, verbose_name='Управление')
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', blank=True, null=True, verbose_name='Прокуратура')
-    secretary = models.ForeignKey('self', blank=True, null=True, verbose_name='Приемная')
-    is_secretary = models.NullBooleanField(blank=True, null=True, verbose_name="Приемная")
+    secretary = models.ForeignKey('self', blank=True, null=True, verbose_name='Выберите приемную')
+    is_secretary = models.NullBooleanField(blank=True, null=True, verbose_name="Это Приемная")
 
     def tel_work_escape(self):
         """
