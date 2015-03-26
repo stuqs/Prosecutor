@@ -86,7 +86,7 @@ def download_file(request):
     if DB_CHANGE:
         create_file(employee_list)
         DB_CHANGE = False
-    path = r'media/files/Tel_base.xlsx'
+    path = os.getcwd() + '/media/files/Tel_base.xlsx'
     try:
         fsock = open(path, 'rb')
     except FileNotFoundError:

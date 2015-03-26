@@ -2,6 +2,7 @@ from operator import add
 from functools import reduce
 from itertools import zip_longest
 import xlsxwriter
+import os
 
 
 def roman2arabic(roman):
@@ -191,7 +192,8 @@ def excel_out(employees_dict):
     Create xlsx file with data from employees_dict
     """
     # Create workbook and worksheet
-    workbook = xlsxwriter.Workbook(r'media/files/Tel_base.xlsx')
+    path = os.getcwd() + '/media/files/Tel_base.xlsx'
+    workbook = xlsxwriter.Workbook(path)
     worksheet = workbook.add_worksheet(name='Прокуратура')
     # Add format to workbook
     format_headers_po = workbook.add_format(           {'align':        'center',
@@ -299,7 +301,7 @@ def excel_out(employees_dict):
         workbook.close()
     except:
         pass
-    return r'media/files/Tel_base.xlsx'
+    return path
 
 
 
