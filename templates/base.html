@@ -1,8 +1,9 @@
+{% load staticfiles %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
-    <link rel="icon" type="image/ico" href="/media/img/favicon.ico" />
-    <link rel="stylesheet" href="/media/css/style.css" type="text/css" />
+    <link rel="icon" type="image/ico" href="{% static "img/favicon.ico" %}" />
+    <link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" />
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>

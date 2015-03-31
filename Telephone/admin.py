@@ -4,6 +4,7 @@ from Telephone.models import *
 
 class PositionAdmin(admin.ModelAdmin):
     list_display = ('po_name', 'weight')
+    search_fields = ('po_name',)
 
 # class ProsecutorsOfficeInline(admin.TabularInline):
 #     model = Employee
@@ -14,7 +15,7 @@ class EmployeeAdmin(admin.ModelAdmin):
     ordering = ['position']
     list_display_links = ('surname', 'name', 'patronymic')
     list_editable = ('work_telephone',)
-    search_fields = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
+    search_fields = ('surname', 'name', 'patronymic', 'position__po_name', 'work_telephone')
     fields = (('surname', 'name', 'patronymic'), 'position', ('work_telephone', 'private_telephone', 'email'),
               'prosecutors_office', 'department', 'division', ('secretary', 'is_secretary'))
     raw_id_fields = ('position', 'secretary')#     поле поиска по id а не селект
@@ -43,7 +44,6 @@ class DivisionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     fields = ('name', 'department', 'prosecutors_office', 'address', ('email_inside', 'email_outside'))
     list_display = ('name', 'counter_empl')
-
 
     def counter_empl(self, obj):
         """

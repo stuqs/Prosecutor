@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+USE_TZ = True
+TIME_ZONE = 'Europe/Kiev'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '4iz&6caoy&&8kj&-mlgi(vf)^&-w=7^shp5^ap%czamjo$0a@x'
@@ -19,7 +21,7 @@ SECRET_KEY = '4iz&6caoy&&8kj&-mlgi(vf)^&-w=7^shp5^ap%czamjo$0a@x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -62,7 +64,7 @@ DATABASES = {
         'NAME': 'prosecutor',
         'USER': 'prosecutor',
         'PASSWORD': 'ntktajyysqcghfdjxybr',
-        'HOST': '10.10.64.28',
+        'HOST': '192.168.1.6',
         'OPTIONS': {
             'autocommit': True,
             }
@@ -86,8 +88,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_URL = '/static/'
+STATIC_URL = '/media/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "media"),
+    )
+
+STATIC_ROOT = "/media/"
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),

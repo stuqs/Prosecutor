@@ -92,7 +92,10 @@ def download_file(request):
     except FileNotFoundError:
         DB_CHANGE = True
         download_file(request)
-        fsock = open(path, 'rb')
+        try:
+            fsock = open(path, 'rb')
+        except:
+            return render(request, '404.html')
     response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
     return response
