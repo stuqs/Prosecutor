@@ -82,6 +82,8 @@ def regular_telephone(telephone_list):
     """
     return_tel_list = []
     for telephone in telephone_list:
+        if len(telephone) == 4:
+            telephone = '{}{}{}'.format('<b>', telephone, '</b>')
         if len(telephone) == 6:
             telephone = '{}-{}-{}'.format(telephone[0:2], telephone[2:4], telephone[4:6])
         elif len(telephone) == 7:
@@ -89,6 +91,7 @@ def regular_telephone(telephone_list):
         elif len(telephone) == 10:
             telephone = '{}-{}-{}-{}'.format(telephone[0:3], telephone[3:6], telephone[6:8], telephone[8:10])
         return_tel_list.append(telephone)
+    return_tel_list.sort(key=lambda x: len(x), reverse=True)
     return return_tel_list
 
 

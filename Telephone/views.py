@@ -22,6 +22,9 @@ def main_with_filter(request):
         employee_list = Employee.objects.all()
         for k, v in request.GET.items():
             if FILTER.get(k) and v:
+                if k == 'telephone':
+                    v = v.replace(' ', '')
+                    v = v.replace('-', '')
                 field_query = {FILTER[k]: v}
                 employee_list = employee_list.filter(**field_query)
         employees_dict = create_employee_structure(employee_list)
