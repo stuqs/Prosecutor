@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-USE_TZ = True
-TIME_ZONE = 'Europe/Kiev'
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '4iz&6caoy&&8kj&-mlgi(vf)^&-w=7^shp5^ap%czamjo$0a@x'
 
@@ -76,7 +73,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
