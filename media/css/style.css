@@ -1,5 +1,4 @@
 /*Tables*/
-
 .simple-little-table {
     font-family:Arial, Helvetica, sans-serif;
     color:#666;
@@ -18,7 +17,7 @@
     -webkit-box-shadow: 0 1px 2px #d1d1d1;
     box-shadow: 0 1px 2px #d1d1d1;
 }
-
+/*Заголовок таблицы*/
 .simple-little-table th {
     font-weight:bold;
     padding:21px 25px 22px 25px;
@@ -52,6 +51,7 @@
     padding-left:20px;
     border-left: 0;
 }
+/*Не четные строки*/
 .simple-little-table tr td {
     padding:18px;
     border-top: 1px solid #ffffff;
@@ -62,6 +62,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
     background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
+/*Четные строки*/
 .simple-little-table tr:nth-child(even) td{
     background: #f6f6f6;
     background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
@@ -80,6 +81,7 @@
     -webkit-border-bottom-right-radius:3px;
     border-bottom-right-radius:3px;
 }
+/*Подсветка*/
 .simple-little-table tr:hover td{
     background: #f2f2f2;
     background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
@@ -193,8 +195,19 @@ a:hover {
 
 html, body
 {
+    background:#f3f3f3;
 	margin: 0;
 	padding: 0;
+}
+
+#content {
+    width:960px;
+    margin:15px auto;
+    background: white;
+    -moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 nav
@@ -316,4 +329,65 @@ header
         text-align: center;
         text-decoration: none;
         width: 250px;
+}
+/*#header {*/
+    /*width: 100%;*/
+    /*background: #417690;*/
+    /*color: #ffc;*/
+    /*overflow: hidden;*/
+
+/*.module h2, .module caption, .inline-group h2 {*/
+    /*margin: 0;*/
+    /*padding: 2px 5px 3px 5px;*/
+    /*font-size: 11px;*/
+    /*text-align: left;*/
+    /*font-weight: bold;*/
+    /*background: #7CA0C7 url(../img/default-bg.gif) top left repeat-x;*/
+    /*color: #fff;*/
+
+
+/*.button.default, input[type=submit].default, .submit-row input.default {*/
+    /*border: 2px solid #5b80b2;*/
+    /*background: #7CA0C7 url(../img/default-bg.gif) bottom repeat-x;*/
+    /*font-weight: bold;*/
+    /*color: #fff;*/
+    /*float: right;*/
+
+/*a:link, a:visited {*/
+    /*color: #5b80b2;*/
+    /*text-decoration: none;*/
+/*}*/
+
+/*a:hover {*/
+    /*color: #036;*/
+
+/*Кнопка назад*/
+#top-link {
+    cursor: pointer;
+    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    padding: 0;
+    z-index: 1;
+    padding-top: 35px;
+}
+
+#top-link:hover{
+	background:#ddd;
+}
+
+#top-link a {
+	display: block;
+	width: 100px;
+	text-align: center;
+	background: #333;
+	color: white;
+	padding: 5px 0;
+	margin:5px 30px;
+	text-decoration:none !important;
+}
+
+#top-link:hover a{
+	background:#000;
 }

@@ -61,7 +61,7 @@ DATABASES = {
         'NAME': 'prosecutor',
         'USER': 'prosecutor',
         'PASSWORD': 'ntktajyysqcghfdjxybr',
-        'HOST': '192.168.1.6',
+        'HOST': '10.10.64.28',
         'OPTIONS': {
             'autocommit': True,
             }

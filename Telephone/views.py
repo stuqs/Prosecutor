@@ -53,7 +53,10 @@ def show_structure(request, po=None, department=None, division=None):
     if po:
         employee_list = employee_list.filter(prosecutors_office__name__icontains=po)
     if department:
-        employee_list = employee_list.filter(department__name__icontains=department)
+        if employee_list.filter(department__name__icontains=department):
+            employee_list = employee_list.filter(department__name__icontains=department)
+        elif employee_list.filter(division__name__icontains=department):
+            employee_list = employee_list.filter(division__name__icontains=department)
     if division:
         employee_list = employee_list.filter(division__name__icontains=division)
     if employee_list:

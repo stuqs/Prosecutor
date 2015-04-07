@@ -4,9 +4,17 @@
 <head>
     <link rel="icon" type="image/ico" href="{% static "img/favicon.ico" %}" />
     <link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" />
+    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+
+<style>
+   .letter {
+    color: red; /* Цвет символа */
+   }
+   </style>
+
 <header>
     <section class="headblock">
         <a href="/" class="logo"><img src="/media/img/main/header/gp.png" alt="" /></a>
@@ -16,12 +24,20 @@
 </header>
 <nav class="topMenu">
     <div class="static_menu"><a href="/structure/" target="_blank">Структура</a></div>
-    <div class="static_menu"><a href="/file/">Экспорт в Excel</a></div>
+{#    <div class="static_menu"><a href="/file/">Экспорт в Excel</a></div>#}
+    <div class="static_menu"><a href="/">Экспорт в Excel</a></div>
 </nav>
 {% block header %}{% endblock %}
 {% block left %}{% endblock %}
 {% block right %}{% endblock %}
-{% block content %}{% endblock %}
-{% block footer %}{% endblock %}
+<div id="content"> {% block content %}{% endblock %}</div>
+{% block footer %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="{% static "js/button_down.js" %}"></script>
+    <!--  HTML кнопки наверх -->
+    <div id="top-link">
+        <a href="#top" id="top-link-a"><span id="topicon"></span><span id="text">наверх</span></a>
+    </div>
+{% endblock %}
 </body>
 </html>
