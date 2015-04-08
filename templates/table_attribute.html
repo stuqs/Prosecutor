@@ -2,7 +2,7 @@
     <div align="center"><table align="center" cellspacing="0" class="attr-table">
         {% if temp_node.address %}
             <tr>
-                <th>Адресс: </th>
+                <th>Адрес: </th>
                 <td><span  class="letter">{{ temp_node.address }}</span></td>
             </tr>
         {% endif %}
@@ -14,7 +14,7 @@
         {% endif %}
         {% if temp_node.email_inside or temp_node.email_outside%}
             <tr>
-                <th colspan="2" align="center">Электронный адресс:</th>
+                <th colspan="2" align="center">Электронный адрес:</th>
             </tr>
             {% if temp_node.email_inside%}
                 <tr>
