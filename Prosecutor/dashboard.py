@@ -20,16 +20,41 @@ from admin_tools.utils import get_admin_site_name
 
 class CustomIndexDashboard(Dashboard):
 
-    def __init__(self, **kwargs):
-        Dashboard.__init__(self, **kwargs)
+    def init_with_context(self, context):
+        site_name = get_admin_site_name(context)
+        # append an app list module for "Administration"
         self.children.append(
             modules.ModelList(
-                title = u'Пользователи',
+                title='Пользователи',
                 models=(
                     'django.contrib.auth.*',
                 ),
             )
         )
+
+        # append an app list module for "Telephone"
+        self.children.append(
+            modules.ModelList(
+                title='Телефонный справочник',
+                models=(
+                    'Telephone.models.*',
+                ),
+            )
+        )
+
+        # append a link list module for "quick links"
+        self.children.append(modules.LinkList(
+            _('Quick links'),
+            layout='inline',
+            draggable=False,
+            deletable=False,
+            collapsible=False,
+            children=[
+                [_('Return to site'), '/'],
+                [_('Change password'), reverse('%s:password_change' % site_name)],
+                [_('Log out'), reverse('%s:logout' % site_name)],
+            ]
+        ))
 
 
 
