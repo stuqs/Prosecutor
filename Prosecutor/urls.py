@@ -7,6 +7,7 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+                       url(r'^admin_tools/', include('admin_tools.urls')),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^$', main_with_filter),
                        url(r'^structure/$', tree_structure),

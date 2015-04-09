@@ -19,13 +19,13 @@
             {% if temp_node.email_inside%}
                 <tr>
                     <th>Внутренний: </th>
-                    <td>{{ temp_node.email_inside }}</td>
+                    <td><a href="mailto:{{ temp_node.email_inside }}">{{ temp_node.email_inside }}</a></td>
                 </tr>
             {% endif %}
             {% if temp_node.email_outside%}
                 <tr>
                     <th>Внешний: </th>
-                    <td>{{ temp_node.email_outside }}</td>
+                    <td><a href="mailto:{{ temp_node.email_outside }}">{{ temp_node.email_outside }}</a></td>
                 </tr>
             {% endif %}
         {% endif %}

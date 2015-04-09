@@ -182,14 +182,13 @@ a.button:active { background: #145281; } /* при нажатии */
 a {
     text-decoration:none;
     color: #333344;
-    font-size:15px;
+    font-size:13px;
     font-weight:bold
 }
 
 a:hover {
     text-decoration:none;
     color:#f25100;
-    font-size:15px;
     font-weight:bold
 }
 
@@ -330,36 +329,6 @@ header
         text-decoration: none;
         width: 250px;
 }
-/*#header {*/
-    /*width: 100%;*/
-    /*background: #417690;*/
-    /*color: #ffc;*/
-    /*overflow: hidden;*/
-
-/*.module h2, .module caption, .inline-group h2 {*/
-    /*margin: 0;*/
-    /*padding: 2px 5px 3px 5px;*/
-    /*font-size: 11px;*/
-    /*text-align: left;*/
-    /*font-weight: bold;*/
-    /*background: #7CA0C7 url(../img/default-bg.gif) top left repeat-x;*/
-    /*color: #fff;*/
-
-
-/*.button.default, input[type=submit].default, .submit-row input.default {*/
-    /*border: 2px solid #5b80b2;*/
-    /*background: #7CA0C7 url(../img/default-bg.gif) bottom repeat-x;*/
-    /*font-weight: bold;*/
-    /*color: #fff;*/
-    /*float: right;*/
-
-/*a:link, a:visited {*/
-    /*color: #5b80b2;*/
-    /*text-decoration: none;*/
-/*}*/
-
-/*a:hover {*/
-    /*color: #036;*/
 
 /*Кнопка назад*/
 #top-link {
