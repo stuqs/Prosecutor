@@ -42,6 +42,14 @@ class CustomIndexDashboard(Dashboard):
             )
         )
 
+
+        # # append an app list module for "Applications"
+        # self.children.append(modules.AppList(
+        #     title='Телефонный справочник',
+        #     exclude=('django.contrib.*',),
+        # ))
+
+
         # append a link list module for "quick links"
         self.children.append(modules.LinkList(
             _('Quick links'),
@@ -125,29 +133,18 @@ class CustomIndexDashboard(Dashboard):
 #         ))
 
 
-# class CustomAppIndexDashboard(AppIndexDashboard):
-#     """
-#     Custom app index dashboard for Prosecutor.
-#     """
-#
-#     # we disable title because its redundant with the model list module
-#     title = ''
-#
-#     def __init__(self, *args, **kwargs):
-#         AppIndexDashboard.__init__(self, *args, **kwargs)
-#
-#         # append a model list module and a recent actions module
-#         self.children += [
-#             modules.ModelList(self.app_title, self.models),
-#             modules.RecentActions(
-#                 _('Recent Actions'),
-#                 include_list=self.get_app_content_types(),
-#                 limit=5
-#             )
-#         ]
-#
-#     def init_with_context(self, context):
-#         """
-#         Use this method if you need to access the request context.
-#         """
-#         return super(CustomAppIndexDashboard, self).init_with_context(context)
+class CustomAppIndexDashboard(AppIndexDashboard):
+    """
+    Custom app index dashboard for Prosecutor.
+    """
+
+    # we disable title because its redundant with the model list module
+    title = ''
+
+    def __init__(self, *args, **kwargs):
+        AppIndexDashboard.__init__(self, *args, **kwargs)
+
+        # append a model list module and a recent actions module
+        self.children += [
+            modules.ModelList(self.app_title, self.models),
+        ]

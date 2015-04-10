@@ -103,22 +103,13 @@ TEMPLATE_DIRS = (
 )
 
 ADMIN_TOOLS_INDEX_DASHBOARD = 'Prosecutor.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'Prosecutor.dashboard.CustomAppIndexDashboard'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
-        # 'OPTIONS': {
-        #     'context_processors': [
-        #         'django.contrib.auth.context_processors.auth',
-        #         'django.core.context_processors.debug',
-        #         'django.core.context_processors.i18n',
-        #         'django.core.context_processors.request',
-        #         'django.core.context_processors.static',
-        #         'django.contrib.messages.context_processors.messages',
-        #     ],
-        # },
     },
 ]
 

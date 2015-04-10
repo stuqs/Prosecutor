@@ -6,21 +6,16 @@ class PositionAdmin(admin.ModelAdmin):
     list_display = ('po_name', 'weight')
     search_fields = ('po_name',)
 
-# class ProsecutorsOfficeInline(admin.TabularInline):
-#     model = Employee
-#     extra = 2
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('surname', 'name', 'patronymic', 'position', 'work_telephone')
     ordering = ['position']
     list_display_links = ('surname', 'name', 'patronymic')
-    # list_editable = ('work_telephone',)
     search_fields = ('surname', 'name', 'patronymic', 'position__po_name', 'work_telephone')
     fields = (('surname', 'name', 'patronymic'), 'position', ('work_telephone', 'private_telephone', 'email'),
               'prosecutors_office', 'department', 'division', ('secretary', 'is_secretary'))
     raw_id_fields = ('position', 'secretary', 'division')#     поле поиска по id а не селект
     list_per_page = 50
-    # save_on_top = True        #для моделей с большим колвом данных (добавляет поле сохранения сверху)
 
     def save_model(self, request, obj, form, change):
         """
@@ -81,7 +76,6 @@ class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_display = ('name', 'counter_empl')
     fields = ('name', 'tel_cod', 'address', ('email_inside', 'email_outside'))
-    # inlines = (ProsecutorsOfficeInline, )
 
     def counter_empl(self, obj):
         """
