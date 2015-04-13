@@ -1,8 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, include, url, static
 from django.contrib import admin
 from Telephone.views import *
 from django.conf import settings
-
 
 # admin.autodiscover()
 
@@ -21,5 +20,6 @@ urlpatterns = patterns('',
 
 if settings.DEBUG:
     urlpatterns += patterns('',
-                            (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './media/'}),
+                            url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './media/'}),
+                            url(r'^photo/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '.'}),
                             )

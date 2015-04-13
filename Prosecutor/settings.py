@@ -66,7 +66,7 @@ DATABASES = {
         'NAME': 'prosecutor',
         'USER': 'prosecutor',
         'PASSWORD': 'ntktajyysqcghfdjxybr',
-        'HOST': '10.10.50.150',
+        'HOST': '192.168.1.6',
         'OPTIONS': {
             'autocommit': True,
             }
@@ -91,12 +91,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/media/'
+STATIC_ROOT = "/media/"
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "media"),
     )
 
-STATIC_ROOT = "/media/"
+MEDIA_ROOT = ''
+MEDIA_URL = "/photo/"
+
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),

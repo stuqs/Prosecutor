@@ -13,7 +13,7 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display_links = ('surname', 'name', 'patronymic')
     search_fields = ('surname', 'name', 'patronymic', 'position__po_name', 'work_telephone')
     fields = (('surname', 'name', 'patronymic'), 'position', ('work_telephone', 'private_telephone', 'email'),
-              'prosecutors_office', 'department', 'division', ('secretary', 'is_secretary'))
+              'prosecutors_office', 'department', 'division', 'photo', ('secretary', 'is_secretary'))
     raw_id_fields = ('position', 'secretary', 'division')#     поле поиска по id а не селект
     list_per_page = 50
 
@@ -33,6 +33,8 @@ class EmployeeAdmin(admin.ModelAdmin):
         elif obj.department:
             obj.prosecutors_office = obj.department.prosecutors_office
         obj.save()
+
+        # Добавить переименования photo
 
 
 class DivisionAdmin(admin.ModelAdmin):

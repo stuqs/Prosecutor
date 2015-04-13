@@ -36,6 +36,7 @@ class Employee(models.Model):
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', verbose_name='Прокуратура')
     secretary = models.ForeignKey('self', blank=True, null=True, verbose_name='Выберите приемную')
     is_secretary = models.NullBooleanField(verbose_name="Это Приемная", default=False)
+    photo = models.ImageField(upload_to='media/photo/')
 
     def tel_work_escape(self):
         """
