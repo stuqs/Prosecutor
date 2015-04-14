@@ -1,5 +1,6 @@
 from django.db import models
 from Telephone.tools import regular_telephone
+import os.path
 
 
 class Position(models.Model):
@@ -22,6 +23,11 @@ class Employee(models.Model):
     """
     Модель для всех сотрудников
     """
+
+    def upload_path(self, filename):
+        basename, extension = os.path.splitext(filename)
+        return '/'.join(["path",("%s%s" % (self.id, extension))])
+
     name = models.CharField(blank=True, null=True, max_length=30, verbose_name="Имя")
     surname = models.CharField(null=True, max_length=30, verbose_name='Фамилия')
     patronymic = models.CharField(blank=True, null=True, max_length=30, verbose_name='Отчество')
@@ -36,7 +42,7 @@ class Employee(models.Model):
     prosecutors_office = models.ForeignKey('ProsecutorsOffice', verbose_name='Прокуратура')
     secretary = models.ForeignKey('self', blank=True, null=True, verbose_name='Выберите приемную')
     is_secretary = models.NullBooleanField(verbose_name="Это Приемная", default=False)
-    photo = models.ImageField(upload_to='media/photo/')
+    photo = models.ImageField(blank=True, null=True, upload_to='media/photo/', verbose_name='Фотография')
 
     def tel_work_escape(self):
         """

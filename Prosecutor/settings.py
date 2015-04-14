@@ -66,7 +66,7 @@ DATABASES = {
         'NAME': 'prosecutor',
         'USER': 'prosecutor',
         'PASSWORD': 'ntktajyysqcghfdjxybr',
-        'HOST': '192.168.1.6',
+        'HOST': '10.10.50.150',
         'OPTIONS': {
             'autocommit': True,
             }
@@ -98,7 +98,7 @@ STATICFILES_DIRS = (
     )
 
 MEDIA_ROOT = ''
-MEDIA_URL = "/photo/"
+MEDIA_URL = '/photo/'
 
 
 TEMPLATE_DIRS = (
