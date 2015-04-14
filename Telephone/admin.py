@@ -34,14 +34,13 @@ class EmployeeAdmin(admin.ModelAdmin):
             obj.prosecutors_office = obj.department.prosecutors_office
         obj.save()
 
-        # Добавить переименования photo
-
 
 class DivisionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     fields = ('name', 'department', 'prosecutors_office', 'address', ('email_inside', 'email_outside'))
     list_display = ('name', 'counter_empl')
 
+    @staticmethod
     def counter_empl(self, obj):
         """
         Count for eployees in Division
@@ -65,6 +64,7 @@ class DepartmentAdmin(admin.ModelAdmin):
     fields = ('name', 'prosecutors_office', 'address', ('email_inside', 'email_outside'))
     list_display = ('name', 'counter_empl')
 
+    @staticmethod
     def counter_empl(self, obj):
         """
         Count for eployees in Department
@@ -74,11 +74,13 @@ class DepartmentAdmin(admin.ModelAdmin):
         return Employee.objects.filter(department__id=obj.id).count()
     counter_empl.short_description = "Количество работников"
 
+
 class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_display = ('name', 'counter_empl')
     fields = ('name', 'tel_cod', 'address', ('email_inside', 'email_outside'))
 
+    @staticmethod
     def counter_empl(self, obj):
         """
         Count for eployees in PO

@@ -6,6 +6,14 @@
     <link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" />
     <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
     <title>{% block title %}{% endblock %}</title>
+    <script language = "JavaScript">
+        function showLinkImage(id) {
+            document.getElementById(id).style.display = "block";
+        }
+        function hideLinkImage(id) {
+            document.getElementById(id).style.display = "none";
+        }
+    </script>
 </head>
 <body>
 <header>

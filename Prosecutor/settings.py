@@ -100,7 +100,6 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = ''
 MEDIA_URL = '/photo/'
 
-
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
