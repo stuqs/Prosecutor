@@ -1,6 +1,8 @@
 from django.db import models
 from Telephone.tools import regular_telephone
 import os
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 
 class Position(models.Model):
@@ -47,6 +49,17 @@ class Employee(models.Model):
     secretary = models.ForeignKey('self', blank=True, null=True, verbose_name='Выберите приемную')
     is_secretary = models.NullBooleanField(verbose_name="Это Приемная", default=False)
     photo = models.ImageField(blank=True, null=True, upload_to=upload_name, verbose_name='Фотография')
+
+
+
+
+@receiver(post_delete, sender=Employee)
+def photo_post_delete_handler(sender, **kwargs):
+    photo = kwargs['instance']
+    storage, path = photo.photo.storage, photo.photo.path
+    storage.delete(path)
+
+
 
     def tel_work_escape(self):
         """

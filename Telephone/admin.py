@@ -41,7 +41,7 @@ class DivisionAdmin(admin.ModelAdmin):
     list_display = ('name', 'counter_empl')
 
     @staticmethod
-    def counter_empl(self, obj):
+    def counter_empl(obj):
         """
         Count for eployees in Division
         :param obj: Division object
@@ -65,7 +65,7 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('name', 'counter_empl')
 
     @staticmethod
-    def counter_empl(self, obj):
+    def counter_empl(obj):
         """
         Count for eployees in Department
         :param obj: Department object
@@ -81,7 +81,7 @@ class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     fields = ('name', 'tel_cod', 'address', ('email_inside', 'email_outside'))
 
     @staticmethod
-    def counter_empl(self, obj):
+    def counter_empl(obj):
         """
         Count for eployees in PO
         :param obj: PO object

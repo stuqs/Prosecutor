@@ -4,8 +4,8 @@
         {% if employee.photo %}
             <a href="{{ employee.photo }}" onmouseover="showLinkImage('float_{{ forloop.counter }}')"
                onmouseout="hideLinkImage('float_{{ forloop.counter }}')">{{ employee }}</a>
-            <div id="float_{{ forloop.counter }}" style="display: none; position: absolute;">
-                <img src="{{ employee.photo }}" alt="{{ employee }}"/>
+            <div id="float_{{ forloop.counter }}" class="pop_up">
+                <img src="{{ employee.photo }}" class="pop_up_img"/>
             </div>
         {% else %}
             {{ employee }}
