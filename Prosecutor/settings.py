@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Telephone',
+    'django_cleanup',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -66,7 +67,7 @@ DATABASES = {
         'NAME': 'prosecutor',
         'USER': 'prosecutor',
         'PASSWORD': 'ntktajyysqcghfdjxybr',
-        'HOST': '192.168.1.6',
+        'HOST': '10.10.50.150',
         'OPTIONS': {
             'autocommit': True,
             }
