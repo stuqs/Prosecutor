@@ -50,17 +50,6 @@ class Employee(models.Model):
     is_secretary = models.NullBooleanField(verbose_name="Это Приемная", default=False)
     photo = models.ImageField(blank=True, null=True, upload_to=upload_name, verbose_name='Фотография')
 
-
-
-
-@receiver(post_delete, sender=Employee)
-def photo_post_delete_handler(sender, **kwargs):
-    photo = kwargs['instance']
-    storage, path = photo.photo.storage, photo.photo.path
-    storage.delete(path)
-
-
-
     def tel_work_escape(self):
         """
         Returns tel. numbers with tegs if it is many (splitted by ;)
@@ -144,3 +133,16 @@ class ProsecutorsOffice(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+
+
+@receiver(post_delete, sender=Employee)
+def photo_post_delete_handler(sender, instance, **kwargs):
+    instance.photo.delete(save=False)
+    # photo = kwargs['instance']
+    # storage, path = photo.photo.storage, photo.photo.path
+    # storage.delete(path)
+
+
