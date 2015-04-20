@@ -26,7 +26,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    # admin_tools
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
@@ -67,7 +66,7 @@ DATABASES = {
         'NAME': 'prosecutor',
         'USER': 'prosecutor',
         'PASSWORD': 'ntktajyysqcghfdjxybr',
-        'HOST': '10.10.50.150',
+        'HOST': '10.10.50.154',
         'OPTIONS': {
             'autocommit': True,
             }
@@ -92,13 +91,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/media/'
-STATIC_ROOT = "/media/"
+STATIC_ROOT = '/media/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "media"),
     )
 
 MEDIA_ROOT = ''
+# MEDIA_ROOT = '/home/webadmin/public_html/telephone.com/'
 MEDIA_URL = '/photo/'
 
 TEMPLATE_DIRS = (
@@ -115,8 +115,6 @@ TEMPLATES = [
         'APP_DIRS': True,
     },
 ]
-
-# ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'Prosecutor.dashboard.CustomAppIndexDashboard'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',

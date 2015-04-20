@@ -1,8 +1,6 @@
 from django.db import models
 from Telephone.tools import regular_telephone
 import os
-from django.db.models.signals import post_delete, pre_save
-from django.dispatch import receiver
 
 
 class Position(models.Model):
@@ -29,11 +27,6 @@ class Employee(models.Model):
         ext = filename.split('.')[-1]
         if instance.id:
             current_id = instance.id
-
-            # print(instance.photo)
-            # if instance.photo:
-            #     instance.photo.delete(save=False)
-            #     print('from upload_name')
         else:
             current_id = Employee.objects.latest('id').id + 1
         filename = '{}_{}.{}'.format(current_id, instance.surname, ext)
@@ -138,17 +131,3 @@ class ProsecutorsOffice(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# @receiver(pre_save, sender=Employee)
-# def photo_post_change_handler(sender, instance, **kwargs):
-#     if instance.id and instance.photo and Employee.objects.filter(id=instance.id)[0].photo \
-#             and Employee.objects.filter(id=instance.id)[0].photo != instance.photo:
-#         print('Надо удалять')
-#
-#         # instance.photo.delete(save=True)
-#
-#
-# @receiver(post_delete, sender=Employee)
-# def photo_post_delete_handler(sender, instance, **kwargs):
-#     instance.photo.delete(save=False)

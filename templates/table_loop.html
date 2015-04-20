@@ -11,7 +11,7 @@
             {{ employee }}
         {% endif %}
     </td>
-    <td width='10%' title='Должность'></td>
+    <td width='10%' title='Должность'>{{ employee.position }}</td>
     <td width='15%' title='Служебный телефон'>{{ employee.tel_work_escape|safe }}</td>
     <td width='15%' title='Мобильный телефон'>{{ employee.tel_private_escape|safe }}</td>
 </tr>

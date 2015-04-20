@@ -3,7 +3,6 @@ from django.contrib import admin
 from Telephone.views import *
 from django.conf import settings
 
-# admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^admin_tools/', include('admin_tools.urls')),
