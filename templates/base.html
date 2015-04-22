@@ -25,12 +25,10 @@
 </header>
 <nav class="topMenu">
     <div class="static_menu"><a href="/structure/" target="_blank">Структура</a></div>
-{#    <div class="static_menu"><a href="/file/">Экспорт в Excel</a></div>#}
-    <div class="static_menu"><a href="/">Экспорт в Excel</a></div>
+    <div class="static_menu"><a href="/file/">Экспорт в Excel</a></div>
+{#    <div class="static_menu"><a href="/">Экспорт в Excel</a></div>#}
 </nav>
 {% block header %}{% endblock %}
-{% block left %}{% endblock %}
-{% block right %}{% endblock %}
 <div id="content"> {% block content %}{% endblock %}</div>
 {% block footer %}
     <script src="{% static "js/button_down.js" %}"></script>

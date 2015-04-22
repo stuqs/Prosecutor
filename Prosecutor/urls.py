@@ -15,10 +15,12 @@ urlpatterns = patterns('',
                        url(r'^ajax/department/$', ajax_department),
                        url(r'^ajax/division/$', ajax_division),
                        url(r'^file/$', download_file),
+                       url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './media/'}),
+                       url(r'^photo/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '.'}),
                        )
 
-if settings.DEBUG:
-    urlpatterns += patterns('',
-                            url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './media/'}),
-                            url(r'^photo/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '.'}),
-                            )
+# if settings.DEBUG:
+#     urlpatterns += patterns('',
+#                             url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': './media/'}),
+#                             url(r'^photo/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '.'}),
+#                             )

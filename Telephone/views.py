@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from Telephone.models import *
 from Telephone.settings import FILTER
-from Telephone.tools import *
+from Telephone.tools import create_employee_structure, create_tree_structure
 from django.http import HttpResponse
 
 DB_CHANGE = True
@@ -17,7 +17,7 @@ def main_with_filter(request):
         return render(request, 'main.html', {'employees_dict': {}, 'filter_header': 'filter_header.html',
                                              'table_header': 'table_header.html', 'table_loop': 'table_loop.html',
                                              'po_list': po_list, 'department_list': department_list, 'division_list': division_list,
-                                             'table_attribute': 'table_attribute.html'})
+                                             'table_attribute': 'table_attribute.html', 'filter': True})
     else:
         employee_list = Employee.objects.all()
         for k, v in request.GET.items():
@@ -31,7 +31,7 @@ def main_with_filter(request):
         return render(request, 'main.html', {'employees_dict': employees_dict, 'filter_header': 'filter_header.html',
                                              'table_header': 'table_header.html', 'table_loop': 'table_loop.html',
                                              'po_list': po_list, 'department_list': department_list, 'division_list': division_list,
-                                             'table_attribute': 'table_attribute.html'})
+                                             'table_attribute': 'table_attribute.html', 'filter': True})
 
 
 def tree_structure(request):
@@ -61,8 +61,9 @@ def show_structure(request, po=None, department=None, division=None):
         employee_list = employee_list.filter(division__name__icontains=division)
     if employee_list:
         employees_dict = create_employee_structure(employee_list)
-        return render(request, 'main_wt_filter.html', {'employees_dict': employees_dict, 'table_header': 'table_header.html',
-                                                       'table_loop': 'table_loop.html', 'table_attribute': 'table_attribute.html'})
+        return render(request, 'main.html', {'employees_dict': employees_dict, 'table_header': 'table_header.html',
+                                             'table_loop': 'table_loop.html', 'table_attribute': 'table_attribute.html',
+                                             'filter': False})
     else:
         return redirect('/structure/')
 
@@ -86,22 +87,58 @@ def ajax_division(request):
     json_subcat = serializers.serialize("json", Division.objects.filter(department__id=request.GET.get('department_id')))
     return HttpResponse(json_subcat, content_type="application/javascript")
 
+
+# def download_file(request):
+#     global DB_CHANGE
+#     employee_list = Employee.objects.all()
+#     if DB_CHANGE:
+#         create_file(employee_list)
+#         DB_CHANGE = False
+#     path = '/media/files/Tel_base.xlsx'
+#     try:
+#         fsock = open(path, 'rb')
+#     except FileNotFoundError:
+#         DB_CHANGE = True
+#         download_file(request)
+#         try:
+#             fsock = open(path, 'rb')
+#         except:
+#             return render(request, '404.html')
+#     response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+#     response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
+#     return response
+
+def open_file(path):
+    return open(path, 'rb')
+
+def create_file(list):
+    print(os.getcwd())
+    path = os.path.abspath(os.getcwd() + '/media/files/Excel.txt')
+    print(path)
+    # print(os.getcwd())
+    file = open(path, 'wb')
+    file.close()
+    print('create without errors')
+    return path
+
 def download_file(request):
-    global DB_CHANGE
-    employee_list = Employee.objects.all()
-    if DB_CHANGE:
-        create_file(employee_list)
-        DB_CHANGE = False
-    path = os.getcwd() + '/media/files/Tel_base.xlsx'
-    try:
-        fsock = open(path, 'rb')
-    except FileNotFoundError:
-        DB_CHANGE = True
-        download_file(request)
-        try:
-            fsock = open(path, 'rb')
-        except:
-            return render(request, '404.html')
+    # global DB_CHANGE
+    # employee_list = Employee.objects.all()
+    # if DB_CHANGE:
+    #     create_file(employee_list)
+        # DB_CHANGE = False
+    # path = '/media/files/Tel_base.xlsx'
+    path = create_file(Employee.objects.all())
+    fsock = open_file(path)
+    # try:
+    #     fsock = open(path, 'rb')
+    # except FileNotFoundError:
+    #     DB_CHANGE = True
+    #     download_file(request)
+    #     try:
+    #         fsock = open(path, 'rb')
+    #     except:
+    #         return render(request, '404.html')
     response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
     return response

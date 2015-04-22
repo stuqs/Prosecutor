@@ -4,12 +4,10 @@
 {% block title %}Прокуратура Одесской области{% endblock %}
 {#Заголовок#}
 {% block content %}
-{#{% block header %}#}
     {#Фильтр#}
-    {% include filter_header %}
-{#{% endblock %}#}
-
-{#{% block content %}#}
+    {% if filter %}
+        {% include filter_header %}
+    {% endif %}
     {#Прокуратура#}
     {% for po in employees_dict %}
         <h2>{{ po }}</h2>

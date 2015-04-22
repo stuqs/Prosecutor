@@ -11,16 +11,19 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+print(BASE_DIR)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '4iz&6caoy&&8kj&-mlgi(vf)^&-w=7^shp5^ap%czamjo$0a@x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# True
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.10.50.100',
+                 'telephone.com',
+                 'www.telephone.com',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -97,7 +100,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "media"),
     )
 
-MEDIA_ROOT = ''
+# MEDIA_ROOT = ''
+MEDIA_ROOT = BASE_DIR
 # MEDIA_ROOT = '/home/webadmin/public_html/telephone.com/'
 MEDIA_URL = '/photo/'
 
