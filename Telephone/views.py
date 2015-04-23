@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from Telephone.models import *
 from Telephone.settings import FILTER
-from Telephone.tools import create_employee_structure, create_tree_structure
+from Telephone.tools import *
 from django.http import HttpResponse
+from Prosecutor.settings import BASE_DIR
 
 DB_CHANGE = True
+
 
 def main_with_filter(request):
     """
@@ -88,57 +90,26 @@ def ajax_division(request):
     return HttpResponse(json_subcat, content_type="application/javascript")
 
 
-# def download_file(request):
-#     global DB_CHANGE
-#     employee_list = Employee.objects.all()
-#     if DB_CHANGE:
-#         create_file(employee_list)
-#         DB_CHANGE = False
-#     path = '/media/files/Tel_base.xlsx'
-#     try:
-#         fsock = open(path, 'rb')
-#     except FileNotFoundError:
-#         DB_CHANGE = True
-#         download_file(request)
-#         try:
-#             fsock = open(path, 'rb')
-#         except:
-#             return render(request, '404.html')
-#     response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-#     response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
-#     return response
-
-def open_file(path):
-    return open(path, 'rb')
-
-def create_file(list):
-    print(os.getcwd())
-    path = os.path.abspath(os.getcwd() + '/media/files/Excel.txt')
-    print(path)
-    # print(os.getcwd())
-    file = open(path, 'wb')
-    file.close()
-    print('create without errors')
-    return path
-
 def download_file(request):
-    # global DB_CHANGE
-    # employee_list = Employee.objects.all()
-    # if DB_CHANGE:
-    #     create_file(employee_list)
-        # DB_CHANGE = False
-    # path = '/media/files/Tel_base.xlsx'
-    path = create_file(Employee.objects.all())
-    fsock = open_file(path)
-    # try:
-    #     fsock = open(path, 'rb')
-    # except FileNotFoundError:
-    #     DB_CHANGE = True
-    #     download_file(request)
-    #     try:
-    #         fsock = open(path, 'rb')
-    #     except:
-    #         return render(request, '404.html')
-    response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
-    return response
+    global DB_CHANGE
+    path = os.path.abspath(BASE_DIR + '/media/files/Telephones.xlsx')
+    if DB_CHANGE:
+        if create_file(Employee.objects.all(), path):
+            DB_CHANGE = False
+        fsock = open_file(path)
+        if not fsock:
+            DB_CHANGE = True
+            redirect('/404')
+        else:
+            response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
+            return response
+    else:
+        fsock = open_file(path)
+        if fsock:
+            response = HttpResponse(fsock, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename="Telephones.xlsx"'
+            return response
+        else:
+            DB_CHANGE = True
+            return redirect('/404')

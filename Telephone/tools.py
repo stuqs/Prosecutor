@@ -100,12 +100,20 @@ def regular_telephone(telephone_list):
 ####################################################################
                         # Excel section
 ####################################################################
-def create_file(employee_list):
+def create_file(employee_list, path):
     """
     Create excel file from employee_list
     """
     employees_dict = create_employee_structure(employee_list)
-    excel_out(employees_dict)
+    return excel_out(employees_dict, path)
+
+
+def open_file(path):
+    try:
+        fsock = open(path, 'rb')
+    except FileNotFoundError:
+        return False
+    return fsock
 
 
 def add_header(worksheet, row, header_format):
@@ -192,13 +200,15 @@ def add_employee(worksheet, row, employee, num_in_list, employee_format, employe
     return row+rows_for_emp
 
 
-def excel_out(employees_dict):
+def excel_out(employees_dict, path):
     """
     Create xlsx file with data from employees_dict
     """
     # Create workbook and worksheet
-    path = os.getcwd() + '/media/files/Tel_base.xlsx'
-    workbook = xlsxwriter.Workbook(path)
+    try:
+        workbook = xlsxwriter.Workbook(path)
+    except:
+        return False
     worksheet = workbook.add_worksheet(name='Прокуратура')
     # Add format to workbook
     format_headers_po = workbook.add_format(           {'align':        'center',
@@ -270,43 +280,47 @@ def excel_out(employees_dict):
         # Header
         row = add_header(worksheet, row, format_header)
         # Работники Прокуратуры
-        for num, employee in enumerate(employees_dict[po]['employees'], 1):
-            row = add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
-
-        # Управление
-        for department in employees_dict[po]['departments']:
-            worksheet.merge_range(row, 0, row, 4, data=department.name, cell_format=format_headers_department)
-            row += 1
-            # Атрибуты Управления
-            row = add_attribute(department, worksheet, row, format_attribute)
-            # Работники Управления
-            for num, employee in enumerate(employees_dict[po]['departments'][department]['employees'], 1):
+        if 'employees' in employees_dict[po]:
+            for num, employee in enumerate(employees_dict[po]['employees'], 1):
                 row = add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
 
-            # Отдел Управления
-            for division in employees_dict[po]['departments'][department]['divisions']:
+        # Управление
+        if 'departments' in employees_dict[po]:
+            for department in employees_dict[po]['departments']:
+                worksheet.merge_range(row, 0, row, 4, data=department.name, cell_format=format_headers_department)
+                row += 1
+                # Атрибуты Управления
+                row = add_attribute(department, worksheet, row, format_attribute)
+                # Работники Управления
+                if 'employees' in employees_dict[po]['departments'][department]:
+                    for num, employee in enumerate(employees_dict[po]['departments'][department]['employees'], 1):
+                        row = add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
+                # Отдел Управления
+                if 'divisions' in employees_dict[po]['departments'][department]:
+                    for division in employees_dict[po]['departments'][department]['divisions']:
+                        worksheet.merge_range(row, 0, row, 4, data=division.name, cell_format=format_headers_division)
+                        row += 1
+                        # Атрибуты Отдела
+                        row = add_attribute(division, worksheet, row, format_attribute)
+                        # Работники Отдела
+                        for num, employee in enumerate(employees_dict[po]['departments'][department]['divisions'][division], 1):
+                            row = add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
+
+        # Отдел Прокуратуры
+        if 'divisions' in employees_dict[po]:
+            for division in employees_dict[po]['divisions']:
                 worksheet.merge_range(row, 0, row, 4, data=division.name, cell_format=format_headers_division)
                 row += 1
                 # Атрибуты Отдела
                 row = add_attribute(division, worksheet, row, format_attribute)
                 # Работники Отдела
-                for num, employee in enumerate(employees_dict[po]['departments'][department]['divisions'][division], 1):
-                    row = add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
-
-        # Отдел Прокуратуры
-        for division in employees_dict[po]['divisions']:
-            worksheet.merge_range(row, 0, row, 4, data=division.name, cell_format=format_headers_division)
-            row += 1
-            # Атрибуты Отдела
-            row = add_attribute(division, worksheet, row, format_attribute)
-            # Работники Отдела
-            for num, employee in enumerate(employees_dict[po]['divisions'][division], 1):
-                row += add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
+                for num, employee in enumerate(employees_dict[po]['divisions'][division], 1):
+                    row += add_employee(worksheet, row, employee, num, employee_format, employee_format_b)
     try:
         workbook.close()
     except:
-        pass
-    return path
+        return False
+    return True
 
 
 

@@ -1,10 +1,17 @@
 from django.contrib import admin
 from Telephone.models import *
-
+from Telephone.views import DB_CHANGE
 
 class PositionAdmin(admin.ModelAdmin):
     list_display = ('po_name', 'weight')
     search_fields = ('po_name',)
+
+    def save_model(self, request, obj, form, change):
+        """
+        Function for editing object before save
+        """
+        global DB_CHANGE
+        DB_CHANGE = True
 
 
 class EmployeeAdmin(admin.ModelAdmin):
@@ -33,6 +40,8 @@ class EmployeeAdmin(admin.ModelAdmin):
         elif obj.department:
             obj.prosecutors_office = obj.department.prosecutors_office
         obj.save()
+        global DB_CHANGE
+        DB_CHANGE = True
 
 
 class DivisionAdmin(admin.ModelAdmin):
@@ -57,12 +66,21 @@ class DivisionAdmin(admin.ModelAdmin):
         if obj.department:
             obj.prosecutors_office = obj.department.prosecutors_office
         obj.save()
+        global DB_CHANGE
+        DB_CHANGE = True
 
 
 class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     fields = ('name', 'prosecutors_office', 'address', ('email_inside', 'email_outside'))
     list_display = ('name', 'counter_empl')
+
+    def save_model(self, request, obj, form, change):
+        """
+        Function for editing object before save
+        """
+        global DB_CHANGE
+        DB_CHANGE = True
 
     @staticmethod
     def counter_empl(obj):
@@ -79,6 +97,13 @@ class ProsecutorsOfficeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_display = ('name', 'counter_empl')
     fields = ('name', 'tel_cod', 'address', ('email_inside', 'email_outside'))
+
+    def save_model(self, request, obj, form, change):
+        """
+        Function for editing object before save
+        """
+        global DB_CHANGE
+        DB_CHANGE = True
 
     @staticmethod
     def counter_empl(obj):
