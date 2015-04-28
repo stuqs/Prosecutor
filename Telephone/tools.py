@@ -87,7 +87,10 @@ def regular_telephone(telephone_list):
         elif len(telephone) == 5:
             telephone = '{}-{}-{}'.format(telephone[0], telephone[1:3], telephone[3:5])
         elif len(telephone) == 6:
-            telephone = '{}-{}-{}'.format(telephone[0:2], telephone[2:4], telephone[4:6])
+            if telephone[0] == '8':
+                telephone = '{}({})-{}{}'.format('<b>', telephone[0:3], telephone[3:6], '</b>')
+            else:
+                telephone = '{}-{}-{}'.format(telephone[0:2], telephone[2:4], telephone[4:6])
         elif len(telephone) == 7:
             telephone = '{}-{}-{}'.format(telephone[0:3], telephone[3:5], telephone[5:7])
         elif len(telephone) == 10:
