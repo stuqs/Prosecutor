@@ -52,19 +52,18 @@ def show_structure(request, po=None, department=None, division=None):
     :param division: Name of division
     """
     employee_list = Employee.objects.all()
-    print('po.id = ', po.id)
     if po:
-        employee_list = employee_list.filter(prosecutors_office__id=po.id)
+        employee_list = employee_list.filter(prosecutors_office__name__icontains=po)
     if department:
-        if employee_list.filter(department__id=department.id):
-            employee_list = employee_list.filter(department__id=department.id)
-        elif employee_list.filter(division__id=department.id):
-            employee_list = employee_list.filter(division__id=department.id)
+        if employee_list.filter(department__name__icontains=department):
+            employee_list = employee_list.filter(department__name__icontains=department)
+        elif employee_list.filter(division__name__icontains=department):
+            employee_list = employee_list.filter(division__name__icontains=department)
     if division:
-        employee_list = employee_list.filter(division__id=division.id)
+        employee_list = employee_list.filter(division__name__icontains=division)
     if employee_list:
         employees_dict = create_employee_structure(employee_list)
-        return render(request, 'main.html', {'employees_dict': employees_dict, 'table_header': 'table_header.html',
+        return render(request, 'main_wt_filter.html', {'employees_dict': employees_dict, 'table_header': 'table_header.html',
                                              'table_loop': 'table_loop.html', 'table_attribute': 'table_attribute.html',
                                              'filter': False})
     else:
