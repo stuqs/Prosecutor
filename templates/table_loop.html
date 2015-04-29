@@ -2,8 +2,8 @@
     <td width='2%'>{{ forloop.counter }}</td>
     <td width='20%'>
         {% if employee.photo %}
-            <a href="/{{ employee.photo }}" onmouseover="showLinkImage('float_{{ employee.id }}')"
-               onmouseout="hideLinkImage('float_{{ employee.id }}')">{{ employee }}</a>
+            <div onmouseover="showLinkImage('float_{{ employee.id }}')"
+               onmouseout="hideLinkImage('float_{{ employee.id }}')">{{ employee }}</div>
             <div id="float_{{ employee.id }}" class="pop_up">
                 <img src="/{{ employee.photo }}" class="pop_up_img"/>
             </div>

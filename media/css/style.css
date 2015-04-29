@@ -309,10 +309,11 @@ header
 .static_menu
 {
         background: rgb(93, 153, 198) url("/media/img/main/menu/menubutton.gif") 0 100% no-repeat;
+        background-size:500px;
         float: left;
         min-height: 45px;
         outline: medium none;
-        width: 250px;
+        width: 500px;
 }
 
 .static_menu a, .static_menu2 a {
@@ -326,7 +327,7 @@ header
         outline: medium none;
         text-align: center;
         text-decoration: none;
-        width: 250px;
+        width: 500px;
 }
 
 /*Кнопка назад*/
