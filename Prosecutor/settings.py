@@ -102,7 +102,6 @@ STATICFILES_DIRS = (
     )
 
 MEDIA_ROOT = BASE_DIR
-# MEDIA_ROOT = '/home/webadmin/public_html/telephone.com/'
 MEDIA_URL = '/photo/'
 
 TEMPLATE_DIRS = (

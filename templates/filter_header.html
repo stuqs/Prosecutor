@@ -1,12 +1,15 @@
 {% load staticfiles %}
-<br><br>
 <script type="text/javascript" src="{% static "js/selects.js" %}"></script>
 
 <form name="filter" action="." method="GET" accept-charset="UTF-8" autocomplete="off">
     <table align="center">
         <tr>
-            <th>Поиск по ФИО</th>
-            <th>Фильтрация по прокуратуре</th>
+            <th colspan="2" style="padding-bottom: 18px; font-size: 28px;">Поиск</th>
+        </tr>
+
+        <tr>
+            <th>ФИО</th>
+            <th>Прокуратуре</th>
         </tr>
         <tr>
             <th><input type="text" name="employee" size="30"></th>
@@ -16,7 +19,6 @@
                     <option value={{ po.id }}>{{ po }}</option>
                 {% endfor %}
             </select></th>
-            <th><input type="reset" value="Очистить"></th>
         </tr>
         <tr>
             <th>Телефон</th>
@@ -27,7 +29,6 @@
             <th> <select name="department" id="id_department" disabled="disabled">
                 <option selected value="" disabled>Выберите Управление</option>
             </select></th>
-            <th><input type="submit" value="Поиск"></th>
         </tr>
         <tr>
             <th></th>
@@ -38,6 +39,10 @@
             <th> <select name="division" id="id_division" disabled="disabled">
                 <option selected disabled>Выберите Отдел</option>
             </select></th>
+        </tr>
+        <tr>
+            <th><input type="reset" value="Очистить" style=" font-family:Arial, Helvetica, sans-serif;font-size: 16px;"></th>
+            <th><input type="submit" value="Поиск"></th>
         </tr>
     </table>
 </form>

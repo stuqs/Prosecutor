@@ -5,7 +5,7 @@
             <a href="/{{ employee.photo }}" onmouseover="showLinkImage('float_{{ employee.id }}')"
                onmouseout="hideLinkImage('float_{{ employee.id }}')">{{ employee }}</a>
             <div id="float_{{ employee.id }}" class="pop_up">
-                <img src="{{ employee.photo }}" class="pop_up_img"/>
+                <img src="/{{ employee.photo }}" class="pop_up_img"/>
             </div>
         {% else %}
             {{ employee }}
