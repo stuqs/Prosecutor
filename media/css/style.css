@@ -88,20 +88,17 @@
     background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);
 }
 
+.simple-little-table a:visited,
 .simple-little-table a:link {
     color: #666;
     font-weight: bold;
     text-decoration:none;
 }
-.simple-little-table a:visited {
-    color: #999999;
-    font-weight:bold;
-    text-decoration:none;
-}
-.simple-little-table a:active,
+
+.simple-little-table a:active
 .simple-little-table a:hover {
     color: #bd5a35;
-    text-decoration:underline;
+    text-decoration:none;
 }
 
 /* Headers*/
@@ -157,7 +154,7 @@ select {
     zoom:1; /* для IE6 */
 }
 
-a.button {
+a.button, a.button:visited, input.button  {
     color: #e7d900; /* цвет текста */
     font-size: 18px;
     font-family: 'Orienta', sans-serif;
@@ -165,7 +162,7 @@ a.button {
     text-decoration: none; /* убирать подчёркивание у ссылок */
     user-select: none; /* убирать выделение текста */
     background: rgb(83, 144, 190); /* фон кнопки */
-    padding: 0.9em 25.24em; /* отступ от текста */
+    padding: 0.9em 1.24em; /* отступ от текста */
     outline: none; /* убирать контур в Mozilla */
 }
 
@@ -179,11 +176,11 @@ a.button:hover { /* при наведении курсора мышки */
 
 a.button:active { background: #145281; } /* при нажатии */
 
-a {
+a, a:active {
     text-decoration:none;
     color: #333344;
     font-size:13px;
-    font-weight:bold
+    font-weight:bold;
 }
 
 a:hover {
@@ -195,8 +192,8 @@ a:hover {
 html, body
 {
     background:#f3f3f3;
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 #content {
@@ -216,30 +213,30 @@ nav
 
 header
 {
-	height: 198px;
-	background-color: #145281;
-	width: 1000px;
-	margin: 0 auto;
+    height: 198px;
+    background-color: #145281;
+    width: 1000px;
+    margin: 0 auto;
 }
 
 .headblock
 {
-	margin: 0;
-	height: 198px;
-	width: 1000px;
-	background-image: url("/media/img/main/header/headerbg.jpg");
-	position: absolute;
+    margin: 0;
+    height: 198px;
+    width: 1000px;
+    background-image: url("/media/img/main/header/headerbg.jpg");
+    position: absolute;
 }
 
 .headblock .logo
 {
-	width: 105px;
-	height: 127px;
-	position: absolute;
-	display: block;
-	top: 30px;
-	left: 57px;
-	text-decoration: none;
+    width: 105px;
+    height: 127px;
+    position: absolute;
+    display: block;
+    top: 30px;
+    left: 57px;
+    text-decoration: none;
 }
 
 .headblock .logo1
@@ -255,13 +252,13 @@ header
 
 .pageName
 {
-	position: absolute;
-	margin: 83px 0 0 155px;
-	background: url("/media/img/main/header/companyName.png") no-repeat  scroll 0 0 transparent;;
+    position: absolute;
+    margin: 83px 0 0 155px;
+    background: url("/media/img/main/header/companyName.png") no-repeat  scroll 0 0 transparent;;
     width: 720px;
-	height: 30px;
-	font-size: 0;
-	line-height: 0;
+    height: 30px;
+    font-size: 0;
+    line-height: 0;
     display: block;
 }
 
@@ -295,39 +292,37 @@ header
     padding: 6px 3px 4px 3px;
 }
 
-.topMenu
-{
-        width: 500px;
-        height: 45px;
-        margin: 0 auto;
-        padding:0;
-        position: relative;
-        z-index: 1100;
-        text-align: left;
+.topMenu {
+    width: 500px;
+    height: 45px;
+    margin: 0 auto;
+    padding:0;
+    position: relative;
+    z-index: 1100;
+    text-align: left;
 }
 
-.static_menu
-{
-        background: rgb(93, 153, 198) url("/media/img/main/menu/menubutton.gif") 0 100% no-repeat;
-        background-size:500px;
-        float: left;
-        min-height: 45px;
-        outline: medium none;
-        width: 500px;
+.static_menu {
+    background: rgb(93, 153, 198) url("/media/img/main/menu/menubutton.gif") 0 100% no-repeat;
+    background-size:500px;
+    float: left;
+    min-height: 45px;
+    outline: medium none;
+    width: 500px;
 }
 
 .static_menu a, .static_menu2 a {
-        color: #FFFFFF;
-        display: table-cell;
-        vertical-align: middle;
-        font-family:Arial, Helvetica, sans-serif;
-        font-size: 18px;
-        min-height: 45px;
-        line-height: 45px;
-        outline: medium none;
-        text-align: center;
-        text-decoration: none;
-        width: 500px;
+    color: #FFFFFF;
+    display: table-cell;
+    vertical-align: middle;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    min-height: 45px;
+    line-height: 45px;
+    outline: medium none;
+    text-align: center;
+    text-decoration: none;
+    width: 500px;
 }
 
 /*Кнопка назад*/
@@ -357,10 +352,11 @@ header
 	text-decoration:none !important;
 }
 
-#top-link:hover a{
+#top-link:hover a {
 	background:#000;
 }
 
+/*Всплывающие изображения*/
 .pop_up {
     display: none;
     position: fixed;
@@ -373,4 +369,35 @@ header
 .pop_up_img {
     height: 400px;
     width: auto;
+}
+
+.filter_text {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    padding: 4px;
+}
+
+/*Удаляем границу (outline)*/
+input:focus, a:focus {
+    outline:none;
+}
+::-moz-focus-inner {border:0;}
+
+/*Ссылки для струтуры*/
+a.structure, a.structure:active {
+    text-decoration:none;
+    color: #333344;
+    font-size:17px;
+    font-weight:bold;
+    line-height: 1.4;
+}
+
+a.structure:hover {
+    text-decoration:none;
+    color:#f25100;
+    font-weight:bold;
+    line-height: 1.4;
+}
+li {
+    padding: 4px 0;
 }
