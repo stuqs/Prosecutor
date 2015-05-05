@@ -9,18 +9,18 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-<header>
-    <section class="headblock">
-        <a href="/" class="logo"><img src="{% static "img/main/header/gp.png" %}" alt="" /></a>
-        <a href="/admin/" class="logo1"><img src="{% static "img/main/header/od.png" %}" alt="" /></a>
-        <div class="pageName"></div>
-    </section>
-</header>
-<nav class="topMenu">
-    <div class="static_menu"><a href="/structure/" target="_blank">Структура</a></div>
-{#    <div class="static_menu"><a href="/file/">Экспорт в Excel</a></div>#}
-{#    <div class="static_menu"><a>Экспорт в Excel</a></div>#}
-</nav>
+{% block nav %}
+    <header>
+        <section class="headblock">
+            <a href="/" class="logo"><img src="{% static "img/main/header/gp.png" %}" alt="" /></a>
+            <a href="/admin/" class="logo1"><img src="{% static "img/main/header/od.png" %}" alt="" /></a>
+            <div class="pageName"></div>
+        </section>
+    </header>
+    <nav class="topMenu">
+        <div class="static_menu"><a href="/structure/" target="_blank">Структура</a></div>
+    </nav>
+{% endblock %}
 {% block header %}{% endblock %}
 <div id="content"> {% block content %}{% endblock %}</div>
 {% block footer %}

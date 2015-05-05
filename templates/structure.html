@@ -1,15 +1,28 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load app_filters %}
 
 {% block title %}Структура Прокуратуры{% endblock %}
-
+{% block nav %}
+    <header>
+        <section class="headblock">
+            <a href="/" class="logo"><img src="{% static "img/main/header/gp.png" %}" alt="" /></a>
+            <a href="/admin/" class="logo1"><img src="{% static "img/main/header/od.png" %}" alt="" /></a>
+            <div class="pageName"></div>
+        </section>
+    </header>
+    <nav class="topMenu" style="width: 500px;">
+        <div class="static_menu" style="width: 250px; background-size:250px;"><a href="/structure/" target="_blank">Структура</a></div>
+        <div class="static_menu" style="width: 250px; background-size:250px;"><a href="/file/">Экспорт в Excel</a></div>
+    </nav>
+{% endblock %}
 
 {% block content %}
 
     {% for po in structure %}
         {% if po.employee_set.count > 0 %}
 
-            <a class="structure" style="font-size:22px;" href="/structure/{{ po.id }}/">{{ po }}</a><br>
+            <a class="structure" style="font-size:20px;" href="/structure/{{ po.id }}/">{{ po }}</a><br>
 
         {% else %}
             {{ po }}<br>
@@ -23,7 +36,7 @@
 
                 {% if department.employee_set.count > 0 %}
 
-                    <li><a class="structure" style="font-size:19px;" href="/structure/{{ po.id }}/{{ department.id }}/">{{ department }}</a></li>
+                    <li><a class="structure" style="font-size:18px;" href="/structure/{{ po.id }}/{{ department.id }}/">{{ department }}</a></li>
 
                 {% else %}
                     <li>{{ department }}</li>

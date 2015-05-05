@@ -154,7 +154,7 @@ select {
     zoom:1; /* для IE6 */
 }
 
-a.button, a.button:visited, input.button  {
+a.button, a.button:visited {
     color: #e7d900; /* цвет текста */
     font-size: 18px;
     font-family: 'Orienta', sans-serif;
@@ -293,7 +293,7 @@ header
 }
 
 .topMenu {
-    width: 500px;
+    width: 300px;
     height: 45px;
     margin: 0 auto;
     padding:0;
@@ -304,11 +304,11 @@ header
 
 .static_menu {
     background: rgb(93, 153, 198) url("/media/img/main/menu/menubutton.gif") 0 100% no-repeat;
-    background-size:500px;
+    background-size:300px;
     float: left;
     min-height: 45px;
     outline: medium none;
-    width: 500px;
+    width: 300px;
 }
 
 .static_menu a, .static_menu2 a {
@@ -387,7 +387,7 @@ input:focus, a:focus {
 a.structure, a.structure:active {
     text-decoration:none;
     color: #333344;
-    font-size:17px;
+    font-size:16px;
     font-weight:bold;
     line-height: 1.4;
 }
@@ -400,4 +400,32 @@ a.structure:hover {
 }
 li {
     padding: 4px 0;
+}
+
+/*Кнопки для filter header*/
+input.button1  {
+    color: #f5f5f5; /* цвет текста */
+    font-size: 18px;
+    width: 100px;
+    font-family: 'Orienta', sans-serif;
+    line-height: 10px;
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    background: rgb(83, 144, 190); /* фон кнопки */
+    padding: 0.8em 4px; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+    margin-right: -2px;
+}
+
+input.button2  {
+    color: #f5f5f5; /* цвет текста */
+    font-size: 18px;
+    width: 300px;
+    font-family: 'Orienta', sans-serif;
+    line-height: 10px;
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    background: rgb(83, 144, 190); /* фон кнопки */
+    padding: 0.8em 1.24em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
 }
