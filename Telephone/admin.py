@@ -1,6 +1,7 @@
 from django.contrib import admin
 from Telephone.models import *
-from Telephone.views import DB_CHANGE
+from Telephone.views import database_changed
+
 
 class PositionAdmin(admin.ModelAdmin):
     list_display = ('po_name', 'weight')
@@ -10,8 +11,8 @@ class PositionAdmin(admin.ModelAdmin):
         """
         Function for editing object before save
         """
-        global DB_CHANGE
-        DB_CHANGE = True
+        database_changed()
+        obj.save()
 
 
 class EmployeeAdmin(admin.ModelAdmin):
@@ -39,9 +40,8 @@ class EmployeeAdmin(admin.ModelAdmin):
             obj.prosecutors_office = obj.division.prosecutors_office
         elif obj.department:
             obj.prosecutors_office = obj.department.prosecutors_office
+        database_changed()
         obj.save()
-        global DB_CHANGE
-        DB_CHANGE = True
 
 
 class DivisionAdmin(admin.ModelAdmin):
@@ -65,9 +65,8 @@ class DivisionAdmin(admin.ModelAdmin):
         """
         if obj.department:
             obj.prosecutors_office = obj.department.prosecutors_office
+        database_changed()
         obj.save()
-        global DB_CHANGE
-        DB_CHANGE = True
 
 
 class DepartmentAdmin(admin.ModelAdmin):
@@ -79,8 +78,8 @@ class DepartmentAdmin(admin.ModelAdmin):
         """
         Function for editing object before save
         """
-        global DB_CHANGE
-        DB_CHANGE = True
+        database_changed()
+        obj.save()
 
     @staticmethod
     def counter_empl(obj):
@@ -102,8 +101,8 @@ class ProsecutorsOfficeAdmin(admin.ModelAdmin):
         """
         Function for editing object before save
         """
-        global DB_CHANGE
-        DB_CHANGE = True
+        database_changed()
+        obj.save()
 
     @staticmethod
     def counter_empl(obj):

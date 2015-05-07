@@ -196,9 +196,9 @@ def add_employee(worksheet, row, employee, num_in_list, employee_format, employe
         private_telephone_list = telephone_strip(employee.private_telephone.split(';'))
     else:
         private_telephone_list = []
-    # REMAKE THIS FUNTION to styles
-    # rows_for_emp = max(len(work_telephone_list), len(private_telephone_list), 2)
-        # Count for max tel numbers
+    # Count for max tel numbers
+    max_tel_numb = max(len(work_telephone_list), len(private_telephone_list), 3)
+    worksheet.set_row(row, 20*max_tel_numb)
     # Add name and position
     worksheet.write(row, 0, num_in_list, employee_format)
     if employee.is_secretary:
@@ -236,7 +236,7 @@ def excel_out(employees_dict, path):
                                                         'bold':         True,
                                                         'font_size':    14,
                                                         'font_name':    'Times New Roman',
-                                                        'bg_color':     '#FFCA28',
+                                                        'bg_color':     '#ffc962',
                                                         'border':       2})
     format_headers_po.set_text_wrap()
     format_headers_department = workbook.add_format(   {'align':        'center',
@@ -244,7 +244,7 @@ def excel_out(employees_dict, path):
                                                         'bold':         True,
                                                         'font_size':    13,
                                                         'font_name':    'Times New Roman',
-                                                        'bg_color':     '#FFD54F',
+                                                        'bg_color':     '#fde19f',
                                                         'border':       2})
     format_headers_department.set_text_wrap()
     format_headers_division = workbook.add_format(     {'align':        'center',
@@ -252,7 +252,7 @@ def excel_out(employees_dict, path):
                                                         'bold':         True,
                                                         'font_size':    12,
                                                         'font_name':    'Times New Roman',
-                                                        'bg_color':     '#FFE082',
+                                                        'bg_color':     '#e2cfb0',
                                                         'border':       2})
     format_headers_division.set_text_wrap()
     format_header = workbook.add_format(               {'align':        'center',
@@ -260,7 +260,7 @@ def excel_out(employees_dict, path):
                                                         'bold':         True,
                                                         'font_size':    12,
                                                         'font_name':    'Times New Roman',
-                                                        'bg_color':     '#FFF59D',
+                                                        'bg_color':     '#fffa90',
                                                         'border':       2})
     format_header.set_text_wrap()
     employee_format_b = workbook.add_format(           {'align':        'left',
@@ -283,11 +283,12 @@ def excel_out(employees_dict, path):
                                                         'text_wrap':    True,
                                                         'font_size':    10,
                                                         'font_name':    'Times New Roman',
+                                                        'bg_color':     '#f3f6bd',
                                                         'border':       1})
     format_attribute.set_text_wrap()
 
     # Set width of columns and height of rows
-    worksheet.set_default_row(60, False)
+    worksheet.set_default_row(50, False)
     worksheet.set_column(0, 0, 5)
     worksheet.set_column(1, 1, 25)
     worksheet.set_column(2, 2, 21)

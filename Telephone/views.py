@@ -90,6 +90,11 @@ def ajax_division(request):
     return HttpResponse(json_subcat, content_type="application/javascript")
 
 
+def database_changed():
+    global DB_CHANGE
+    DB_CHANGE = True
+
+
 def download_file(request):
     global DB_CHANGE
     path = os.path.abspath(BASE_DIR + '/media/files/Telephones.xlsx')
