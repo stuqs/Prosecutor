@@ -5,6 +5,10 @@ import xlsxwriter
 import os
 
 
+PAGES = [2, 32, 34, 38, 41, 45, 49, 51, 52, 54, 56, 58, 60, 61, 62, 62, 63, 64, 65,
+         65, 66, 67, 68, 69, 70, 70, 72, 73, 74, 75, 75, 76, 77, 77]
+
+
 def roman2arabic(roman):
     d = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
     if roman:
@@ -220,6 +224,22 @@ def add_employee(worksheet, row, employee, num_in_list, employee_format, employe
     return row
 
 
+def add_title(worksheet, row, format_title_header, format_title, format_title_number, employees_dict):
+    # Add numeration
+    worksheet.set_footer("&C&15&P")
+    # Add title
+    worksheet.set_row(row, 40)
+    worksheet.merge_range(row, 0, 0, 4, 'Зміст', cell_format=format_title_header)
+    row += 1
+    for num, po in enumerate(employees_dict):
+        worksheet.set_row(row, 23)
+        worksheet.merge_range(row, 0, row, 3, data=po.name, cell_format=format_title)
+        worksheet.write(row, 4,  PAGES[num], format_title_number)
+        row += 1
+    worksheet.set_h_pagebreaks([row])
+    return row
+
+
 def excel_out(employees_dict, path):
     """
     Create xlsx file with data from employees_dict
@@ -286,6 +306,23 @@ def excel_out(employees_dict, path):
                                                         'bg_color':     '#f3f6bd',
                                                         'border':       1})
     format_attribute.set_text_wrap()
+    format_title_header = workbook.add_format(         {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'bold':         True,
+                                                        'font_size':    18,
+                                                        'font_name':    'Times New Roman',
+                                                        'border':       2})
+    format_title = workbook.add_format(                {'align':        'left',
+                                                        'valign':       'vcenter',
+                                                        'font_size':    15,
+                                                        'font_name':    'Times New Roman',
+                                                        'border':       2})
+    format_title_number = workbook.add_format(         {'align':        'center',
+                                                        'valign':       'vcenter',
+                                                        'font_size':    15,
+                                                        'bold':         True,
+                                                        'font_name':    'Times New Roman',
+                                                        'border':       2})
 
     # Set width of columns and height of rows
     worksheet.set_default_row(50, False)
@@ -295,8 +332,12 @@ def excel_out(employees_dict, path):
     worksheet.set_column(3, 3, 21)
     worksheet.set_column(4, 4, 21)
 
+    worksheet.fit_to_pages(1, 0)
+    worksheet.set_paper(9)
     # Begin from row
     row = 0
+    # Add title
+    row = add_title(worksheet, row, format_title_header, format_title, format_title_number,employees_dict)
 
     # Parser for employees dictionary
     for po in employees_dict:
